@@ -1,6 +1,7 @@
 package com.def.team2.util
 
 import android.content.Context
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import com.def.team2.network.Api
 import com.def.team2.network.RetrofitProvider
-import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding3.view.clicks
 
 /**
  * Toast R.String.~~로 접근
@@ -23,6 +24,13 @@ fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
  */
 fun Context.toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, msg, duration).show()
+}
+
+/**
+ * Email check
+ */
+fun String.isEmail(email: String): Boolean {
+    return Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }
 
 /**

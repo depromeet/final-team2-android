@@ -60,6 +60,9 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.1.0'
     implementation 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.1.0'
 
+    // rxpreference
+    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0'
+
     // firebase
     implementation 'com.google.firebase:firebase-core:17.2.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'

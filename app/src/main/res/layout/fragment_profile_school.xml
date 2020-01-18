@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profile_school_img"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/profile_school_img_guide"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/profile_school_img_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.43" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_school_vote_cnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/spoqahansansbold"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="@id/profile_school_img"
+        app:layout_constraintTop_toTopOf="@id/profile_school_img"
+        tools:text="x 1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintBottom_toBottomOf="@id/profile_school_vote_cnt"
+        app:layout_constraintEnd_toStartOf="@id/profile_school_vote_cnt"
+        app:layout_constraintTop_toTopOf="@id/profile_school_vote_cnt"
+        app:srcCompat="@drawable/img_vote" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_school_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/spoqahansanslight"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@id/profile_school_vote_cnt"
+        app:layout_constraintTop_toBottomOf="@id/profile_school_vote_cnt"
+        tools:text="myexo@idol.com" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_school_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/spoqahansanslight"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@id/profile_school_vote_cnt"
+        app:layout_constraintTop_toBottomOf="@id/profile_school_email"
+        tools:text="이홍유진" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_school_school_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="61dp"
+        android:fontFamily="@font/spoqahansansbold"
+        android:textColor="@android:color/white"
+        android:textSize="23sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_school_name"
+        tools:text="풍동고등학교" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_school_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqahansansregular"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/profile_school_school_name"
+        app:layout_constraintTop_toBottomOf="@id/profile_school_school_name"
+        tools:text="경기도, 고양시 일산동구" />
+
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/profile_school_map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15.9dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_school_address" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.def.team2.signup
+package com.def.team2.screen.signup
 
 import android.util.Log
 import com.def.team2.network.model.SignUpRequest

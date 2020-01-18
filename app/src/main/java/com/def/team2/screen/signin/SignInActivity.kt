@@ -1,13 +1,13 @@
-package com.def.team2.signin
+package com.def.team2.screen.signin
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
-import com.def.team2.MainActivity
 import com.def.team2.R
 import com.def.team2.SaveToken
 import com.def.team2.base.BaseActivity
-import com.def.team2.signup.SignUpFragment
+import com.def.team2.screen.main.MainActivity
+import com.def.team2.screen.signup.SignUpFragment
 import com.def.team2.util.KEY_TOKEN
 import com.def.team2.util.sharedPreferences
 import com.def.team2.util.throttleClicks

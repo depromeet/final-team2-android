@@ -1,19 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.main.MainActivity">
 
-    <TextView
+    <fragment
+        android:id="@+id/main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/main_bottom_bar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/main_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/main_bottom_bar_rank"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/main_bottom_bar_chat"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/main_bottom_bar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_bottom_bar_rank_icon"
+            android:layout_width="23dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="11dp"
+            app:srcCompat="@drawable/gnb_rank" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/main_bottom_bar_rank_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginTop="2dp"
+            android:text="@string/str_rank"
+            android:textColor="@android:color/white"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_bottom_bar_chat"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/main_bottom_bar_my"
+        app:layout_constraintStart_toEndOf="@id/main_bottom_bar_rank"
+        app:layout_constraintTop_toTopOf="@+id/main_bottom_bar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_bottom_bar_chat_icon"
+            android:layout_width="23dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="11dp"
+            app:srcCompat="@drawable/gnb_chat" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/main_bottom_bar_chat_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/str_chat"
+            android:textColor="@android:color/white"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_bottom_bar_my"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/main_bottom_bar_chat"
+        app:layout_constraintTop_toTopOf="@+id/main_bottom_bar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_bottom_bar_my_icon"
+            android:layout_width="23dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="11dp"
+            app:srcCompat="@drawable/gnb_my_selected" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/main_bottom_bar_my_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/str_profile"
+            android:textColor="@android:color/white"
+            android:textSize="9sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

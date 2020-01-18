@@ -27,6 +27,7 @@ class SignInActivity : BaseActivity(), SignInContract.View {
         setContentView(R.layout.activity_sign_in)
 
         lifeCycleOwner = this
+        setLifecycle()
         presenter = SignInPresenter(this@SignInActivity, SaveToken(this)).apply {
             start()
         }
@@ -58,7 +59,7 @@ class SignInActivity : BaseActivity(), SignInContract.View {
                 R.anim.signup_fragment_slide_from_top,
                 R.anim.signup_fragment_slide_to_bottom
             )
-        }.replace(R.id.fl_signup_content, SignUpFragment.newInstance())
+        }.replace(R.id.fl_signup_content, SignUpFragment.newInstance(), SignUpFragment.TAG)
             .addToBackStack(null)
             .commit()
     }
@@ -66,6 +67,7 @@ class SignInActivity : BaseActivity(), SignInContract.View {
     override fun showMainUI() {
         val intent = Intent(this@SignInActivity, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun showToast(msg: String) {
@@ -73,6 +75,10 @@ class SignInActivity : BaseActivity(), SignInContract.View {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        supportFragmentManager.findFragmentByTag(SignUpFragment.TAG)?.let {
+            (it as SignUpFragment).deleteUI()
+        } ?: kotlin.run {
+            super.onBackPressed()
+        }
     }
 }

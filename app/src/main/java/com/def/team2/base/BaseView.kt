@@ -15,6 +15,10 @@ interface BaseRxView<T: BaseRxPresenter>: BaseView<T>, LifecycleObserver {
 
     var lifeCycleOwner: LifecycleOwner
 
+    fun setLifecycle() {
+        lifeCycleOwner.lifecycle.addObserver(this)
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun clearSubscribeOnDestroy() {
         presenter.clearDisposable()

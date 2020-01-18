@@ -5,8 +5,10 @@ import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.MainActivity
 import com.def.team2.R
+import com.def.team2.SaveToken
 import com.def.team2.base.BaseActivity
 import com.def.team2.signup.SignUpFragment
+import com.def.team2.util.KEY_TOKEN
 import com.def.team2.util.sharedPreferences
 import com.def.team2.util.throttleClicks
 import com.def.team2.util.toast
@@ -45,7 +47,7 @@ class SignInActivity : BaseActivity(), SignInContract.View {
     override fun getPasswordText(): CharSequence = et_password.text
 
     override fun getPreference(): Observable<String> =
-        rxPreferences.getString("token").asObservable()
+        rxPreferences.getString(KEY_TOKEN).asObservable()
 
     override fun setLoadingIndicator(active: Boolean) {
 

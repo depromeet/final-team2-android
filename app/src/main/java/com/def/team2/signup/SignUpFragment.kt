@@ -11,10 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
+import com.def.team2.util.KEY_TOKEN
+import com.def.team2.util.sharedPreferences
 import com.def.team2.util.toast
+import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.view_signup_email.*
 import kotlinx.android.synthetic.main.view_signup_idol.*
@@ -32,12 +36,14 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     private val schoolSearchAdapter: SearchAdapter by lazy {
         SearchAdapter {
-            presenter.school.onNext(it)
+            schoolSelect.onNext(it)
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val idolSearchAdapter: SearchAdapter by lazy {
+        SearchAdapter {
+            idolSelect.onNext(it)
+        }
     }
 
     override fun onCreateView(
@@ -56,6 +62,11 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
         rv_signup_school_search.apply {
             adapter = schoolSearchAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
+
+        rv_signup_idol_search.apply {
+            adapter = idolSearchAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
@@ -97,12 +108,28 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.text
     }
 
+    override val schoolSelect: PublishSubject<Pair<String, String>> = PublishSubject.create()
+
     override val schoolChanges: Observable<CharSequence> by lazy {
         et_signup_school.textChanges()
     }
 
     override val schoolNextClick: Observable<Unit> by lazy {
         btn_signup_school_next.clicks()
+    }
+
+    override val idol: CharSequence by lazy {
+        et_signup_idol.text
+    }
+
+    override val idolSelect: PublishSubject<Pair<String, String>> = PublishSubject.create()
+
+    override val idolChanges: Observable<CharSequence> by lazy {
+        et_signup_idol.textChanges()
+    }
+
+    override val signUpClick: Observable<Unit> by lazy {
+        btn_signup.clicks()
     }
 
     override val backButtonsClick: Observable<Unit> by lazy {
@@ -116,6 +143,11 @@ class SignUpFragment : Fragment(), SignUpContract.View {
                 iv_idol_back.clicks()
             )
         )
+    }
+
+    override val preferenceChanges: Observable<String> by lazy {
+        RxSharedPreferences.create(context!!.sharedPreferences())
+            .getString(KEY_TOKEN).asObservable()
     }
 
     override fun showEmailUI() {
@@ -149,7 +181,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.setText(school)
     }
 
-    override fun addSchoolList(schools: List<String>) {
+    override fun addSchoolList(schools: List<Pair<String, String>>) {
         schoolSearchAdapter.setItems(schools)
     }
 
@@ -169,6 +201,24 @@ class SignUpFragment : Fragment(), SignUpContract.View {
             viewStack.push(this)
             visibility = View.VISIBLE
             requestFocus()
+        }
+    }
+
+    override fun setIdolText(idol: CharSequence) {
+        et_signup_idol.setText(idol)
+    }
+
+    override fun addIdolList(idols: List<Pair<String, String>>) {
+        idolSearchAdapter.setItems(idols)
+    }
+
+    override fun setIdolListVisible(active: Boolean) {
+        rv_signup_idol_search.apply {
+            visibility = if (active) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 

@@ -1,16 +1,20 @@
 package com.def.team2.signup
 
+import android.util.Log
+import com.def.team2.network.model.SignUpRequest
 import com.def.team2.util.isEmail
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
 
 class SignUpPresenter(
     val view: SignUpContract.View
 ) : SignUpContract.Presenter {
+
+    private var schoolId: String? = null
+    private var idolId: String? = null
 
     override fun start() {
         subscribeNickName()
@@ -18,12 +22,11 @@ class SignUpPresenter(
         subscribePassword()
         subscribeSchool()
         subscribeIdol()
+        subscribeSignUp()
         subscribeBack()
     }
 
     override val disposables: CompositeDisposable = CompositeDisposable()
-
-    override val school: PublishSubject<CharSequence> = PublishSubject.create()
 
     override fun subscribeNickName() {
         view.nicknameNextClick
@@ -75,6 +78,10 @@ class SignUpPresenter(
 
     override fun subscribeSchool() {
 
+        subscribeSchoolSelect()
+        subscribeSchoolChanges()
+        view.schoolSelect.onNext(Pair("", ""))
+
         view.schoolNextClick
             .map {
                 view.school
@@ -89,18 +96,22 @@ class SignUpPresenter(
                 view.showMyIdolUI()
             }.bindUntilClear()
 
-        val schoolSubject = school.share()
+    }
 
-        schoolSubject
+    private fun subscribeSchoolSelect() {
+        view.schoolSelect
             .subscribe{
                 view.setSchoolListVisible(false)
                 view.setSchoolText(it.toString())
             }.bindUntilClear()
+    }
+
+    private fun subscribeSchoolChanges() {
 
         view.schoolChanges
             .withLatestFrom(
-                schoolSubject,
-                BiFunction { t1: CharSequence, t2: CharSequence ->
+                view.schoolSelect,
+                BiFunction { t1: CharSequence, t2: Pair<String, String> ->
                     Pair(t1.toString(), t2.toString())
                 }
             )
@@ -116,6 +127,7 @@ class SignUpPresenter(
 
                 // FixMe 더미 데이터 제거
                 when (it) {
+                    "풍동" -> return@flatMap Observable.just(listOf("풍동", "풍동고등학교"))
                     "abcd" -> return@flatMap Observable.just(listOf("풍동", "풍동고등학교", "풍동중학교", "풍동 뭐시기"))
                     "defg" -> return@flatMap Observable.just(listOf("대치", "대치고등학교", "대치중학교", "대치대치", "음...대치?"))
                     "qwer" -> return@flatMap Observable.just(listOf("강남", "강남고등학교", "강남중학교", "강남해커스", "강남대성"))
@@ -134,16 +146,87 @@ class SignUpPresenter(
                 // 에러 발생 처리
             }
             .subscribe {
-                view.addSchoolList(it)
+                Log.e("asdg", "asdf")
+//                view.addSchoolList(it)
             }
             .bindUntilClear()
-
-        school.onNext("")
-
     }
 
     override fun subscribeIdol() {
 
+        subscribeIdolSelect()
+        subscribeIdolChanges()
+        view.idolSelect.onNext(Pair("", ""))
+    }
+
+    private fun subscribeIdolSelect() {
+        view.idolSelect
+            .subscribe{
+                view.setIdolListVisible(false)
+                view.setIdolText(it.toString())
+            }.bindUntilClear()
+    }
+
+    private fun subscribeIdolChanges() {
+        view.idolChanges
+            .withLatestFrom(
+                view.idolSelect,
+                BiFunction { t1: CharSequence, t2: Pair<String, String> ->
+                    Pair(t1.toString(), t2.toString())
+                }
+            )
+            .filter {
+                it.first != it.second
+            }
+            .map {
+                it.first
+            }.filter {
+                it.length >= 2
+            }.observeOn(Schedulers.io())
+            .flatMap {
+                // Todo api 요청
+
+                // FixMe 더미 데이터 제거
+                when (it) {
+                    "abcd" -> return@flatMap Observable.just(listOf("풍동", "풍동고등학교", "풍동중학교", "풍동 뭐시기"))
+                    "defg" -> return@flatMap Observable.just(listOf("대치", "대치고등학교", "대치중학교", "대치대치", "음...대치?"))
+                    "qwer" -> return@flatMap Observable.just(listOf("강남", "강남고등학교", "강남중학교", "강남해커스", "강남대성"))
+                    else -> return@flatMap Observable.just(listOf<String>())
+                }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext {
+                if (it.isEmpty()) {
+                    view.setIdolListVisible(false)
+                } else {
+                    view.setIdolListVisible(true)
+                }
+            }
+            .doOnError {
+                // 에러 발생 처리
+            }
+            .subscribe {
+//                view.addIdolList(it)
+            }
+            .bindUntilClear()
+    }
+
+    override fun subscribeSignUp() {
+        view.signUpClick
+            .filter {
+                schoolId != null && idolId != null
+            }
+            .map {
+                SignUpRequest(
+                    view.email.toString(),
+                    view.nickname.toString(),
+                    view.password.toString(),
+                    schoolId!!,
+                    idolId!!
+                )
+            }.subscribe {
+
+            }.bindUntilClear()
     }
 
     override fun subscribeBack() {

@@ -25,11 +25,23 @@ interface SignUpContract {
 
         val school: CharSequence
 
+        val schoolSelect: PublishSubject<Pair<String, String>>
+
         val schoolChanges: Observable<CharSequence>
 
         val schoolNextClick: Observable<Unit>
 
+        val idol: CharSequence
+
+        val idolSelect: PublishSubject<Pair<String, String>>
+
+        val idolChanges: Observable<CharSequence>
+
+        val signUpClick: Observable<Unit>
+
         val backButtonsClick: Observable<Unit>
+
+        val preferenceChanges: Observable<String>
 
         fun showEmailUI()
 
@@ -39,11 +51,17 @@ interface SignUpContract {
 
         fun setSchoolText(school: CharSequence)
 
-        fun addSchoolList(schools: List<String>)
+        fun addSchoolList(schools: List<Pair<String, String>>)
 
         fun setSchoolListVisible(active: Boolean)
 
         fun showMyIdolUI()
+
+        fun setIdolText(idol: CharSequence)
+
+        fun addIdolList(idols: List<Pair<String, String>>)
+
+        fun setIdolListVisible(active: Boolean)
 
         fun deleteUI()
 
@@ -51,8 +69,6 @@ interface SignUpContract {
     }
 
     interface Presenter: BaseRxPresenter {
-
-        val school: PublishSubject<CharSequence>
 
         fun subscribeNickName()
 
@@ -63,6 +79,8 @@ interface SignUpContract {
         fun subscribeSchool()
 
         fun subscribeIdol()
+
+        fun subscribeSignUp()
 
         fun subscribeBack()
     }

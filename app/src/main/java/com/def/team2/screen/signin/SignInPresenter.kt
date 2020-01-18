@@ -1,8 +1,7 @@
-package com.def.team2.signin
+package com.def.team2.screen.signin
 
 import android.util.Log
 import com.def.team2.util.isEmail
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

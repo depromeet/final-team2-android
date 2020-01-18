@@ -1,4 +1,4 @@
-package com.def.team2.signin
+package com.def.team2.screen.signin
 
 import android.content.Context
 import com.def.team2.util.sharedPreferences

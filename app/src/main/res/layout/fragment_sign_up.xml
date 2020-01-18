@@ -3,7 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".signup.SignUpFragment"
+        tools:context=".screen.signup.SignUpFragment"
         android:clickable="true"
         android:focusable="true"
         android:background="@android:color/black">

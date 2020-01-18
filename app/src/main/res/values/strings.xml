@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">final-team2-android</string>
+    <string name="str_rank">랭킹</string>
+    <string name="str_chat">채팅</string>
+    <string name="str_profile">마이</string>
 
 </resources>

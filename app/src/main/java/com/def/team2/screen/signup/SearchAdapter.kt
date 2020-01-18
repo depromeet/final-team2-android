@@ -1,4 +1,4 @@
-package com.def.team2.signup
+package com.def.team2.screen.signup
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.def.team2.R
-import com.jakewharton.rxbinding3.view.clicks
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 class SearchAdapter(
     val itemClickCallback: (item: String) -> Unit

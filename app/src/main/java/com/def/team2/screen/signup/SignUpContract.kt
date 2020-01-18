@@ -1,4 +1,4 @@
-package com.def.team2.signup
+package com.def.team2.screen.signup
 
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView

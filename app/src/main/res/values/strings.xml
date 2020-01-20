@@ -3,5 +3,8 @@
     <string name="str_rank">랭킹</string>
     <string name="str_chat">채팅</string>
     <string name="str_profile">마이</string>
+    <string name="str_idol">Idol</string>
+    <string name="str_setting">Setting</string>
+    <string name="str_school">School</string>
 
 </resources>

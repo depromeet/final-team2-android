@@ -1,0 +1,143 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profile_img"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/profile_img_guide"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/profile_img_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.43" />
+
+    <LinearLayout
+        android:id="@+id/profile_school_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="52dp"
+        android:orientation="vertical"
+        android:rotation="270"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profile_school_btn_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#b5b5b5"
+            android:textSize="18sp"
+            android:text="@string/str_school" />
+
+        <View
+            android:id="@+id/profile_school_btn_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profile_idol_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:rotation="270"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/profile_school_btn"
+        app:layout_constraintTop_toBottomOf="@id/profile_school_btn">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profile_idol_btn_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#b5b5b5"
+            android:textSize="18sp"
+            android:text="@string/str_idol" />
+
+        <View
+            android:id="@+id/profile_idol_btn_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profile_setting_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/profile_school_btn"
+        app:layout_constraintTop_toBottomOf="@id/profile_idol_btn">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/profile_setting_btn_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#b5b5b5"
+            android:textSize="18sp"
+            android:text="@string/str_setting" />
+
+        <View
+            android:id="@+id/profile_setting_btn_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/white" />
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_vote_cnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/spoqahansansbold"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="@id/profile_img"
+        app:layout_constraintTop_toTopOf="@id/profile_img"
+        tools:text="x 1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintBottom_toBottomOf="@id/profile_vote_cnt"
+        app:layout_constraintEnd_toStartOf="@id/profile_vote_cnt"
+        app:layout_constraintTop_toTopOf="@id/profile_vote_cnt"
+        app:srcCompat="@drawable/img_vote" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/spoqahansanslight"
+        android:textColor="@android:color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@id/profile_vote_cnt"
+        app:layout_constraintTop_toBottomOf="@id/profile_vote_cnt"
+        tools:text="myexo@idol.com" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/spoqahansanslight"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@id/profile_vote_cnt"
+        app:layout_constraintTop_toBottomOf="@id/profile_email"
+        tools:text="이홍유진" />
+</androidx.constraintlayout.widget.ConstraintLayout>

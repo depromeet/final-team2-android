@@ -26,7 +26,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         presenter = MainPresenter(this@MainActivity).apply {
             start()
         }
-        replaceFragment()
     }
 
     override fun clickBarRank() = main_bottom_bar_rank.throttleClicks()

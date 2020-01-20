@@ -18,7 +18,7 @@ interface MainContract {
         fun changeBar(status: Status)
     }
     interface Presenter : BaseRxPresenter{
-        fun moveFragment()
+        fun subscribeMoveFragment()
     }
 
 }

@@ -1,8 +1,6 @@
 package com.def.team2.network
 
-import com.def.team2.network.model.School
-import com.def.team2.network.model.SignUpRequest
-import com.def.team2.network.model.SignUpResponse
+import com.def.team2.network.model.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.Body
@@ -20,4 +18,7 @@ interface Api {
 
     @POST("/api/users")
     fun signUp(@Body signUpRequest: SignUpRequest): Single<SignUpResponse>
+
+    @POST("/api/login")
+    fun signIn(@Body signInRequest: SignInRequest): Single<SignInResponse>
 }

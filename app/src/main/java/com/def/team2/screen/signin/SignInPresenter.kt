@@ -2,6 +2,7 @@ package com.def.team2.screen.signin
 
 import android.util.Log
 import com.def.team2.SaveToken
+import com.def.team2.network.model.SignInRequest
 import com.def.team2.util.isEmail
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -40,7 +41,7 @@ class SignInPresenter(
 
         view.getSignInButtonClicks()
             .map {
-                SignInModel(
+                SignInRequest(
                     view.getEmailText().toString(),
                     view.getPasswordText().toString()
                 )
@@ -60,25 +61,25 @@ class SignInPresenter(
                 return@filter false
             }
             .observeOn(Schedulers.io())
-            .flatMapSingle {
-                // 로그인 api 처리
+            .switchMapSingle {
                 Log.e("요소 확인", "email: ${it.email}, passowrd: ${it.password}")
-                return@flatMapSingle Single.just(SignInResponse("abcdefg"))
-            }.map {
-                // api 결과에서 토큰만 뽑을 것
-                it.token
+                view.getApiProvider()
+                    .signIn(it)
+            }.observeOn(AndroidSchedulers.mainThread())
+            .retry { _, e ->
+                Log.e("error", "error, message: ${e.message}")
+                view.showToast("Failed to Login, Please Check Id or PW")
+                true
             }
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                // FixMe token 저장 풀 것
-//                saveToken.invoke(it)
-                view.showMainUI()
+                saveToken.invoke(it.token)
+//                view.showMainUI()
             }
             .bindUntilClear()
     }
 
     override fun subscribePreference() {
-        view.getPreference()
+        view.preferenceChanges
             .filter { it.isNotEmpty() }
             .flatMapSingle {
                 // MyInfo 가져온다.

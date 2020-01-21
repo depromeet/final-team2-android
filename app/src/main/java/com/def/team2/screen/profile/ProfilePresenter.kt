@@ -32,7 +32,11 @@ class ProfilePresenter(private val view: ProfileContract.View) : ProfileContract
     }
 
     override fun subscribeEditImage() {
-
+        view.clickImageEdit()
+                .doOnError { e("clickImageEdit Error") }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {  }
+                .bindUntilClear()
     }
 
 

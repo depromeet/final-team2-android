@@ -117,6 +117,7 @@
         tools:text="x 1" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profile_vote_img"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="7dp"
@@ -124,6 +125,22 @@
         app:layout_constraintEnd_toStartOf="@id/profile_vote_cnt"
         app:layout_constraintTop_toTopOf="@id/profile_vote_cnt"
         app:srcCompat="@drawable/img_vote" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/profile_vote_group"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:constraint_referenced_ids="profile_vote_img, profile_vote_cnt" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profile_img_edit"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@id/profile_img"
+        app:layout_constraintTop_toTopOf="@id/profile_img"
+        app:srcCompat="@drawable/icon_img_edit" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/profile_email"

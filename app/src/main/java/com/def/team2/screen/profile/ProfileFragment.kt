@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.util.throttleClicks
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {
 
@@ -28,19 +30,16 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     }
 
-    override fun clickImageEdit(): Observable<Unit> {
-    }
+    override fun clickImageEdit() = profile_img_edit.throttleClicks()
 
-    override fun clickSchool(): Observable<Unit> {
-    }
+    override fun clickSchool() = profile_school_btn.throttleClicks()
 
-    override fun clickIdol(): Observable<Unit> {
-    }
+    override fun clickIdol() = profile_idol_btn.throttleClicks()
 
-    override fun clickSetting(): Observable<Unit> {
-    }
+    override fun clickSetting() = profile_setting_btn.throttleClicks()
 
     override fun changeFragment(status: ProfileContract.View.Status) {
+
     }
 
 }

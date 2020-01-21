@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
+import com.def.team2.network.Api
+import com.def.team2.network.RetrofitProvider
 import com.def.team2.util.KEY_TOKEN
+import com.def.team2.util.idolKingdomApi
 import com.def.team2.util.sharedPreferences
 import com.def.team2.util.toast
 import com.f2prateek.rx.preferences2.RxSharedPreferences
@@ -149,6 +152,8 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         RxSharedPreferences.create(context!!.sharedPreferences())
             .getString(KEY_TOKEN).asObservable()
     }
+
+    override fun getApiProvider(): Api = context!!.idolKingdomApi
 
     override fun showEmailUI() {
         TransitionManager.beginDelayedTransition(view as ViewGroup, Slide(Gravity.END))

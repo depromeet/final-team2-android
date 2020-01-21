@@ -11,9 +11,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitProvider constructor(private val context: Context) {
 
-    val coupleLinkApi: Api by lazy {
+    companion object {
+        const val BASE_URL = "http://192.168.0.10:8080"
+    }
+
+    val idolKingdomApi: Api by lazy {
         Retrofit.Builder()
-            .baseUrl("baseUrl")
+            .baseUrl(BASE_URL)
             .client(provideOkHttpClient(provideLoggingInterceptor()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())

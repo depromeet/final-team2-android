@@ -1,13 +1,17 @@
 package com.def.team2.screen.signup
 
 import android.util.Log
+import com.def.team2.network.RetrofitProvider
 import com.def.team2.network.model.SignUpRequest
 import com.def.team2.util.isEmail
+import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 
 class SignUpPresenter(
     val view: SignUpContract.View
@@ -45,7 +49,7 @@ class SignUpPresenter(
     }
 
     override fun subscribeEmail() {
-        view.emailNextClick
+        view.emailNextClick.share()
             .map {
                 view.email
             }.filter {
@@ -54,12 +58,30 @@ class SignUpPresenter(
                 }
                 view.showToast("Invalid Email")
                 return@filter false
-            }.flatMap {
-                return@flatMap Observable.just(true)
             }
-            .subscribe {
-                view.showPasswordUI()
-            }.bindUntilClear()
+            .flatMapCompletable {
+                view.getApiProvider()
+                    .checkEmailDuplicated(mapOf(Pair("email", it.toString())))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError { e ->
+                        Log.e("error", "api error, message: ${e.message}")
+                        if (e is HttpException) {
+                            if (e.code() == 403) {
+                                view.showToast("Email is Duplicated")
+                            } else {
+                                view.showToast("Unknown Error")
+                            }
+                        }
+                    }
+                    .doOnComplete { view.showPasswordUI() }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.e("complete", "check complete!!!!")
+            }, {
+                Log.e("onError", " /// ${it.message}")
+            }).bindUntilClear()
     }
 
     override fun subscribePassword() {

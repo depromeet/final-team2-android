@@ -4,6 +4,7 @@ import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
 import com.def.team2.network.Api
 import com.def.team2.network.RetrofitProvider
+import com.def.team2.network.model.School
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
@@ -27,7 +28,7 @@ interface SignUpContract {
 
         val school: CharSequence
 
-        val schoolSelect: PublishSubject<Pair<Int, String>>
+        val schoolSelect: PublishSubject<School>
 
         val schoolChanges: Observable<CharSequence>
 
@@ -35,7 +36,7 @@ interface SignUpContract {
 
         val idol: CharSequence
 
-        val idolSelect: PublishSubject<Pair<Int, String>>
+        val idolSelect: PublishSubject<School>
 
         val idolChanges: Observable<CharSequence>
 
@@ -55,7 +56,7 @@ interface SignUpContract {
 
         fun setSchoolText(school: CharSequence)
 
-        fun addSchoolList(schools: List<Pair<Int, String>>)
+        fun addSchoolList(schools: List<School>)
 
         fun setSchoolListVisible(active: Boolean)
 
@@ -63,7 +64,7 @@ interface SignUpContract {
 
         fun setIdolText(idol: CharSequence)
 
-        fun addIdolList(idols: List<Pair<Int, String>>)
+        fun addIdolList(idols: List<School>)
 
         fun setIdolListVisible(active: Boolean)
 

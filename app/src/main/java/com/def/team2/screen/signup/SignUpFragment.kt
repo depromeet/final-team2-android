@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
 import com.def.team2.network.Api
 import com.def.team2.network.RetrofitProvider
+import com.def.team2.network.model.School
 import com.def.team2.util.KEY_TOKEN
 import com.def.team2.util.idolKingdomApi
 import com.def.team2.util.sharedPreferences
@@ -111,7 +112,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.text
     }
 
-    override val schoolSelect: PublishSubject<Pair<Int, String>> = PublishSubject.create()
+    override val schoolSelect: PublishSubject<School> = PublishSubject.create()
 
     override val schoolChanges: Observable<CharSequence> by lazy {
         et_signup_school.textChanges()
@@ -125,7 +126,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.text
     }
 
-    override val idolSelect: PublishSubject<Pair<Int, String>> = PublishSubject.create()
+    override val idolSelect: PublishSubject<School> = PublishSubject.create()
 
     override val idolChanges: Observable<CharSequence> by lazy {
         et_signup_idol.textChanges()
@@ -186,7 +187,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.setText(school)
     }
 
-    override fun addSchoolList(schools: List<Pair<Int, String>>) {
+    override fun addSchoolList(schools: List<School>) {
         schoolSearchAdapter.setItems(schools)
     }
 
@@ -213,7 +214,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.setText(idol)
     }
 
-    override fun addIdolList(idols: List<Pair<Int, String>>) {
+    override fun addIdolList(idols: List<School>) {
         idolSearchAdapter.setItems(idols)
     }
 

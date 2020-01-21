@@ -14,5 +14,5 @@ interface Api {
     fun checkEmailDuplicated(@Body checkEmailRequest: Map<String, String>): Completable
 
     @GET("/api/school/search")
-    fun searchSchoolList(@Query("school") schoolName: String): Single<List<School>>
+    fun searchSchoolList(@Query("query") schoolName: String): Single<List<School>>
 }

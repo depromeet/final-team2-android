@@ -4,8 +4,8 @@ data class SignUpRequest (
     val email: String,
     val nickName: String,
     val password: String,
-    val schoolId: Int,
-    val idolId: Int
+    val schoolId: Long,
+    val idolId: Long
 )
 
 data class SignUpResponse(

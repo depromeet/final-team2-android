@@ -54,6 +54,8 @@ class SignUpPresenter(
                 }
                 view.showToast("Invalid Email")
                 return@filter false
+            }.flatMap {
+                return@flatMap Observable.just(true)
             }
             .subscribe {
                 view.showPasswordUI()

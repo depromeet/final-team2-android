@@ -1,6 +1,7 @@
 package com.def.team2.network
 
 import android.content.Context
+import com.def.team2.util.KEY_TOKEN
 import com.def.team2.util.sharedPreferences
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +24,7 @@ class RetrofitProvider constructor(private val context: Context) {
     private fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         val b = OkHttpClient.Builder()
         b.addInterceptor { chain ->
-            val accessToken = context.sharedPreferences().getString("", "").orEmpty() // TODO KEy
+            val accessToken = context.sharedPreferences().getString(KEY_TOKEN, "").orEmpty() // TODO KEy
             return@addInterceptor chain.proceed(chain.request().newBuilder().let {
                 it.header("Authorization", "Bearer $accessToken")
                 it.build()

@@ -12,13 +12,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
+import java.util.concurrent.TimeUnit
 
 class SignUpPresenter(
     val view: SignUpContract.View
 ) : SignUpContract.Presenter {
 
-    private var schoolId: String? = null
-    private var idolId: String? = null
+    private var schoolId: Int? = null
+    private var idolId: Int? = null
 
     override fun start() {
         subscribeNickName()
@@ -49,7 +50,7 @@ class SignUpPresenter(
     }
 
     override fun subscribeEmail() {
-        view.emailNextClick.share()
+        view.emailNextClick
             .map {
                 view.email
             }.filter {
@@ -59,29 +60,29 @@ class SignUpPresenter(
                 view.showToast("Invalid Email")
                 return@filter false
             }
-            .flatMapCompletable {
+            .observeOn(Schedulers.io())
+            .switchMapCompletable {
                 view.getApiProvider()
                     .checkEmailDuplicated(mapOf(Pair("email", it.toString())))
-                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnError { e ->
-                        Log.e("error", "api error, message: ${e.message}")
-                        if (e is HttpException) {
-                            if (e.code() == 403) {
-                                view.showToast("Email is Duplicated")
-                            } else {
-                                view.showToast("Unknown Error")
-                            }
-                        }
-                    }
                     .doOnComplete { view.showPasswordUI() }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+            .retry { _, e ->
+                Log.e("error", "error, message: ${e.message}")
+                if (e is HttpException) {
+                    if (e.code() == 403) {
+                        view.showToast("Email is Duplicated")
+                    } else {
+                        view.showToast("Unknown Error")
+                    }
+                }
+                true
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
                 Log.e("complete", "check complete!!!!")
-            }, {
-                Log.e("onError", " /// ${it.message}")
-            }).bindUntilClear()
+            }.bindUntilClear()
     }
 
     override fun subscribePassword() {
@@ -104,7 +105,7 @@ class SignUpPresenter(
 
         subscribeSchoolSelect()
         subscribeSchoolChanges()
-        view.schoolSelect.onNext(Pair("", ""))
+        view.schoolSelect.onNext(Pair(0, ""))
 
         view.schoolNextClick
             .map {
@@ -126,17 +127,18 @@ class SignUpPresenter(
         view.schoolSelect
             .subscribe{
                 view.setSchoolListVisible(false)
-                view.setSchoolText(it.toString())
+                view.setSchoolText(it.second)
             }.bindUntilClear()
     }
 
     private fun subscribeSchoolChanges() {
 
         view.schoolChanges
+            .debounce(1000, TimeUnit.MILLISECONDS)
             .withLatestFrom(
                 view.schoolSelect,
-                BiFunction { t1: CharSequence, t2: Pair<String, String> ->
-                    Pair(t1.toString(), t2.toString())
+                BiFunction { t1: CharSequence, t2: Pair<Int, String> ->
+                    Pair(t1.toString(), t2.second)
                 }
             )
             .filter {
@@ -146,18 +148,26 @@ class SignUpPresenter(
             }.filter {
                 it.length >= 2
             }.observeOn(Schedulers.io())
-            .flatMap {
-                // Todo api 요청
-
-                // FixMe 더미 데이터 제거
-                when (it) {
-                    "풍동" -> return@flatMap Observable.just(listOf("풍동", "풍동고등학교"))
-                    "abcd" -> return@flatMap Observable.just(listOf("풍동", "풍동고등학교", "풍동중학교", "풍동 뭐시기"))
-                    "defg" -> return@flatMap Observable.just(listOf("대치", "대치고등학교", "대치중학교", "대치대치", "음...대치?"))
-                    "qwer" -> return@flatMap Observable.just(listOf("강남", "강남고등학교", "강남중학교", "강남해커스", "강남대성"))
-                    else -> return@flatMap Observable.just(listOf<String>())
-                }
+            .switchMapSingle {
+                view.getApiProvider()
+                    .searchSchoolList(it)
+                    .doOnError {  }
             }
+
+            // FixMe 테스트 시 아래를 사용
+//            .switchMap {
+//                when (it) {
+//                    "풍동" -> return@switchMap Observable.just(listOf(Pair(1, "풍동"), "풍동고등학교"))
+//                    "abcd" -> return@switchMap Observable.just(listOf("풍동", "풍동고등학교", "풍동중학교", "풍동 뭐시기"))
+//                    "defg" -> return@switchMap Observable.just(listOf("대치", "대치고등학교", "대치중학교", "대치대치", "음...대치?"))
+//                    "qwer" -> return@switchMap Observable.just(listOf("강남", "강남고등학교", "강남중학교", "강남해커스", "강남대성"))
+//                    else -> return@switchMap Observable.just(listOf<String>())
+//                }
+//            }.map { schoolList ->
+//                schoolList.map {
+//                    Pair(1, it)
+//                }
+//            }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
                 if (it.isEmpty()) {
@@ -180,7 +190,7 @@ class SignUpPresenter(
 
         subscribeIdolSelect()
         subscribeIdolChanges()
-        view.idolSelect.onNext(Pair("", ""))
+        view.idolSelect.onNext(Pair(0, ""))
     }
 
     private fun subscribeIdolSelect() {
@@ -195,8 +205,8 @@ class SignUpPresenter(
         view.idolChanges
             .withLatestFrom(
                 view.idolSelect,
-                BiFunction { t1: CharSequence, t2: Pair<String, String> ->
-                    Pair(t1.toString(), t2.toString())
+                BiFunction { t1: CharSequence, t2: Pair<Int, String> ->
+                    Pair(t1, t2.toString())
                 }
             )
             .filter {

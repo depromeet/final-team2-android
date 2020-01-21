@@ -27,7 +27,7 @@ interface SignUpContract {
 
         val school: CharSequence
 
-        val schoolSelect: PublishSubject<Pair<String, String>>
+        val schoolSelect: PublishSubject<Pair<Int, String>>
 
         val schoolChanges: Observable<CharSequence>
 
@@ -35,7 +35,7 @@ interface SignUpContract {
 
         val idol: CharSequence
 
-        val idolSelect: PublishSubject<Pair<String, String>>
+        val idolSelect: PublishSubject<Pair<Int, String>>
 
         val idolChanges: Observable<CharSequence>
 
@@ -55,7 +55,7 @@ interface SignUpContract {
 
         fun setSchoolText(school: CharSequence)
 
-        fun addSchoolList(schools: List<Pair<String, String>>)
+        fun addSchoolList(schools: List<Pair<Int, String>>)
 
         fun setSchoolListVisible(active: Boolean)
 
@@ -63,7 +63,7 @@ interface SignUpContract {
 
         fun setIdolText(idol: CharSequence)
 
-        fun addIdolList(idols: List<Pair<String, String>>)
+        fun addIdolList(idols: List<Pair<Int, String>>)
 
         fun setIdolListVisible(active: Boolean)
 

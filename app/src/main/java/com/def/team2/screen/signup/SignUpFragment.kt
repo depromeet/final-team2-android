@@ -111,7 +111,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.text
     }
 
-    override val schoolSelect: PublishSubject<Pair<String, String>> = PublishSubject.create()
+    override val schoolSelect: PublishSubject<Pair<Int, String>> = PublishSubject.create()
 
     override val schoolChanges: Observable<CharSequence> by lazy {
         et_signup_school.textChanges()
@@ -125,7 +125,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.text
     }
 
-    override val idolSelect: PublishSubject<Pair<String, String>> = PublishSubject.create()
+    override val idolSelect: PublishSubject<Pair<Int, String>> = PublishSubject.create()
 
     override val idolChanges: Observable<CharSequence> by lazy {
         et_signup_idol.textChanges()
@@ -186,7 +186,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.setText(school)
     }
 
-    override fun addSchoolList(schools: List<Pair<String, String>>) {
+    override fun addSchoolList(schools: List<Pair<Int, String>>) {
         schoolSearchAdapter.setItems(schools)
     }
 
@@ -213,7 +213,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.setText(idol)
     }
 
-    override fun addIdolList(idols: List<Pair<String, String>>) {
+    override fun addIdolList(idols: List<Pair<Int, String>>) {
         idolSearchAdapter.setItems(idols)
     }
 

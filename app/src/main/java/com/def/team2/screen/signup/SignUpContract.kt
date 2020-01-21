@@ -68,6 +68,8 @@ interface SignUpContract {
 
         fun setIdolListVisible(active: Boolean)
 
+        fun showMainUI()
+
         fun deleteUI()
 
         fun showToast(msg: String)
@@ -86,6 +88,8 @@ interface SignUpContract {
         fun subscribeIdol()
 
         fun subscribeSignUp()
+
+        fun subscribePreference()
 
         fun subscribeBack()
     }

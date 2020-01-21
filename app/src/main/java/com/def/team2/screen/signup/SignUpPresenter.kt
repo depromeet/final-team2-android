@@ -1,6 +1,7 @@
 package com.def.team2.screen.signup
 
 import android.util.Log
+import com.def.team2.SaveToken
 import com.def.team2.network.RetrofitProvider
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
@@ -18,11 +19,12 @@ import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
 
 class SignUpPresenter(
-    val view: SignUpContract.View
+    val view: SignUpContract.View,
+    private val saveToken: SaveToken
 ) : SignUpContract.Presenter {
 
     private var schoolId: Long? = null
-    private var idolId: Long? = null
+    private var idolId: Long? = 7 // 7: 방탄, 17: 에이비식스, 18: 워너원
 
     override fun start() {
         subscribeNickName()
@@ -31,6 +33,7 @@ class SignUpPresenter(
         subscribeSchool()
         subscribeIdol()
         subscribeSignUp()
+        subscribePreference()
         subscribeBack()
     }
 
@@ -82,7 +85,6 @@ class SignUpPresenter(
                 }
                 true
             }
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 Log.e("complete", "check complete!!!!")
             }.bindUntilClear()
@@ -120,7 +122,6 @@ class SignUpPresenter(
                 return@filter false
             }
             .subscribe {
-                Log.e("check schoolId", "${it.second} ///////// $schoolId")
                 view.showMyIdolUI()
             }.bindUntilClear()
 
@@ -184,17 +185,9 @@ class SignUpPresenter(
 
     override fun subscribeIdol() {
 
-        subscribeIdolSelect()
         subscribeIdolChanges()
 //        view.idolSelect.onNext(Pair(0, ""))
-    }
-
-    private fun subscribeIdolSelect() {
-        view.idolSelect
-            .subscribe{
-                view.setIdolListVisible(false)
-                view.setIdolText(it.toString())
-            }.bindUntilClear()
+        view.setIdolListVisible(false)
     }
 
     private fun subscribeIdolChanges() {
@@ -243,6 +236,10 @@ class SignUpPresenter(
 
     override fun subscribeSignUp() {
         view.signUpClick
+            .map {
+                Log.e("click!!", "")
+                it
+            }
             .filter {
                 schoolId != null && idolId != null
             }
@@ -253,10 +250,38 @@ class SignUpPresenter(
                     view.password.toString(),
                     schoolId!!,
                     idolId!!
+//                0
                 )
-            }.subscribe {
-
+            }
+            .observeOn(Schedulers.io())
+            .switchMapSingle {
+                view.getApiProvider()
+                    .signUp(it)
+                    .doOnError {e->
+                        Log.e("doOnError", "error, message: ${e.message}")
+                    }
+            }.observeOn(AndroidSchedulers.mainThread())
+            .retry { _, e ->
+                Log.e("error", "error, message: ${e.message}")
+                true
+            }
+            .subscribe {
+                saveToken.invoke(it.token)
             }.bindUntilClear()
+    }
+
+    override fun subscribePreference() {
+        view.preferenceChanges
+            .filter { it.isNotEmpty() }
+            .flatMapSingle {
+                // MyInfo 가져온다.
+                return@flatMapSingle Single.just("myInfo 올꺼임")
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view.showMainUI()
+            }
+            .bindUntilClear()
     }
 
     override fun subscribeBack() {

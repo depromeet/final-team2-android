@@ -1,5 +1,6 @@
 package com.def.team2.screen.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
@@ -11,13 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
+import com.def.team2.SaveToken
 import com.def.team2.network.Api
 import com.def.team2.network.RetrofitProvider
 import com.def.team2.network.model.School
-import com.def.team2.util.KEY_TOKEN
-import com.def.team2.util.idolKingdomApi
-import com.def.team2.util.sharedPreferences
-import com.def.team2.util.toast
+import com.def.team2.screen.main.MainActivity
+import com.def.team2.util.*
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
@@ -61,7 +61,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifeCycleOwner = this
         setLifecycle()
-        presenter = SignUpPresenter(this@SignUpFragment)
+        presenter = SignUpPresenter(this@SignUpFragment, SaveToken(context!!))
         view.requestFocus()
 
         rv_signup_school_search.apply {
@@ -133,7 +133,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
     }
 
     override val signUpClick: Observable<Unit> by lazy {
-        btn_signup.clicks()
+        btn_signup.throttleClicks()
     }
 
     override val backButtonsClick: Observable<Unit> by lazy {
@@ -225,6 +225,14 @@ class SignUpFragment : Fragment(), SignUpContract.View {
             } else {
                 View.GONE
             }
+        }
+    }
+
+    override fun showMainUI() {
+        activity?.let {
+            val intent = Intent(it, MainActivity::class.java)
+            it.startActivity(intent)
+            it.finish()
         }
     }
 

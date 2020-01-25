@@ -73,6 +73,7 @@ dependencies {
 
     // map
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v8:0.11.0'
 
     // test
     testImplementation 'junit:junit:4.12'

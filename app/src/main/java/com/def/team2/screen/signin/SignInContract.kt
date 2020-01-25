@@ -2,12 +2,17 @@ package com.def.team2.screen.signin
 
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
+import com.def.team2.network.Api
 import io.reactivex.Observable
 
 interface SignInContract {
 
     interface View: BaseRxView<Presenter> {
         val isActive: Boolean
+
+        val preferenceChanges: Observable<String>
+
+        fun getApiProvider(): Api
 
         fun getSignUpTapClicks(): Observable<Unit>
 
@@ -16,8 +21,6 @@ interface SignInContract {
         fun getEmailText(): CharSequence
 
         fun getPasswordText(): CharSequence
-
-        fun getPreference(): Observable<String>
 
         fun setLoadingIndicator(active: Boolean)
 

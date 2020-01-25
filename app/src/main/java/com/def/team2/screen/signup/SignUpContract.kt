@@ -2,6 +2,9 @@ package com.def.team2.screen.signup
 
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
+import com.def.team2.network.Api
+import com.def.team2.network.RetrofitProvider
+import com.def.team2.network.model.School
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
@@ -25,11 +28,25 @@ interface SignUpContract {
 
         val school: CharSequence
 
+        val schoolSelect: PublishSubject<School>
+
         val schoolChanges: Observable<CharSequence>
 
         val schoolNextClick: Observable<Unit>
 
+        val idol: CharSequence
+
+        val idolSelect: PublishSubject<School>
+
+        val idolChanges: Observable<CharSequence>
+
+        val signUpClick: Observable<Unit>
+
         val backButtonsClick: Observable<Unit>
+
+        val preferenceChanges: Observable<String>
+
+        fun getApiProvider(): Api
 
         fun showEmailUI()
 
@@ -39,11 +56,19 @@ interface SignUpContract {
 
         fun setSchoolText(school: CharSequence)
 
-        fun addSchoolList(schools: List<String>)
+        fun addSchoolList(schools: List<School>)
 
         fun setSchoolListVisible(active: Boolean)
 
         fun showMyIdolUI()
+
+        fun setIdolText(idol: CharSequence)
+
+        fun addIdolList(idols: List<School>)
+
+        fun setIdolListVisible(active: Boolean)
+
+        fun showMainUI()
 
         fun deleteUI()
 
@@ -51,8 +76,6 @@ interface SignUpContract {
     }
 
     interface Presenter: BaseRxPresenter {
-
-        val school: PublishSubject<CharSequence>
 
         fun subscribeNickName()
 
@@ -63,6 +86,10 @@ interface SignUpContract {
         fun subscribeSchool()
 
         fun subscribeIdol()
+
+        fun subscribeSignUp()
+
+        fun subscribePreference()
 
         fun subscribeBack()
     }

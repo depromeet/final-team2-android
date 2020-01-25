@@ -48,5 +48,5 @@ fun ViewGroup.inflate(@LayoutRes resource: Int, attachToRoot: Boolean = true): V
  */
 fun Context.sharedPreferences() = this.getSharedPreferences("base", Context.MODE_PRIVATE)!! // TODO KEy
 
-val Context.coupleLinkApi: Api
-    get() = RetrofitProvider(this).coupleLinkApi
+val Context.idolKingdomApi: Api
+    get() = RetrofitProvider(this).idolKingdomApi

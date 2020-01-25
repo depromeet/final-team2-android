@@ -1,5 +1,6 @@
 package com.def.team2.screen.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
@@ -11,10 +12,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
-import com.def.team2.util.toast
+import com.def.team2.SaveToken
+import com.def.team2.network.Api
+import com.def.team2.network.RetrofitProvider
+import com.def.team2.network.model.School
+import com.def.team2.screen.main.MainActivity
+import com.def.team2.util.*
+import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.view_signup_email.*
 import kotlinx.android.synthetic.main.view_signup_idol.*
@@ -32,12 +40,14 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     private val schoolSearchAdapter: SearchAdapter by lazy {
         SearchAdapter {
-            presenter.school.onNext(it)
+            schoolSelect.onNext(it)
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val idolSearchAdapter: SearchAdapter by lazy {
+        SearchAdapter {
+            idolSelect.onNext(it)
+        }
     }
 
     override fun onCreateView(
@@ -51,11 +61,16 @@ class SignUpFragment : Fragment(), SignUpContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifeCycleOwner = this
         setLifecycle()
-        presenter = SignUpPresenter(this@SignUpFragment)
+        presenter = SignUpPresenter(this@SignUpFragment, SaveToken(context!!))
         view.requestFocus()
 
         rv_signup_school_search.apply {
             adapter = schoolSearchAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
+
+        rv_signup_idol_search.apply {
+            adapter = idolSearchAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
@@ -97,12 +112,28 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.text
     }
 
+    override val schoolSelect: PublishSubject<School> = PublishSubject.create()
+
     override val schoolChanges: Observable<CharSequence> by lazy {
         et_signup_school.textChanges()
     }
 
     override val schoolNextClick: Observable<Unit> by lazy {
         btn_signup_school_next.clicks()
+    }
+
+    override val idol: CharSequence by lazy {
+        et_signup_idol.text
+    }
+
+    override val idolSelect: PublishSubject<School> = PublishSubject.create()
+
+    override val idolChanges: Observable<CharSequence> by lazy {
+        et_signup_idol.textChanges()
+    }
+
+    override val signUpClick: Observable<Unit> by lazy {
+        btn_signup.throttleClicks()
     }
 
     override val backButtonsClick: Observable<Unit> by lazy {
@@ -117,6 +148,13 @@ class SignUpFragment : Fragment(), SignUpContract.View {
             )
         )
     }
+
+    override val preferenceChanges: Observable<String> by lazy {
+        RxSharedPreferences.create(context!!.sharedPreferences())
+            .getString(KEY_TOKEN).asObservable()
+    }
+
+    override fun getApiProvider(): Api = context!!.idolKingdomApi
 
     override fun showEmailUI() {
         TransitionManager.beginDelayedTransition(view as ViewGroup, Slide(Gravity.END))
@@ -149,7 +187,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_school.setText(school)
     }
 
-    override fun addSchoolList(schools: List<String>) {
+    override fun addSchoolList(schools: List<School>) {
         schoolSearchAdapter.setItems(schools)
     }
 
@@ -169,6 +207,32 @@ class SignUpFragment : Fragment(), SignUpContract.View {
             viewStack.push(this)
             visibility = View.VISIBLE
             requestFocus()
+        }
+    }
+
+    override fun setIdolText(idol: CharSequence) {
+        et_signup_idol.setText(idol)
+    }
+
+    override fun addIdolList(idols: List<School>) {
+        idolSearchAdapter.setItems(idols)
+    }
+
+    override fun setIdolListVisible(active: Boolean) {
+        rv_signup_idol_search.apply {
+            visibility = if (active) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
+    }
+
+    override fun showMainUI() {
+        activity?.let {
+            val intent = Intent(it, MainActivity::class.java)
+            it.startActivity(intent)
+            it.finish()
         }
     }
 

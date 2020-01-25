@@ -1,6 +1,5 @@
 package com.def.team2.screen.map
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +29,19 @@ class MapFragment: Fragment() {
 
         map_option_tab.setOnClickListener {
             map_option_tab.toggle()
+        }
+
+        iv_map_search.setOnClickListener {
+            map_option_tab.close()
+        }
+        iv_map_filter.setOnClickListener {
+            map_option_tab.close()
+        }
+        iv_map_my_school.setOnClickListener {
+            map_option_tab.close()
+        }
+        iv_map_my_location.setOnClickListener {
+            map_option_tab.close()
         }
     }
 

@@ -28,55 +28,39 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <ImageView
-            android:id="@+id/item1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:src="@drawable/btn_minus"
-            android:scaleType="centerCrop"
-            tools:visibility="visible"
-            />
+        <Space
+            android:layout_width="64dp"
+            android:layout_height="match_parent" />
 
         <ImageView
-            android:id="@+id/item2"
+            android:id="@+id/iv_map_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:src="@drawable/icon_zoom"
             />
 
         <ImageView
-            android:id="@+id/item3"
+            android:id="@+id/iv_map_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:src="@drawable/icon_filter"
             />
 
         <ImageView
-            android:id="@+id/item4"
+            android:id="@+id/iv_map_my_school"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:src="@drawable/icon_school"
             />
 
         <ImageView
-            android:id="@+id/item5"
+            android:id="@+id/iv_map_my_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:src="@drawable/icon_gps"
             />
 

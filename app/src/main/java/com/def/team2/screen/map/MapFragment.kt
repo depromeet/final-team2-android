@@ -27,6 +27,10 @@ class MapFragment: Fragment() {
         map_content.getMapAsync { mapboxMap ->
             mapboxMap.setStyle(Style.LIGHT)
         }
+
+        map_option_tab.setOnClickListener {
+            map_option_tab.toggle()
+        }
     }
 
     override fun onStart() {

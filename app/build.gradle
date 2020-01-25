@@ -73,6 +73,7 @@ dependencies {
 
     // map
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1'
+    implementation 'com.wnafee:vector-compat:1.0.5'
 
     // test
     testImplementation 'junit:junit:4.12'

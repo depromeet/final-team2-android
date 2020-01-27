@@ -1,11 +1,11 @@
-package com.def.team2.screen.profile.idol
+package com.def.team2.screen.profile.setting
 
-import com.def.team2.screen.profile.setting.ProfileSettingContract
 import com.def.team2.util.e
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
-class ProfileIdolPresenter(private val view: ProfileIdolContract.View) : ProfileIdolContract.Presenter {
+class ProfileSettingPresenter(private val view: ProfileSettingContract.View) :
+    ProfileSettingContract.Presenter {
 
 
     override val disposables: CompositeDisposable = CompositeDisposable()

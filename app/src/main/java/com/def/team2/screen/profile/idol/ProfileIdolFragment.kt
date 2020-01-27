@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.screen.profile.setting.ProfileSettingContract
+import com.def.team2.screen.profile.setting.ProfileSettingPresenter
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 
 class ProfileIdolFragment : Fragment(), ProfileIdolContract.View {
 

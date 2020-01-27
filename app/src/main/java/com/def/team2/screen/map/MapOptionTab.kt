@@ -44,6 +44,7 @@ class MapOptionTab @JvmOverloads constructor(
     private var backgroundColorEnd: Int = Color.WHITE
     private var linearGradient: LinearGradient? = null
     private var buttonSize: Int = 0
+    private var buttonWidth: Int = 0
     private var buttonPosition: Int = BUTTON_POSITION_LEFT
     private var buttonMarginRight: Int = 0
     private var buttonMarginLeft: Int = 0
@@ -74,6 +75,7 @@ class MapOptionTab @JvmOverloads constructor(
         backgroundColorStart = ContextCompat.getColor(context, R.color.colorLightGreen)
         backgroundColorEnd = Color.WHITE
         buttonSize = resources.getDimensionPixelSize(R.dimen.map_option_button_size)
+        buttonWidth = resources.getDimensionPixelSize(R.dimen.map_option_button_width)
         gravity = Gravity.CENTER
         if (context is Activity) {
             val displayMetrics = DisplayMetrics()
@@ -188,18 +190,27 @@ class MapOptionTab @JvmOverloads constructor(
 
 //        Log.e("Position", "LEFT: ${button[LEFT]}, TOP: ${button[TOP]}, RIGHT: ${button[RIGHT]}, BOTTOM: ${button[BOTTOM]}")
 
-        canvas.drawPath(
-            createRectPath(
-                button[LEFT],
-                button[TOP],
-                button[RIGHT],
-                button[BOTTOM]
-            ),
-            paint
-        )
         if (state == State.CLOSED) {
+            canvas.drawPath(
+                createRectPath(
+                    button[LEFT],
+                    button[TOP],
+                    button[RIGHT] -100,
+                    button[BOTTOM]
+                ),
+                paint
+            )
             iconClosedDrawable?.draw(canvas)
         } else {
+            canvas.drawPath(
+                createRectPath(
+                    button[LEFT],
+                    button[TOP],
+                    button[RIGHT],
+                    button[BOTTOM]
+                ),
+                paint
+            )
             iconOpenedDrawable?.draw(canvas)
         }
     }
@@ -210,17 +221,17 @@ class MapOptionTab @JvmOverloads constructor(
         setButtonPosition(width)
 
         iconOpenedDrawable?.setBounds(
-            button[LEFT].toInt() - 100,
-            button[TOP].toInt() - 100,
-            buttonSize + 150,
-            button[BOTTOM].toInt() + 100
+            button[LEFT].toInt(),
+            button[TOP].toInt(),
+            (button[LEFT] + buttonWidth).toInt(),
+            button[BOTTOM].toInt()
         )
 
         iconClosedDrawable?.setBounds(
-            button[LEFT].toInt() - 100,
-            button[TOP].toInt() - 100,
-            buttonSize + 150,
-            button[BOTTOM].toInt() + 100
+            button[LEFT].toInt(),
+            button[TOP].toInt(),
+            (button[LEFT] + buttonWidth).toInt(),
+            button[BOTTOM].toInt()
         )
     }
 

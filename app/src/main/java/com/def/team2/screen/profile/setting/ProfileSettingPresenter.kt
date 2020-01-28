@@ -10,17 +10,17 @@ class ProfileSettingPresenter(private val view: ProfileSettingContract.View) :
 
     override val disposables: CompositeDisposable = CompositeDisposable()
     override fun start() {
-        subscribeIdolList()
-        subscribeIdolDelete()
+        subscribeSetting()
+        subscribeEdit()
     }
 
-    override fun subscribeIdolList() {
-        view.setIdolList() // TODO IDOL List 넘겨주기
+    override fun subscribeSetting() {
+        view.setSetting() // TODO setting
     }
 
-    override fun subscribeIdolDelete() {
-        view.deleteClick()
-                .doOnError { e("deleteClick Error") }
+    override fun subscribeEdit() {
+        view.editClick()
+                .doOnError { e("editClick Error") }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {  }
                 .bindUntilClear()

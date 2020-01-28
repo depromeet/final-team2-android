@@ -14,24 +14,21 @@ class ProfileSettingFragment  : Fragment(), ProfileSettingContract.View {
 
     override lateinit var lifeCycleOwner: LifecycleOwner
     override lateinit var presenter: ProfileSettingContract.Presenter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifeCycleOwner = this
-        presenter = ProfileSettingPresenter(this).apply {
-            start()
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(
         R.layout.fragment_profile_setting, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        lifeCycleOwner = this
+        setLifecycle()
+        presenter = ProfileSettingPresenter(this).apply {
+            start()
+        }
     }
 
     override fun setSetting() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun editClick() = profile_setting_apply.throttleClicks()

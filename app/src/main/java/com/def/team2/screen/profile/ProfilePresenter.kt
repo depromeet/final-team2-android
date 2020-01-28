@@ -14,6 +14,7 @@ class ProfilePresenter(private val view: ProfileContract.View) : ProfileContract
     }
 
     override fun subscribeMoveFragment() {
+        view.changeFragment(ProfileContract.View.Status.SCHOOL)
         view.clickSchool()
                 .doOnError { e("clickSchool Error") }
                 .observeOn(AndroidSchedulers.mainThread())

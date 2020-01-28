@@ -20,6 +20,7 @@ class ProfileSchoolFragment : Fragment(),ProfileSchoolContract.View{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifeCycleOwner = this
+        setLifecycle()
         presenter = ProfileSchoolPresenter(this).apply {
             start()
         }

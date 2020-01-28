@@ -21,6 +21,7 @@ class ProfileIdolFragment : Fragment(), ProfileIdolContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifeCycleOwner = this
+        setLifecycle()
         presenter = ProfileIdolPresenter(this).apply {
             start()
         }

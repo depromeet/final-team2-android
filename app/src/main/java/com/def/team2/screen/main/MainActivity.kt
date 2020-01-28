@@ -24,6 +24,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         lifeCycleOwner = this
+        setLifecycle()
         presenter = MainPresenter(this@MainActivity).apply {
             start()
         }

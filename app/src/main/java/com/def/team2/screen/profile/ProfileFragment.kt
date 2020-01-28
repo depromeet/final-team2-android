@@ -24,6 +24,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifeCycleOwner = this
+        setLifecycle()
         presenter = ProfilePresenter(this).apply {
             start()
         }

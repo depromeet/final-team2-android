@@ -1,6 +1,7 @@
 package com.def.team2.network
 
 import android.content.Context
+import com.def.team2.util.KEY_TOKEN
 import com.def.team2.util.sharedPreferences
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,9 +11,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitProvider constructor(private val context: Context) {
 
-    val coupleLinkApi: Api by lazy {
+    companion object {
+        const val BASE_URL = "http://192.168.0.10:8080"
+    }
+
+    val idolKingdomApi: Api by lazy {
         Retrofit.Builder()
-            .baseUrl("baseUrl")
+            .baseUrl(BASE_URL)
             .client(provideOkHttpClient(provideLoggingInterceptor()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())
@@ -23,7 +28,7 @@ class RetrofitProvider constructor(private val context: Context) {
     private fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         val b = OkHttpClient.Builder()
         b.addInterceptor { chain ->
-            val accessToken = context.sharedPreferences().getString("", "").orEmpty() // TODO KEy
+            val accessToken = context.sharedPreferences().getString(KEY_TOKEN, "").orEmpty() // TODO KEy
             return@addInterceptor chain.proceed(chain.request().newBuilder().let {
                 it.header("Authorization", "Bearer $accessToken")
                 it.build()

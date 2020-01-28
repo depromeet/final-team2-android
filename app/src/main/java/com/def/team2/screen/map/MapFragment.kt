@@ -30,6 +30,7 @@ class MapFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         map_content.onCreate(savedInstanceState)
         map_content.getMapAsync { mapboxMap ->
             this@MapFragment.mapboxMap = mapboxMap

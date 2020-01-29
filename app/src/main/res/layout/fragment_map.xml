@@ -91,6 +91,20 @@
         app:layout_constraintStart_toEndOf="@+id/vertical_tv_map"
         app:layout_constraintTop_toTopOf="@+id/vertical_tv_map" />
 
+    <ImageView
+        android:id="@+id/iv_map_shadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/bg_shadow"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <com.def.team2.screen.map.MapOptionTab
         android:id="@+id/map_option_tab"
         android:layout_width="0dp"
@@ -179,20 +193,6 @@
             android:gravity="center"
             android:fontFamily="@font/spoqahansansbold"/>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/iv_map_shadow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/bg_shadow"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
     <!--  filter 부분  -->
 

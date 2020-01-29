@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
 import com.def.team2.base.BaseActivity
-import com.def.team2.screen.map.MapFragment
+import com.def.team2.screen.profile.ProfileFragment
 import com.def.team2.util.sharedPreferences
 import com.def.team2.util.throttleClicks
 import com.f2prateek.rx.preferences2.RxSharedPreferences
@@ -24,10 +24,11 @@ class MainActivity : BaseActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         lifeCycleOwner = this
+        setLifecycle()
         presenter = MainPresenter(this@MainActivity).apply {
             start()
         }
-        replaceFragment(MapFragment.newInstance())
+        replaceFragment(ProfileFragment())
     }
 
     override fun clickBarRank() = main_bottom_bar_rank.throttleClicks()
@@ -53,6 +54,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 main_bottom_bar_rank_icon.isSelected = false
                 main_bottom_bar_chat_icon.isSelected = false
                 main_bottom_bar_my_icon.isSelected = true
+                replaceFragment(ProfileFragment())
             }
         }
     }

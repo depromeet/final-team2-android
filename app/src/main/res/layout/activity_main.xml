@@ -38,7 +38,7 @@
             android:layout_width="23dp"
             android:layout_height="24dp"
             android:layout_marginTop="11dp"
-            app:srcCompat="@drawable/gnb_rank" />
+            app:srcCompat="@drawable/selector_white_rank_ic" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/main_bottom_bar_rank_txt"
@@ -67,7 +67,7 @@
             android:layout_width="23dp"
             android:layout_height="24dp"
             android:layout_marginTop="11dp"
-            app:srcCompat="@drawable/gnb_chat" />
+            app:srcCompat="@drawable/selector_white_chat_ic" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/main_bottom_bar_chat_txt"
@@ -96,7 +96,7 @@
             android:layout_width="23dp"
             android:layout_height="24dp"
             android:layout_marginTop="11dp"
-            app:srcCompat="@drawable/gnb_my_selected" />
+            app:srcCompat="@drawable/selector_white_my_ic" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/main_bottom_bar_my_txt"

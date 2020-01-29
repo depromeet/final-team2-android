@@ -5,5 +5,11 @@
     <string name="str_rank">랭킹</string>
     <string name="str_chat">채팅</string>
     <string name="str_profile">마이</string>
+    <string name="str_idol">Idol</string>
+    <string name="str_setting">Setting</string>
+    <string name="str_school">School</string>
+    <string name="str_idol_info">좋아하는 순위를 변경할 수 있어요.</string>
+    <string name="str_idol_title">저장한 아이돌</string>
+    <string name="str_edit_completed">수정완료</string>
 
 </resources>

@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
     override val disposables: CompositeDisposable = CompositeDisposable()
 
-    override fun moveFragment() {
+    override fun subscribeMoveFragment() {
         view.clickBarRank()
                 .doOnError { Log.e("MainPresenter", "clickBarRank Error") }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -26,7 +26,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
     }
 
     override fun start() {
-        moveFragment()
+        subscribeMoveFragment()
     }
 
 }

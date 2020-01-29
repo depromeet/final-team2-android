@@ -13,9 +13,97 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="70dp"
+        android:layout_height="0dp"
+        android:background="@drawable/gradient_map_left"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"/>
+
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/vertical_tv_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rank"
+        android:textSize="18sp"
+        android:textColor="#b5b5b5"
+        android:lineSpacingExtra="6sp"
+        android:fontFamily="@font/spoqahansanslight"
+        android:layout_marginTop="60dp"
+        android:includeFontPadding="false"
+        android:gravity="bottom"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:direction="down_to_up"
+        />
+
+
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/vertical_tv_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:lineSpacingExtra="6sp"
+        android:fontFamily="@font/spoqahansansbold"
+        android:layout_marginTop="21dp"
+        android:includeFontPadding="false"
+        android:gravity="bottom"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_tv_rank"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:direction="down_to_up"
+        />
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="#000000"
+        android:layout_marginStart="1dp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="@+id/vertical_tv_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vertical_tv_map"
+        app:layout_constraintTop_toTopOf="@+id/vertical_tv_map" />
+
+    <ImageView
+        android:id="@+id/iv_map_shadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/bg_shadow"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <com.def.team2.screen.map.MapOptionTab
         android:id="@+id/map_option_tab"
@@ -23,8 +111,8 @@
         android:layout_height="56dp"
         app:layout_constraintVertical_bias="1"
         app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
@@ -75,8 +163,8 @@
         android:gravity="center"
         app:layout_constraintVertical_bias="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -106,5 +194,271 @@
             android:fontFamily="@font/spoqahansansbold"/>
     </LinearLayout>
 
+    <!--  filter 부분  -->
+
+    <FrameLayout
+        android:id="@+id/fl_map_filter_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="#55000000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_map_filter_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:layout_gravity="bottom">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_filter_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp"/>
+
+            <View
+                android:id="@+id/view_filter_top"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/iv_map_filter_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_filter"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/view_filter_top"
+                app:layout_constraintStart_toEndOf="@+id/gl_filter_start"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_map_filter_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="필터"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:lineSpacingExtra="10sp"
+                android:fontFamily="@font/spoqahansansbold"
+                android:layout_marginStart="4dp"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toTopOf="@+id/iv_map_filter_menu"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_map_filter_menu"
+                app:layout_constraintStart_toEndOf="@+id/iv_map_filter_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/iv_map_filter_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_close_black"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintTop_toBottomOf="@+id/view_filter_top"
+                app:layout_constraintStart_toEndOf="@+id/gl_filter_start"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_filter_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_map_filter_menu,iv_map_filter_close,tv_map_filter_title"/>
+
+            <ImageView
+                android:id="@+id/iv_map_filter_check_element"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_checked"
+                android:layout_marginTop="16dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_filter_title"
+                app:layout_constraintStart_toEndOf="@+id/gl_filter_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_map_filter_element"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="초등학교"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:lineSpacingExtra="8sp"
+                android:fontFamily="@font/spoqahansansbold"
+                android:layout_marginStart="4dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toTopOf="@+id/iv_map_filter_check_element"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_map_filter_check_element"
+                app:layout_constraintStart_toEndOf="@+id/iv_map_filter_check_element"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_filter_element"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_map_filter_check_element,tv_map_filter_element"/>
+
+            <ImageView
+                android:id="@+id/iv_map_filter_check_middle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_checked"
+                android:layout_marginTop="16dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_filter_element"
+                app:layout_constraintStart_toEndOf="@+id/gl_filter_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_map_filter_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중학교"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:lineSpacingExtra="8sp"
+                android:fontFamily="@font/spoqahansansbold"
+                android:layout_marginStart="4dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toTopOf="@+id/iv_map_filter_check_middle"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_map_filter_check_middle"
+                app:layout_constraintStart_toEndOf="@+id/iv_map_filter_check_middle"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_filter_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_map_filter_check_middle,tv_map_filter_middle"/>
+
+            <ImageView
+                android:id="@+id/iv_map_filter_check_high"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_checked"
+                android:layout_marginTop="16dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_filter_middle"
+                app:layout_constraintStart_toEndOf="@+id/gl_filter_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_map_filter_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="고등학교"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:lineSpacingExtra="8sp"
+                android:fontFamily="@font/spoqahansansbold"
+                android:layout_marginStart="4dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toTopOf="@+id/iv_map_filter_check_high"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_map_filter_check_high"
+                app:layout_constraintStart_toEndOf="@+id/iv_map_filter_check_high"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_filter_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_map_filter_check_high,tv_map_filter_high"/>
+
+            <ImageView
+                android:id="@+id/iv_map_filter_check_univ"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_checked"
+                android:layout_marginTop="16dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_filter_high"
+                app:layout_constraintStart_toEndOf="@+id/gl_filter_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_map_filter_univ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대학교"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:lineSpacingExtra="8sp"
+                android:fontFamily="@font/spoqahansansbold"
+                android:layout_marginStart="4dp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toTopOf="@+id/iv_map_filter_check_univ"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_map_filter_check_univ"
+                app:layout_constraintStart_toEndOf="@+id/iv_map_filter_check_univ"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_filter_univ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="iv_map_filter_check_univ,tv_map_filter_univ"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_goneMarginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/barrier_filter_univ"
+                app:layout_constraintStart_toEndOf="@+id/gl_filter_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="16dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_map_idol_content"
+        android:layout_width="286dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_map_idol"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VerticalTextView">
+        <attr name="direction">
+            <enum name="up_to_down" value="0" />
+            <enum name="down_to_up" value="1" />
+            <enum name="left_to_right" value="1" />
+            <enum name="right_to_left" value="1" />
+        </attr>
+        <attr name="show_underline" format="boolean"/>
+    </declare-styleable>
+</resources>

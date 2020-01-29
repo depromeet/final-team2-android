@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.def.team2.R
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_map.*
 class MapFragment: Fragment() {
 
     private var mapboxMap: MapboxMap? = null
+    private val tempImgUrl = "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BBLqut9.img?h=0&w=720&m=6&q=60&u=t&o=f&l=f&x=265&y=329"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +58,11 @@ class MapFragment: Fragment() {
         }
 
         iv_map_search.setOnClickListener {
+            vp_map_idol.visibility = View.VISIBLE
             map_option_tab.close()
         }
         iv_map_filter.setOnClickListener {
+            fl_map_filter_background.visibility = View.VISIBLE
             map_option_tab.close()
         }
         iv_map_my_school.setOnClickListener {
@@ -67,6 +71,18 @@ class MapFragment: Fragment() {
         iv_map_my_location.setOnClickListener {
             map_option_tab.close()
         }
+
+        iv_map_filter_close.setOnClickListener {
+            fl_map_filter_background.visibility = View.GONE
+        }
+
+        vp_map_idol.adapter = IdolMapAdapter {
+            vp_map_idol.visibility = View.GONE
+        }.apply {
+            setItems(listOf(tempImgUrl, tempImgUrl, tempImgUrl))
+        }
+        vp_map_idol.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
     }
 
     override fun onStart() {

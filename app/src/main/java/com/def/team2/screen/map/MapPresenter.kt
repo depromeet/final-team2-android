@@ -23,6 +23,11 @@ class MapPresenter(
         view.setSchoolFilterUI(false)
 
         // Todo: Api 호출
+        interactor.getSchoolList()
+            .subscribe {
+                view.showSchoolList(it)
+            }
+            .bindUntilClear()
     }
 
     override fun changeSchoolLevel(schoolLevel: School.Level) {
@@ -46,5 +51,27 @@ class MapPresenter(
         if (refreshing) {
            loadSchoolList()
         }
+    }
+
+    override fun loadMySchool() {
+        val lat = 37.556092
+        val lng = 127.150819
+        view.moveMapPosition(lat, lng)
+        view.hideMapOption()
+    }
+
+    override fun loadMyLocation() {
+        val lat = 37.502341
+        val lng = 127.047794
+        view.moveMapPosition(lat, lng)
+        view.hideMapOption()
+    }
+
+    override fun loadIdolRankInSchool(schoolId: Long) {
+        view.showSchoolIdolRank(listOf())
+    }
+
+    override fun removeIdolRankInSchool() {
+        view.hideSchoolIdolRank()
     }
 }

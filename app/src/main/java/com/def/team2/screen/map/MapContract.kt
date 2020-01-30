@@ -21,7 +21,7 @@ interface MapContract {
 
         fun setFilterOption(filterType: School.Level, active: Boolean)
 
-        fun moveMapLocation(lat: Float, lng: Float)
+        fun moveMapPosition(lat: Double, lng: Double)
 
         fun showSchoolIdolRank(idolGroupList: List<IdolGroup>)
 
@@ -41,5 +41,13 @@ interface MapContract {
         fun addSchoolLevel(schoolLevel: School.Level, refreshing: Boolean)
 
         fun deleteSchoolLevel(schoolLevel: School.Level, refreshing: Boolean)
+
+        fun loadMySchool()
+
+        fun loadMyLocation()
+
+        fun loadIdolRankInSchool(schoolId: Long)
+
+        fun removeIdolRankInSchool()
     }
 }

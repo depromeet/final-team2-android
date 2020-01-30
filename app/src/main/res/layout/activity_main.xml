@@ -26,8 +26,8 @@
         android:layout_height="0dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/main_bottom_bar_chat"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_bottom_bar_rank_icon"
-            android:layout_width="23dp"
+            android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="11dp"
             app:srcCompat="@drawable/selector_white_rank_ic" />
@@ -57,14 +57,13 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/main_bottom_bar_my"
         app:layout_constraintStart_toEndOf="@id/main_bottom_bar_rank"
         app:layout_constraintTop_toTopOf="@+id/main_bottom_bar">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_bottom_bar_chat_icon"
-            android:layout_width="23dp"
+            android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="11dp"
             app:srcCompat="@drawable/selector_white_chat_ic" />
@@ -85,15 +84,15 @@
         android:layout_height="0dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_marginEnd="30dp"
         app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/main_bottom_bar_chat"
         app:layout_constraintTop_toTopOf="@+id/main_bottom_bar">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/main_bottom_bar_my_icon"
-            android:layout_width="23dp"
+            android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="11dp"
             app:srcCompat="@drawable/selector_white_my_ic" />

@@ -10,6 +10,6 @@ class ProfileSchoolPresenter(private val view: ProfileSchoolContract.View) : Pro
     }
 
     override fun subscribeSchoolInfo() {
-        view.setSchoolInfo() //TODO School Data Class 만들기
+//        view.setSchoolInfo() //TODO School Data Class 만들기
     }
 }

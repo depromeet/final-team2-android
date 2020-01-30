@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">final-team2-android</string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoia3l1bmdzZW9rLWNvcnkiLCJhIjoiY2s1cDl4OW9pMHRyeTNmbnN2bWdra2ljMiJ9.DKxnPEkyBnAWJqLBLZ8pMg</string>
+
     <string name="str_rank">랭킹</string>
     <string name="str_chat">채팅</string>
     <string name="str_profile">마이</string>

@@ -1,6 +1,5 @@
 package com.def.team2.screen.profile.idol
 
-import com.def.team2.screen.profile.setting.ProfileSettingContract
 import com.def.team2.util.e
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

@@ -11,7 +11,6 @@ import com.def.team2.screen.profile.idol.ProfileIdolFragment
 import com.def.team2.screen.profile.school.ProfileSchoolFragment
 import com.def.team2.screen.profile.setting.ProfileSettingFragment
 import com.def.team2.util.throttleClicks
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {

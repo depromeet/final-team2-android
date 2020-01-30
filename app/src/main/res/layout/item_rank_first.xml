@@ -45,7 +45,7 @@
         tools:text="BTS" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/item_rank_vote_txt"
+        android:id="@+id/item_rank_first_vote_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -58,7 +58,7 @@
         tools:text="123,456" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/item_rank_vote_img"
+        android:id="@+id/item_rank_first_vote_img"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="31dp"

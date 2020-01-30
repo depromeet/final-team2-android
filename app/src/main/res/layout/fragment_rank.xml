@@ -20,6 +20,49 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.55" />
 
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/rank_rank_btn_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19.2dp"
+        android:layout_marginTop="38.6dp"
+        android:text="Rank"
+        android:textColor="#b5b5b5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/rank_rank_btn_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/rank_rank_btn_txt"
+        app:layout_constraintStart_toEndOf="@id/rank_rank_btn_txt"
+        app:layout_constraintTop_toTopOf="@id/rank_rank_btn_txt" />
+
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/rank_map_btn_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/str_idol"
+        android:textColor="#b5b5b5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/rank_rank_btn_txt"
+        app:layout_constraintTop_toBottomOf="@id/rank_rank_btn_txt" />
+
+    <View
+        android:id="@+id/rank_map_btn_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/rank_map_btn_txt"
+        app:layout_constraintStart_toEndOf="@id/rank_map_btn_txt"
+        app:layout_constraintTop_toTopOf="@id/rank_map_btn_txt" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rank_content_guide"
         android:layout_width="wrap_content"
@@ -57,5 +100,40 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rank_name_txt" />
+
+    <View
+        android:id="@+id/rank_time_view"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="#151515"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rank_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:fontFamily="@font/spoqahansansregular"
+        android:textSize="15sp"
+        android:layout_marginEnd="10dp"
+        android:text="투표마감"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintBottom_toBottomOf="@id/rank_time_view"
+        app:layout_constraintStart_toStartOf="@id/rank_time_view"
+        app:layout_constraintEnd_toStartOf="@id/rank_time_txt"
+        app:layout_constraintTop_toTopOf="@id/rank_time_view"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rank_time_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:fontFamily="@font/spoqahansansbold"
+        android:textSize="15sp"
+        tools:text="00:00:00"
+        app:layout_constraintBottom_toBottomOf="@id/rank_time_view"
+        app:layout_constraintEnd_toEndOf="@id/rank_time_view"
+        app:layout_constraintStart_toEndOf="@id/rank_time_title"
+        app:layout_constraintTop_toTopOf="@id/rank_time_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

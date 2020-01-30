@@ -26,81 +26,71 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
 
-    <LinearLayout
-        android:id="@+id/profile_school_btn"
+
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/profile_school_btn_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginTop="52dp"
-        android:orientation="vertical"
-        android:rotation="270"
+        android:text="@string/str_school"
+        android:textColor="#b5b5b5"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/profile_school_btn_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_school"
-            android:textColor="#b5b5b5"
-            android:textSize="18sp" />
+    <View
+        android:id="@+id/profile_school_btn_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/profile_school_btn_txt"
+        app:layout_constraintStart_toEndOf="@id/profile_school_btn_txt"
+        app:layout_constraintTop_toTopOf="@id/profile_school_btn_txt" />
 
-        <View
-            android:id="@+id/profile_school_btn_line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profile_idol_btn"
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/profile_idol_btn_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:orientation="vertical"
-        android:rotation="270"
-        app:layout_constraintStart_toStartOf="@id/profile_school_btn"
-        app:layout_constraintTop_toBottomOf="@id/profile_school_btn">
+        android:text="@string/str_idol"
+        android:textColor="#b5b5b5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/profile_school_btn_txt"
+        app:layout_constraintTop_toBottomOf="@id/profile_school_btn_txt" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/profile_idol_btn_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_idol"
-            android:textColor="#b5b5b5"
-            android:textSize="18sp" />
+    <View
+        android:id="@+id/profile_idol_btn_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/profile_idol_btn_txt"
+        app:layout_constraintStart_toEndOf="@id/profile_idol_btn_txt"
+        app:layout_constraintTop_toTopOf="@id/profile_idol_btn_txt" />
 
-        <View
-            android:id="@+id/profile_idol_btn_line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/white" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/profile_setting_btn"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/profile_setting_btn_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        android:rotation="270"
-        app:layout_constraintStart_toStartOf="@id/profile_school_btn"
-        app:layout_constraintTop_toBottomOf="@id/profile_idol_btn">
+        android:text="@string/str_setting"
+        android:textColor="#b5b5b5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/profile_idol_btn_txt"
+        app:layout_constraintTop_toBottomOf="@id/profile_idol_btn_txt" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/profile_setting_btn_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_setting"
-            android:textColor="#b5b5b5"
-            android:textSize="18sp" />
-
-        <View
-            android:id="@+id/profile_setting_btn_line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/white" />
-    </LinearLayout>
+    <View
+        android:id="@+id/profile_setting_btn_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/profile_setting_btn_txt"
+        app:layout_constraintStart_toEndOf="@id/profile_setting_btn_txt"
+        app:layout_constraintTop_toTopOf="@id/profile_setting_btn_txt" />
 
 
     <androidx.appcompat.widget.AppCompatTextView

@@ -67,8 +67,8 @@ class MapPresenter(
         view.hideMapOption()
     }
 
-    override fun loadIdolRankInSchool(schoolId: Long) {
-        view.showSchoolIdolRank(listOf())
+    override fun loadIdolRankInSchool(school: School) {
+        view.showSchoolIdolRank(school, listOf())
     }
 
     override fun removeIdolRankInSchool() {

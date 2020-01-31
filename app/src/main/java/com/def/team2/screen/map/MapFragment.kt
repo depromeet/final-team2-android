@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,11 +58,19 @@ class MapFragment: Fragment(), MapContract.View {
 
         presenter = MapPresenter(this, MapInteractor(context!!))
 
+        initMap(savedInstanceState)
+        initIdolRankView()
+        initMapOptionClickListener()
+        initFilterClickListener()
+
+    }
+
+    private fun initMap(savedInstanceState: Bundle?) {
         map_content.onCreate(savedInstanceState)
         map_content.getMapAsync { mapboxMap ->
             this@MapFragment.mapboxMap = mapboxMap
             mapboxMap.setStyle(Style.LIGHT) { mapStyle ->
-//                mapboxMap.setStyle(Style.Builder().fromUri("mapbox://styles/kyungseok-cory/ck5thafyb29hy1ioxtwdpnsmi")) { mapStyle ->
+                //                mapboxMap.setStyle(Style.Builder().fromUri("mapbox://styles/kyungseok-cory/ck5thafyb29hy1ioxtwdpnsmi")) { mapStyle ->
                 val localizationPlugin = LocalizationPlugin(map_content, mapboxMap, mapStyle)
                 localizationPlugin.setMapLanguage(MapLocale.KOREAN)
 
@@ -74,7 +81,7 @@ class MapFragment: Fragment(), MapContract.View {
                     addClickListener {symbol ->
                         symbol.data?.let {jsonElement ->
                             val school = Gson().fromJson(jsonElement, School::class.java)
-                            presenter.loadIdolRankInSchool(school.id)
+                            presenter.loadIdolRankInSchool(school)
                         }
                     }
                 }
@@ -90,12 +97,11 @@ class MapFragment: Fragment(), MapContract.View {
 
             mapboxMap.animateCamera(
                 CameraUpdateFactory
-                .newCameraPosition(position), 2000)
+                    .newCameraPosition(position), 2000)
         }
+    }
 
-        initMapOptionClickListener()
-        initFilterClickListener()
-
+    private fun initIdolRankView() {
         vp_map_idol.adapter = IdolMapAdapter {
             presenter.removeIdolRankInSchool()
         }.apply {
@@ -105,7 +111,6 @@ class MapFragment: Fragment(), MapContract.View {
         fl_map_idol_background.setOnClickListener {
             presenter.removeIdolRankInSchool()
         }
-
     }
 
     private fun initMapOptionClickListener() {
@@ -218,15 +223,12 @@ class MapFragment: Fragment(), MapContract.View {
 
     private fun createSymbol(school: School, imgId: String) {
         // Create Symbol
-        symbolManager?.let {
-            Log.e("CreateSymbol", "schoolName: ${school.name}, imgId: ${imgId}")
-            it.create(SymbolOptions()
-                .withLatLng(LatLng(school.location.latitude, school.location.longitude))
-                .withIconImage(imgId)
-                .withIconSize(0.5f)
-                .withData(Gson().toJsonTree(school))
-            )
-        }
+        symbolManager?.create(SymbolOptions()
+            .withLatLng(LatLng(school.location.latitude, school.location.longitude))
+            .withIconImage(imgId)
+            .withIconSize(0.5f)
+            .withData(Gson().toJsonTree(school))
+        )
     }
 
     override fun hideMapOption() {
@@ -284,7 +286,7 @@ class MapFragment: Fragment(), MapContract.View {
             }
     }
 
-    override fun showSchoolIdolRank(idolGroupList: List<IdolGroup>) {
+    override fun showSchoolIdolRank(school: School, idolGroupList: List<IdolGroup>) {
         fl_map_idol_background.visibility = View.VISIBLE
     }
 

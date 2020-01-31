@@ -23,7 +23,7 @@ interface MapContract {
 
         fun moveMapPosition(lat: Double, lng: Double)
 
-        fun showSchoolIdolRank(idolGroupList: List<IdolGroup>)
+        fun showSchoolIdolRank(school: School, idolGroupList: List<IdolGroup>)
 
         fun hideSchoolIdolRank()
 
@@ -46,7 +46,7 @@ interface MapContract {
 
         fun loadMyLocation()
 
-        fun loadIdolRankInSchool(schoolId: Long)
+        fun loadIdolRankInSchool(school: School)
 
         fun removeIdolRankInSchool()
     }

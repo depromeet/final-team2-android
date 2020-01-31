@@ -9,6 +9,7 @@ interface RankContract {
 
         fun setRank()
         fun updateTime()
+        fun updateVote()
 
     }
 
@@ -16,6 +17,7 @@ interface RankContract {
 
         fun subscribeRank()
         fun subscribeCurrentTime()
+        fun subscribeVote()
 
     }
 

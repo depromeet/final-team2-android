@@ -52,13 +52,12 @@ class IdolMapAdapter(
             }
         }
 
-        fun bind(imgurl: String) {
-            this.imageUrl = imgurl.apply {
+        fun bind(imgUrl: String) {
+            this.imageUrl = imgUrl.apply {
                 Glide.with(itemView)
                     .load(this)
                     .into(idolImg)
             }
-
         }
     }
 }

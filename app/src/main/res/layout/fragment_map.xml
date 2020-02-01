@@ -91,6 +91,46 @@
         app:layout_constraintStart_toEndOf="@+id/vertical_tv_map"
         app:layout_constraintTop_toTopOf="@+id/vertical_tv_map" />
 
+    <View
+        android:id="@+id/view_tap_boundary"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_tv_map"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_label_filter_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/label_filter_high_school"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/view_tap_boundary"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_label_filter_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/label_filter_middle_school"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/iv_label_filter_high"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="@+id/gl_start"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ImageView
         android:id="@+id/iv_map_shadow"
         android:layout_width="wrap_content"
@@ -287,6 +327,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/icon_checked"
+                android:visibility="invisible"
                 android:layout_marginTop="16dp"
                 app:layout_constraintVertical_bias="1"
                 app:layout_constraintHorizontal_bias="0"
@@ -301,7 +342,7 @@
                 android:layout_height="wrap_content"
                 android:text="초등학교"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/colorGray"
                 android:lineSpacingExtra="8sp"
                 android:fontFamily="@font/spoqahansansbold"
                 android:layout_marginStart="4dp"
@@ -323,6 +364,7 @@
                 android:id="@+id/iv_map_filter_check_middle"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:visibility="invisible"
                 android:src="@drawable/icon_checked"
                 android:layout_marginTop="16dp"
                 app:layout_constraintVertical_bias="1"
@@ -338,7 +380,7 @@
                 android:layout_height="wrap_content"
                 android:text="중학교"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/colorGray"
                 android:lineSpacingExtra="8sp"
                 android:fontFamily="@font/spoqahansansbold"
                 android:layout_marginStart="4dp"
@@ -361,6 +403,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/icon_checked"
+                android:visibility="invisible"
                 android:layout_marginTop="16dp"
                 app:layout_constraintVertical_bias="1"
                 app:layout_constraintHorizontal_bias="0"
@@ -375,7 +418,7 @@
                 android:layout_height="wrap_content"
                 android:text="고등학교"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/colorGray"
                 android:lineSpacingExtra="8sp"
                 android:fontFamily="@font/spoqahansansbold"
                 android:layout_marginStart="4dp"
@@ -397,6 +440,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/icon_checked"
+                android:visibility="invisible"
                 android:layout_marginTop="16dp"
                 app:layout_constraintVertical_bias="1"
                 app:layout_constraintHorizontal_bias="0"
@@ -411,7 +455,7 @@
                 android:layout_height="wrap_content"
                 android:text="대학교"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/colorGray"
                 android:lineSpacingExtra="8sp"
                 android:fontFamily="@font/spoqahansansbold"
                 android:layout_marginStart="4dp"
@@ -443,20 +487,24 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
-
+    <FrameLayout
+        android:id="@+id/fl_map_idol_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_map_idol"
+            android:layout_gravity="right"
             android:layout_width="286dp"
             android:layout_height="260dp"
             android:layout_marginTop="60dp"
-            android:visibility="gone"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            />
 
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

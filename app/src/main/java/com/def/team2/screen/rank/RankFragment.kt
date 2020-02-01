@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.network.Api
+import com.def.team2.util.idolKingdomApi
 
 class RankFragment : Fragment(), RankContract.View{
 
@@ -34,6 +36,6 @@ class RankFragment : Fragment(), RankContract.View{
     }
 
     override fun updateVote() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+    override fun getApiProvider() : Api = context!!.idolKingdomApi
 }

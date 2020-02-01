@@ -21,4 +21,16 @@ interface Api {
 
     @POST("/api/login")
     fun signIn(@Body signInRequest: SignInRequest): Single<SignInResponse>
+
+    @POST("/api/vote")
+    fun vote(@Body voteRequest: VoteRequest): Single<VoteResponse>
+
+    @GET("/api/vote")
+    fun getVote(): Single<List<VoteResponse>>
+
+    @GET("/api/me")
+    fun getMe(): Single<User>
+
+    @GET("/api/users")
+    fun getUsers(@Query("userId") userId: String): Single<User>
 }

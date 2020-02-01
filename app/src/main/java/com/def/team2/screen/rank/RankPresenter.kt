@@ -12,11 +12,14 @@ class RankPresenter(private val view: RankContract.View) : RankContract.Presente
     }
 
     override fun subscribeRank() {
+
     }
 
     override fun subscribeCurrentTime() {
+
     }
 
     override fun subscribeVote() {
+
     }
 }

@@ -31,11 +31,11 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     override fun clickImageEdit() = profile_img_edit.throttleClicks()
 
-    override fun clickSchool() = profile_school_btn.throttleClicks()
+    override fun clickSchool() = profile_school_btn_txt.throttleClicks()
 
-    override fun clickIdol() = profile_idol_btn.throttleClicks()
+    override fun clickIdol() = profile_idol_btn_txt.throttleClicks()
 
-    override fun clickSetting() = profile_setting_btn.throttleClicks()
+    override fun clickSetting() = profile_setting_btn_txt.throttleClicks()
 
     override fun changeFragment(status: ProfileContract.View.Status) {
         when(status){

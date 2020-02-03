@@ -16,9 +16,24 @@ interface Api {
     @GET("/api/school/search")
     fun searchSchoolList(@Query("query") schoolName: String): Single<List<School>>
 
+    @GET("/api/idol/search")
+    fun searchIdolList(@Query("query") idolName: String): Single<List<Idol>>
+
     @POST("/api/users")
     fun signUp(@Body signUpRequest: SignUpRequest): Single<SignUpResponse>
 
     @POST("/api/login")
     fun signIn(@Body signInRequest: SignInRequest): Single<SignInResponse>
+
+    @POST("/api/vote")
+    fun vote(@Body voteRequest: VoteRequest): Single<VoteResponse>
+
+    @GET("/api/vote")
+    fun getVote(): Single<List<VoteResponse>>
+
+    @GET("/api/me")
+    fun getMe(): Single<User>
+
+    @GET("/api/users")
+    fun getUsers(@Query("userId") userId: String): Single<User>
 }

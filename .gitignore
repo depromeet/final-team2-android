@@ -3,6 +3,7 @@
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/codeStyles
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
@@ -11,5 +12,3 @@
 /build
 /captures
 .externalNativeBuild
-.idea/codeStyles/codeStyleConfig.xml
-.idea/codeStyles/Project.xml

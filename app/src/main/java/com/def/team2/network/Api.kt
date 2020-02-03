@@ -16,6 +16,9 @@ interface Api {
     @GET("/api/school/search")
     fun searchSchoolList(@Query("query") schoolName: String): Single<List<School>>
 
+    @GET("/api/idol/search")
+    fun searchIdolList(@Query("query") idolName: String): Single<List<Idol>>
+
     @POST("/api/users")
     fun signUp(@Body signUpRequest: SignUpRequest): Single<SignUpResponse>
 

@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.network.Api
 import com.def.team2.network.model.School
+import com.def.team2.util.idolKingdomApi
 import kotlinx.android.synthetic.main.fragment_profile_school.*
 
 class ProfileSchoolFragment : Fragment(),ProfileSchoolContract.View{
@@ -25,6 +27,7 @@ class ProfileSchoolFragment : Fragment(),ProfileSchoolContract.View{
             start()
         }
     }
+    override fun getApiProvider(): Api = requireContext().idolKingdomApi
 
     override fun setSchoolInfo(school: School) {
         profile_school_name.text = school.name

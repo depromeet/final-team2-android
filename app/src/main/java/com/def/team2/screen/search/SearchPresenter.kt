@@ -1,5 +1,6 @@
 package com.def.team2.screen.search
 
+import com.def.team2.util.e
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -13,13 +14,17 @@ class SearchPresenter(private val view: SearchContract.View) : SearchContract.Pr
     }
 
     override fun subscribeSearch() {
-        //TODO 두개 합쳐서 search에 넣어줌
-        val search = ""
-        Single.merge(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search))
+        val search = "B"
+        Single.zip(listOf(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search)))
+        {
+            e(it)
+        }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-
-                }
+                .subscribe({
+                    e(it)
+                }, {
+                    e(it)
+                })
                 .bindUntilClear()
     }
 }

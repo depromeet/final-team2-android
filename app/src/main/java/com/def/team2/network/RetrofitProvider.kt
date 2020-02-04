@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitProvider constructor(private val context: Context) {
 
     companion object {
-        const val BASE_URL = "http://192.168.0.10:8080"
+        const val BASE_URL = "http://3.133.57.166:8080"
     }
 
     val idolKingdomApi: Api by lazy {

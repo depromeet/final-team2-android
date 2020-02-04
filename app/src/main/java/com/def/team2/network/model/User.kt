@@ -5,7 +5,7 @@ data class User (
     val ballotList : List<Any>,
     val email:String,
     val id:Int,
-    val idolIdList:List<IdolGroup>,
+    val idolIdList:List<Long>,
     val nickName:String,
-    val schoolList:List<School>
+    val schoolList:List<Long>
 )

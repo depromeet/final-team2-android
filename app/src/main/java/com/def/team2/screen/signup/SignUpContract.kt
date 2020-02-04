@@ -86,8 +86,6 @@ interface SignUpContract {
 
         fun subscribeSignUp()
 
-        fun subscribePreference()
-
         fun subscribeBack()
     }
 }

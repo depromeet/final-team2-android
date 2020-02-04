@@ -2,7 +2,6 @@ package com.def.team2.screen.signin
 
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
-import com.def.team2.network.Api
 import io.reactivex.Observable
 
 interface SignInContract {
@@ -10,17 +9,13 @@ interface SignInContract {
     interface View: BaseRxView<Presenter> {
         val isActive: Boolean
 
-        val preferenceChanges: Observable<String>
+        val signUpTapClick: Observable<Unit>
 
-        fun getApiProvider(): Api
+        val signInClick: Observable<Unit>
 
-        fun getSignUpTapClicks(): Observable<Unit>
+        val email: CharSequence
 
-        fun getSignInButtonClicks(): Observable<Unit>
-
-        fun getEmailText(): CharSequence
-
-        fun getPasswordText(): CharSequence
+        val password: CharSequence
 
         fun setLoadingIndicator(active: Boolean)
 
@@ -35,7 +30,5 @@ interface SignInContract {
         fun subscribeSignUpTapClick()
 
         fun subscribeSignIn()
-
-        fun subscribePreference()
     }
 }

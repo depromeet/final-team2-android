@@ -17,8 +17,6 @@ class SignUpPresenter(
     private val signUpInteractor: SignUpInteractor
 ) : SignUpContract.Presenter {
 
-    private var idolId: Long? = 7 // 7: 방탄, 17: 에이비식스, 18: 워너원
-
     override fun start() {
         subscribeNickName()
         subscribeEmail()
@@ -26,7 +24,6 @@ class SignUpPresenter(
         subscribeSchool()
         subscribeIdol()
         subscribeSignUp()
-        subscribePreference()
         subscribeBack()
     }
 
@@ -196,31 +193,25 @@ class SignUpPresenter(
                     view.nickname.toString(),
                     view.password.toString(),
                     signUpInteractor.schoolId!!,
-                    idolId!!
+                    signUpInteractor.idolId!!
                 )
             }.observeOn(AndroidSchedulers.mainThread())
             .retry { _, e ->
                 Log.e("error", "error, message: ${e.message}")
                 true
             }
-            .subscribe {
-                signUpInteractor.saveToken(it)
-            }.bindUntilClear()
-    }
-
-    override fun subscribePreference() {
-        signUpInteractor.savedTokenChanges()
+            .doOnNext { signUpInteractor.saveToken(it) }
+            .switchMap { signUpInteractor.savedTokenChanges() }
             .flatMapSingle {
                 signUpInteractor.getMyInfo()
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .retry { _, e ->
-                Log.e("error", "error, message: ${e.message}")
+            .retry { count, e ->
+                Log.e("error", "count: $count, error, message: ${e.message}")
+                view.showToast("다시 로그인해주세요")
                 true
             }
-            .subscribe {
-                view.showMainUI()
-            }
+            .subscribe{ view.showMainUI() }
             .bindUntilClear()
     }
 

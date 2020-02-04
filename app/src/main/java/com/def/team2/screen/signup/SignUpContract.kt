@@ -2,7 +2,6 @@ package com.def.team2.screen.signup
 
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
-import com.def.team2.network.Api
 import com.def.team2.network.model.Idol
 import com.def.team2.network.model.School
 import io.reactivex.Observable
@@ -45,8 +44,6 @@ interface SignUpContract {
         val backButtonsClick: Observable<Unit>
 
         val preferenceChanges: Observable<String>
-
-        fun getApiProvider(): Api
 
         fun showEmailUI()
 

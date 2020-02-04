@@ -57,7 +57,7 @@ class SignUpPresenter(
                 view.showToast("Invalid Email")
                 return@filter false
             }
-//            .switchMapSingle { signUpInteractor.checkEmailValidate(it.toString()) }
+            .switchMapSingle { signUpInteractor.checkEmailValidate(it.toString()) }
             .observeOn(AndroidSchedulers.mainThread())
             .retry { _, e ->
                 if (e is HttpException) {
@@ -209,13 +209,15 @@ class SignUpPresenter(
     }
 
     override fun subscribePreference() {
-        view.preferenceChanges
-            .filter { it.isNotEmpty() }
+        signUpInteractor.savedTokenChanges()
             .flatMapSingle {
-                // MyInfo 가져온다.
-                return@flatMapSingle Single.just("myInfo 올꺼임")
+                signUpInteractor.getMyInfo()
             }
             .observeOn(AndroidSchedulers.mainThread())
+            .retry { _, e ->
+                Log.e("error", "error, message: ${e.message}")
+                true
+            }
             .subscribe {
                 view.showMainUI()
             }

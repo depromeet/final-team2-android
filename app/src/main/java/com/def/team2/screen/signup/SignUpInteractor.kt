@@ -2,6 +2,7 @@ package com.def.team2.screen.signup
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.def.team2.base.UserData
 import com.def.team2.network.Api
 import com.def.team2.network.model.Idol
 import com.def.team2.network.model.School
@@ -49,11 +50,16 @@ class SignUpInteractor(context: Context) {
             .onErrorResumeNext { Single.just(listOf()) }
             .subscribeOn(Schedulers.io())
 
-
     fun signUp(email: String, nickName: String, password: String, schoolId: Long, idolId: Long): Single<String> =
         idolKingdomApi
-            .signUp(SignUpRequest(email, nickName, password, schoolId, idolId))
+            .signUp(SignUpRequest(email, nickName, password, listOf(schoolId), listOf(idolId)))
             .map { it.token }
+            .subscribeOn(Schedulers.io())
+
+    fun getMyInfo() =
+        idolKingdomApi
+            .getMe()
+            .map { UserData.user = it }
             .subscribeOn(Schedulers.io())
 
     fun saveToken(token: String) {
@@ -66,4 +72,5 @@ class SignUpInteractor(context: Context) {
     fun savedTokenChanges(): Observable<String> =
         RxSharedPreferences.create(sharedPreferences)
             .getString(KEY_TOKEN).asObservable()
+            .filter { it.isNotEmpty() }
 }

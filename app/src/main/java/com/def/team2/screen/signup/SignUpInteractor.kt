@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 class SignUpInteractor(context: Context) {
 
     var schoolId: Long? = null
-    var idolId: Long? = 7 // 7: 방탄, 17: 에이비식스, 18: 워너원
+    var idolId: Long? = null
 
     private val idolKingdomApi: Api by lazy {
         context.idolKingdomApi

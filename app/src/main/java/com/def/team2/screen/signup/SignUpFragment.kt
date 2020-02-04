@@ -12,9 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
-import com.def.team2.SaveToken
 import com.def.team2.network.Api
-import com.def.team2.network.RetrofitProvider
 import com.def.team2.network.model.School
 import com.def.team2.screen.main.MainActivity
 import com.def.team2.util.*
@@ -61,7 +59,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifeCycleOwner = this
         setLifecycle()
-        presenter = SignUpPresenter(this@SignUpFragment, SaveToken(context!!))
+        presenter = SignUpPresenter(this@SignUpFragment, SignUpInteractor(context!!))
         view.requestFocus()
 
         rv_signup_school_search.apply {

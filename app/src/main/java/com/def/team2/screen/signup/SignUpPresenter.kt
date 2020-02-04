@@ -1,25 +1,21 @@
 package com.def.team2.screen.signup
 
 import android.util.Log
-import com.def.team2.SaveToken
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
-import com.def.team2.network.model.SignUpRequest
 import com.def.team2.util.isEmail
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class SignUpPresenter(
     val view: SignUpContract.View,
-    private val saveToken: SaveToken
+    private val signUpInteractor: SignUpInteractor
 ) : SignUpContract.Presenter {
 
-    private var schoolId: Long? = null
     private var idolId: Long? = 7 // 7: 방탄, 17: 에이비식스, 18: 워너원
 
     override fun start() {
@@ -37,9 +33,8 @@ class SignUpPresenter(
 
     override fun subscribeNickName() {
         view.nicknameNextClick
-            .map {
-                view.nickname
-            }.filter {
+            .map { view.nickname }
+            .filter {
                 if (it.isNotEmpty()) {
                     return@filter true
                 }
@@ -53,25 +48,17 @@ class SignUpPresenter(
 
     override fun subscribeEmail() {
         view.emailNextClick
-            .map {
-                view.email
-            }.filter {
-                if (it.isEmail()) {
+            .map { view.email }
+            .filter { email ->
+                if (email.isEmail()) {
                     return@filter true
                 }
                 view.showToast("Invalid Email")
                 return@filter false
             }
-            .observeOn(Schedulers.io())
-            .switchMapCompletable {
-                view.getApiProvider()
-                    .checkEmailDuplicated(mapOf(Pair("email", it.toString())))
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete { view.showPasswordUI() }
-            }
+//            .switchMapSingle { signUpInteractor.checkEmailValidate(it.toString()) }
             .observeOn(AndroidSchedulers.mainThread())
             .retry { _, e ->
-                Log.e("error", "error, message: ${e.message}")
                 if (e is HttpException) {
                     if (e.code() == 403) {
                         view.showToast("Email is Duplicated")
@@ -81,17 +68,15 @@ class SignUpPresenter(
                 }
                 true
             }
-            .subscribe {
-                Log.e("complete", "check complete!!!!")
-            }.bindUntilClear()
+            .subscribe { view.showPasswordUI() }
+            .bindUntilClear()
     }
 
     override fun subscribePassword() {
         view.passwordNextClick
-            .map {
-                view.password
-            }.filter {
-                if (it.isNotEmpty()) {
+            .map { view.password }
+            .filter {password ->
+                if (password.isNotEmpty()) {
                     return@filter true
                 }
                 view.showToast("Invalid Password")
@@ -108,64 +93,43 @@ class SignUpPresenter(
         view.schoolSelect.onNext(School(0, "", "", Location(0.0,0.0), School.Level.ELEMENT, ""))
 
         view.schoolNextClick
-            .map {
-                Pair(view.school, schoolId)
-            }.filter {
+            .map { Pair(view.school, signUpInteractor.schoolId) }
+            .filter {
                 if (it.first.isNotEmpty() && it.second != null) {
                     return@filter true
                 }
                 view.showToast("Invalid School")
                 return@filter false
             }
-            .subscribe {
-                view.showMyIdolUI()
-            }.bindUntilClear()
+            .subscribe { view.showMyIdolUI() }
+            .bindUntilClear()
 
     }
 
     private fun subscribeSchoolChanges() {
 
         Observable.merge(view.schoolChanges, view.schoolSelect)
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
                 if (it is School) {
                     view.setSchoolListVisible(false)
                     view.setSchoolText(it.name)
-                    schoolId = it.id
+                    signUpInteractor.schoolId = it.id
                 }
-            }.filter {
-                it is CharSequence
-            }.withLatestFrom(
+            }.filter { it is CharSequence }
+            .withLatestFrom(
                 view.schoolSelect,
                 BiFunction { t1: Any, t2: School ->
                     Pair(t1.toString(), t2.name)
                 }
             ).filter { it.first != it.second }
             .map { it.first }
-            .observeOn(Schedulers.io())
-            // FixMe API 가 안되는 경우 아래 api 부분 주석처리하고 dummy 데이터 방출부분을 주석 풀 것
             .switchMapSingle {
                 if (it.length >= 2) {
-                    view.getApiProvider()
-                        .searchSchoolList(it)
-                        .onErrorResumeNext { Single.just(listOf()) }
+                    signUpInteractor.getSchoolList(it)
                 } else {
                     Single.just(listOf())
                 }
             }
-//           .switchMap {
-//                when (it) {
-//                    "풍동" -> return@switchMap Observable.just(listOf(Pair(1, "풍동"), "풍동고등학교"))
-//                    "abcd" -> return@switchMap Observable.just(listOf("풍동", "풍동고등학교", "풍동중학교", "풍동 뭐시기"))
-//                    "defg" -> return@switchMap Observable.just(listOf("대치", "대치고등학교", "대치중학교", "대치대치", "음...대치?"))
-//                    "qwer" -> return@switchMap Observable.just(listOf("강남", "강남고등학교", "강남중학교", "강남해커스", "강남대성"))
-//                    else -> return@switchMap Observable.just(listOf<String>())
-//                }
-//            }.map { schoolList ->
-//                schoolList.map {
-//                    Pair(1, it)
-//                }
-//            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if (it.isEmpty()) {
@@ -173,7 +137,7 @@ class SignUpPresenter(
                 } else {
                     view.setSchoolListVisible(true)
                 }
-                schoolId = null
+                signUpInteractor.schoolId = null
                 view.addSchoolList(it)
             }
             .bindUntilClear()
@@ -232,37 +196,22 @@ class SignUpPresenter(
 
     override fun subscribeSignUp() {
         view.signUpClick
-            .map {
-                Log.e("click!!", "")
-                it
-            }
-            .filter {
-                schoolId != null && idolId != null
-            }
-            .map {
-                SignUpRequest(
+            .filter { signUpInteractor.hasSchoolIdAndIdolId() }
+            .switchMapSingle {
+                signUpInteractor.signUp(
                     view.email.toString(),
                     view.nickname.toString(),
                     view.password.toString(),
-                    schoolId!!,
+                    signUpInteractor.schoolId!!,
                     idolId!!
-//                0
                 )
-            }
-            .observeOn(Schedulers.io())
-            .switchMapSingle {
-                view.getApiProvider()
-                    .signUp(it)
-                    .doOnError {e->
-                        Log.e("doOnError", "error, message: ${e.message}")
-                    }
             }.observeOn(AndroidSchedulers.mainThread())
             .retry { _, e ->
                 Log.e("error", "error, message: ${e.message}")
                 true
             }
             .subscribe {
-                saveToken.invoke(it.token)
+                signUpInteractor.saveToken(it)
             }.bindUntilClear()
     }
 

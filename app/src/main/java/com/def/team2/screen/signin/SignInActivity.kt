@@ -24,7 +24,7 @@ class SignInActivity : BaseActivity(), SignInContract.View {
         setContentView(R.layout.activity_sign_in)
 
         // FixMe 저장된 sharedPreference 제거용
-//        this.sharedPreferences().edit().clear().commit()
+        this.sharedPreferences().edit().clear().commit()
 
         lifeCycleOwner = this
         setLifecycle()

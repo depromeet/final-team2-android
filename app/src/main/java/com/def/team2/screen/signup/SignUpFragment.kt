@@ -13,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
 import com.def.team2.network.Api
+import com.def.team2.network.model.Idol
 import com.def.team2.network.model.School
 import com.def.team2.screen.main.MainActivity
 import com.def.team2.util.*
@@ -36,14 +37,14 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     private val viewStack = Stack<View>()
 
-    private val schoolSearchAdapter: SearchAdapter by lazy {
-        SearchAdapter {
+    private val schoolSearchAdapter: SearchAdapter<School> by lazy {
+        SearchAdapter<School> {
             schoolSelect.onNext(it)
         }
     }
 
-    private val idolSearchAdapter: SearchAdapter by lazy {
-        SearchAdapter {
+    private val idolSearchAdapter: SearchAdapter<Idol> by lazy {
+        SearchAdapter<Idol> {
             idolSelect.onNext(it)
         }
     }
@@ -124,7 +125,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.text
     }
 
-    override val idolSelect: PublishSubject<School> = PublishSubject.create()
+    override val idolSelect: PublishSubject<Idol> = PublishSubject.create()
 
     override val idolChanges: Observable<CharSequence> by lazy {
         et_signup_idol.textChanges()
@@ -212,7 +213,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.setText(idol)
     }
 
-    override fun addIdolList(idols: List<School>) {
+    override fun addIdolList(idols: List<Idol>) {
         idolSearchAdapter.setItems(idols)
     }
 

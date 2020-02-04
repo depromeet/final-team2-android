@@ -1,6 +1,7 @@
 package com.def.team2.screen.signup
 
 import android.util.Log
+import com.def.team2.network.model.Idol
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
 import com.def.team2.util.isEmail
@@ -146,52 +147,44 @@ class SignUpPresenter(
     override fun subscribeIdol() {
 
         subscribeIdolChanges()
-//        view.idolSelect.onNext(Pair(0, ""))
+        view.idolSelect.onNext(Idol(-1, "", listOf(), listOf()))
         view.setIdolListVisible(false)
     }
 
     private fun subscribeIdolChanges() {
-//        view.idolChanges
-//            .withLatestFrom(
-//                view.idolSelect,
-//                BiFunction { t1: CharSequence, t2: Pair<Int, String> ->
-//                    Pair(t1, t2.toString())
-//                }
-//            )
-//            .filter {
-//                it.first != it.second
-//            }
-//            .map {
-//                it.first
-//            }.filter {
-//                it.length >= 2
-//            }.observeOn(Schedulers.io())
-//            .flatMap {
-//                // Todo api 요청
-//
-//                // FixMe 더미 데이터 제거
-//                when (it) {
-//                    "abcd" -> return@flatMap Observable.just(listOf("풍동", "풍동고등학교", "풍동중학교", "풍동 뭐시기"))
-//                    "defg" -> return@flatMap Observable.just(listOf("대치", "대치고등학교", "대치중학교", "대치대치", "음...대치?"))
-//                    "qwer" -> return@flatMap Observable.just(listOf("강남", "강남고등학교", "강남중학교", "강남해커스", "강남대성"))
-//                    else -> return@flatMap Observable.just(listOf<String>())
-//                }
-//            }
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .doOnNext {
-//                if (it.isEmpty()) {
-//                    view.setIdolListVisible(false)
-//                } else {
-//                    view.setIdolListVisible(true)
-//                }
-//            }
-//            .doOnError {
-//                // 에러 발생 처리
-//            }
-//            .subscribe {
-////                view.addIdolList(it)
-//            }
-//            .bindUntilClear()
+        Observable.merge(view.idolChanges, view.idolSelect)
+            .doOnNext {
+                if (it is Idol) {
+                    view.setIdolListVisible(false)
+                    view.setIdolText(it.name)
+                    signUpInteractor.idolId = it.id.toLong()
+                }
+            }.filter { it is CharSequence }
+            .withLatestFrom(
+                view.idolSelect,
+                BiFunction { t1: Any, t2: Idol ->
+                    Pair(t1.toString(), t2.name)
+                }
+            ).filter { it.first != it.second }
+            .map { it.first }
+            .switchMapSingle {
+                if (it.length >= 2) {
+                    signUpInteractor.getIdolList(it)
+                } else {
+                    Single.just(listOf())
+                }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if (it.isEmpty()) {
+                    view.setIdolListVisible(false)
+                } else {
+                    view.setIdolListVisible(true)
+                }
+                signUpInteractor.idolId = null
+                view.addIdolList(it)
+            }
+            .bindUntilClear()
     }
 
     override fun subscribeSignUp() {

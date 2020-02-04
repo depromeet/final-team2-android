@@ -3,6 +3,7 @@ package com.def.team2.screen.signup
 import android.content.Context
 import android.content.SharedPreferences
 import com.def.team2.network.Api
+import com.def.team2.network.model.Idol
 import com.def.team2.network.model.School
 import com.def.team2.network.model.SignUpRequest
 import com.def.team2.util.KEY_TOKEN
@@ -41,6 +42,13 @@ class SignUpInteractor(context: Context) {
             .searchSchoolList(keyword)
             .onErrorResumeNext { Single.just(listOf()) }
             .subscribeOn(Schedulers.io())
+
+    fun getIdolList(keyword: String): Single<List<Idol>> =
+        idolKingdomApi
+            .searchIdolList(keyword)
+            .onErrorResumeNext { Single.just(listOf()) }
+            .subscribeOn(Schedulers.io())
+
 
     fun signUp(email: String, nickName: String, password: String, schoolId: Long, idolId: Long): Single<String> =
         idolKingdomApi

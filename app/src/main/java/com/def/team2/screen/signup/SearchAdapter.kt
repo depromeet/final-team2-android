@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.def.team2.R
+import com.def.team2.network.model.Idol
 import com.def.team2.network.model.School
 
-class SearchAdapter(
-    private val itemClickCallback: (item: School) -> Unit
+class SearchAdapter<T>(
+    private val itemClickCallback: (item: T) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val itemList = mutableListOf<School>()
+    private val itemList = mutableListOf<T>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,38 +26,42 @@ class SearchAdapter(
     override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bind(itemList[position])
+        (holder as ViewHolder<T>).bind(itemList[position])
     }
 
-    fun setItems(data: List<School>) {
+    fun setItems(data: List<T>) {
         itemList.clear()
         itemList.addAll(data)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(
+    class ViewHolder<T>(
         itemView: View,
-        clickCallback: (item: School) -> Unit
+        clickCallback: (item: T) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val textView: TextView by lazy {
             itemView.findViewById<TextView>(R.id.tv_signup_item_title)
         }
 
-        private var school: School? = null
+        private var item: T? = null
 
         init {
 
             itemView.setOnClickListener { _ ->
-                school?.let {
+                item?.let {
                     clickCallback.invoke(it)
                 }
             }
         }
 
-        fun bind(school: School) {
-            this.school = school
-            textView.text = school.name
+        fun bind(item: T) {
+            this.item = item
+            when (item) {
+                is School -> textView.text = item.name
+                is Idol -> textView.text = item.name
+
+            }
         }
     }
 }

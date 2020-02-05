@@ -1,8 +1,6 @@
 package com.def.team2.network
 
 import android.content.Context
-import com.def.team2.util.KEY_TOKEN
-import com.def.team2.util.sharedPreferences
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,24 +16,29 @@ class RetrofitProvider constructor(private val context: Context) {
     val idolKingdomApi: Api by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(provideOkHttpClient(provideLoggingInterceptor()))
+            .client(provideOkHttpClient())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(Api::class.java)
     }
 
-    private fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        val b = OkHttpClient.Builder()
-        b.addInterceptor { chain ->
-            val accessToken = context.sharedPreferences().getString(KEY_TOKEN, "").orEmpty() // TODO KEy
-            return@addInterceptor chain.proceed(chain.request().newBuilder().let {
-                it.header("Authorization", "Bearer $accessToken")
-                it.build()
-            })
-        }
-        b.addInterceptor(interceptor)
-        return b.build()
+    private fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .addInterceptor(AuthInterceptor(context))
+            .addInterceptor(provideLoggingInterceptor())
+            .build()
+//        val b = OkHttpClient.Builder()
+//        b.addInterceptor { chain ->
+//            val accessToken = context.sharedPreferences().getString(KEY_TOKEN, "").orEmpty()
+//            return@addInterceptor chain.proceed(chain.request().newBuilder().let {
+//                it.header("Authorization", "Bearer $accessToken")
+//                it.build()
+//            })
+//        }
+//        b.addInterceptor(provideLoggingInterceptor())
+//        return b.build()
     }
 
     private fun provideLoggingInterceptor(): HttpLoggingInterceptor {

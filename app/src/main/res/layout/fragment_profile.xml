@@ -33,6 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginTop="52dp"
+        android:gravity="bottom"
+        android:includeFontPadding="false"
         android:text="@string/str_school"
         android:textColor="#b5b5b5"
         android:textSize="18sp"
@@ -54,6 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:gravity="bottom"
+        android:includeFontPadding="false"
         android:text="@string/str_idol"
         android:textColor="#b5b5b5"
         android:textSize="18sp"
@@ -71,11 +75,13 @@
         app:layout_constraintTop_toTopOf="@id/profile_idol_btn_txt" />
 
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.def.team2.screen.custom.VerticalTextView
         android:id="@+id/profile_setting_btn_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:gravity="bottom"
+        android:includeFontPadding="false"
         android:text="@string/str_setting"
         android:textColor="#b5b5b5"
         android:textSize="18sp"

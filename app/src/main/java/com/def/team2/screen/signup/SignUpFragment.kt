@@ -12,12 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
-import com.def.team2.SaveToken
-import com.def.team2.network.Api
-import com.def.team2.network.RetrofitProvider
+import com.def.team2.network.model.Idol
 import com.def.team2.network.model.School
 import com.def.team2.screen.main.MainActivity
-import com.def.team2.util.*
+import com.def.team2.util.KEY_TOKEN
+import com.def.team2.util.sharedPreferences
+import com.def.team2.util.throttleClicks
+import com.def.team2.util.toast
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
@@ -38,14 +39,14 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     private val viewStack = Stack<View>()
 
-    private val schoolSearchAdapter: SearchAdapter by lazy {
-        SearchAdapter {
+    private val schoolSearchAdapter: SearchAdapter<School> by lazy {
+        SearchAdapter<School> {
             schoolSelect.onNext(it)
         }
     }
 
-    private val idolSearchAdapter: SearchAdapter by lazy {
-        SearchAdapter {
+    private val idolSearchAdapter: SearchAdapter<Idol> by lazy {
+        SearchAdapter<Idol> {
             idolSelect.onNext(it)
         }
     }
@@ -61,7 +62,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifeCycleOwner = this
         setLifecycle()
-        presenter = SignUpPresenter(this@SignUpFragment, SaveToken(context!!))
+        presenter = SignUpPresenter(this@SignUpFragment, SignUpInteractor(context!!))
         view.requestFocus()
 
         rv_signup_school_search.apply {
@@ -126,7 +127,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.text
     }
 
-    override val idolSelect: PublishSubject<School> = PublishSubject.create()
+    override val idolSelect: PublishSubject<Idol> = PublishSubject.create()
 
     override val idolChanges: Observable<CharSequence> by lazy {
         et_signup_idol.textChanges()
@@ -153,8 +154,6 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         RxSharedPreferences.create(context!!.sharedPreferences())
             .getString(KEY_TOKEN).asObservable()
     }
-
-    override fun getApiProvider(): Api = context!!.idolKingdomApi
 
     override fun showEmailUI() {
         TransitionManager.beginDelayedTransition(view as ViewGroup, Slide(Gravity.END))
@@ -214,7 +213,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.setText(idol)
     }
 
-    override fun addIdolList(idols: List<School>) {
+    override fun addIdolList(idols: List<Idol>) {
         idolSearchAdapter.setItems(idols)
     }
 

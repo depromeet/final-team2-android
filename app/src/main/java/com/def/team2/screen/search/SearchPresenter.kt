@@ -1,12 +1,11 @@
 package com.def.team2.screen.search
 
-import com.def.team2.util.e
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class SearchPresenter(private val view: SearchContract.View, private val type: Type = Type.ALL) : SearchContract.Presenter {
+class SearchPresenter(private val view: SearchContract.View, private val type: Type) : SearchContract.Presenter {
 
     enum class Type {
         ALL, IDOL, SCHOOL
@@ -18,28 +17,36 @@ class SearchPresenter(private val view: SearchContract.View, private val type: T
 
     override fun start() {
         currentType = type
+        subscribeSearch()
     }
 
-    override fun subscribeSearch(search: String) {
-        view.schoolChanges.throttleLast(300, TimeUnit.MILLISECONDS).subscribe {
+    override fun subscribeSearch() {
+        view.schoolChanges.throttleLast(300, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            val search = it.toString()
+            if (search.isEmpty()) {
+                view.adapterClear()
+                return@subscribe
+            }
             val searchList = when (currentType) {
                 Type.ALL -> listOf(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search))
                 Type.IDOL -> listOf(view.getApiProvider().searchIdolList(search))
                 Type.SCHOOL -> listOf(view.getApiProvider().searchSchoolList(search))
             }
-            Single.zip(searchList) { it }
+            Single.zip(searchList) { array ->
+                if (array.size == 1) array[0] as List<Any>
+                else {
+                    val mergeList = mutableListOf<Any>()
+                    array.forEach { data -> mergeList.addAll(data as List<Any>) }
+                    mergeList
+                }
+            }
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         view.setSearchResponse(it.toList())
                     }, {
-                        e(it)
+                        it.printStackTrace()
                     })
                     .bindUntilClear()
         }.bindUntilClear()
     }
-
-    fun setSearchType(type: Type) {
-        currentType = type
-    }
-
 }

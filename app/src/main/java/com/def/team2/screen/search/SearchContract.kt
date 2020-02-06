@@ -13,12 +13,13 @@ interface SearchContract {
 
         fun getApiProvider(): Api
         fun setSearchResponse(data:List<Any>)
+        fun adapterClear()
 
     }
 
     interface Presenter : BaseRxPresenter {
 
-        fun subscribeSearch(search: String)
+        fun subscribeSearch()
 
     }
 

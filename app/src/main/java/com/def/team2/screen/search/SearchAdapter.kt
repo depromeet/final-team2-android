@@ -26,6 +26,11 @@ class SearchAdapter : RecyclerView.Adapter<BaseViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun clear() {
+        items.clear()
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder private constructor(itemView: View) : BaseViewHolder(itemView) {
         constructor(parent: ViewGroup) : this(parent.inflate(R.layout.item_search, false))
 
@@ -33,7 +38,6 @@ class SearchAdapter : RecyclerView.Adapter<BaseViewHolder>() {
             when (data) {
                 is School -> tv_signup_item_title.text = data.name
                 is Idol -> tv_signup_item_title.text = data.name
-
             }
         }
 

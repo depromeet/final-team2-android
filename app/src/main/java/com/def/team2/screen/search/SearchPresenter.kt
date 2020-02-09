@@ -15,7 +15,7 @@ class SearchPresenter(private val view: SearchContract.View) : SearchContract.Pr
     override fun subscribeSearch() {
         //TODO 두개 합쳐서 search에 넣어줌
         val search = ""
-        Single.merge(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search))
+        Single.merge(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search, 5))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
 

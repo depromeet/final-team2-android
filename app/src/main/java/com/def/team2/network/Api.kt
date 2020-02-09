@@ -13,8 +13,12 @@ interface Api {
     @POST("/api/users/validation")
     fun checkEmailDuplicated(@Body checkEmailRequest: Map<String, String>): Completable
 
+    @GET("api/school")
+    fun getSchool(@Query("schoolId") schoolId: Long): Single<School>
+
     @GET("/api/school/search")
-    fun searchSchoolList(@Query("query") schoolName: String): Single<List<School>>
+    fun searchSchoolList(@Query("query") schoolName: String,
+                         @Query("size") pageSize: Int): Single<List<School>>
 
     @GET("/api/idol/search")
     fun searchIdolList(@Query("query") idolName: String): Single<List<Idol>>

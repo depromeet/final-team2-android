@@ -88,7 +88,7 @@ class SignUpPresenter(
     override fun subscribeSchool() {
 
         subscribeSchoolChanges()
-        view.schoolSelect.onNext(School(0, "", "", Location(0.0,0.0), School.Level.ELEMENT, ""))
+        view.schoolSelect.onNext(School(0, "", "", Location(0.0,0.0), School.Level.ELEMENT, "", ""))
 
         view.schoolNextClick
             .map { Pair(view.school, signUpInteractor.schoolId) }

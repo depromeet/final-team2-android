@@ -10,7 +10,9 @@ data class School(
     val level: Level,
 
     @Expose(serialize = true, deserialize = false)
-    val users: Any
+    val users: Any,
+    @Expose(serialize = true, deserialize = false)
+    val ballots: Any
 
 ) {
     enum class Level {

@@ -71,10 +71,16 @@ class MapPresenter(
     }
 
     override fun loadMyLocation() {
-        val lat = 37.502341
-        val lng = 127.047794
-        view.moveMapPosition(lat, lng)
-        view.hideMapOption()
+        if (interactor.isAccessMyLocation()) {
+            interactor.getMyLocation()?.let {
+                view.moveMapPosition(it.latitude, it.longitude)
+                view.hideMapOption()
+            } ?: kotlin.run {
+                view.showToast("내 위치를 가져오는데 실패했습니다.")
+            }
+        } else {
+            view.showLocationPermissionUI()
+        }
     }
 
     override fun loadIdolRankInSchool(school: School) {

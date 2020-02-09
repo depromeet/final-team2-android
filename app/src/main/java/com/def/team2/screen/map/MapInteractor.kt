@@ -1,6 +1,12 @@
 package com.def.team2.screen.map
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Criteria
+import android.location.LocationManager
+import android.os.Build
 import com.def.team2.base.UserData
 import com.def.team2.network.Api
 import com.def.team2.network.model.IdolGroup
@@ -10,7 +16,7 @@ import com.def.team2.util.idolKingdomApi
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import io.reactivex.Flowable
 
-class MapInteractor(context: Context) {
+class MapInteractor(private val context: Context) {
 
     lateinit var location: Location
     var boundBox: LatLngBounds? = null
@@ -19,6 +25,10 @@ class MapInteractor(context: Context) {
 
     private val idolKingdomApi: Api by lazy {
         context.idolKingdomApi
+    }
+
+    private val locationManager: LocationManager by lazy {
+        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
 
     init {
@@ -98,6 +108,23 @@ class MapInteractor(context: Context) {
             mutableListOf()
         )
     }
+
+    fun isAccessMyLocation(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    fun getMyLocation(): Location? =
+        locationManager.getLastKnownLocation(locationManager.getBestProvider(Criteria(), false))?.let {
+            Location(it.latitude, it.longitude)
+        }
+
 
     companion object {
         const val defaultLat = 37.571235

@@ -29,6 +29,10 @@ interface MapContract {
         fun hideSchoolIdolRank()
 
         fun showTotalIdolRank()
+
+        fun showToast(msg: String)
+
+        fun showLocationPermissionUI()
     }
 
     interface Presenter: BaseRxPresenter {

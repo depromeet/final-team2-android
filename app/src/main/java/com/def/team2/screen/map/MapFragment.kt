@@ -1,5 +1,7 @@
 package com.def.team2.screen.map
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -19,6 +21,8 @@ import com.bumptech.glide.request.transition.Transition
 import com.def.team2.R
 import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
+import com.def.team2.util.REQ_CODE_ACCESS_LOCATION
+import com.def.team2.util.toast
 import com.google.gson.Gson
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
@@ -295,6 +299,36 @@ class MapFragment: Fragment(), MapContract.View {
 
     override fun showTotalIdolRank() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    override fun showToast(msg: String) {
+        context?.toast(msg)
+    }
+
+    override fun showLocationPermissionUI() {
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+            REQ_CODE_ACCESS_LOCATION
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQ_CODE_ACCESS_LOCATION -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+
+                    presenter.loadMyLocation()
+                } else {
+                    showToast("위치 기능을 허용하지 않았습니다.")
+                }
+            }
+        }
     }
 
     companion object {

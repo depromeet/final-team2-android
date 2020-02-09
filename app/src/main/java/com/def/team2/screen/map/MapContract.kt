@@ -4,6 +4,7 @@ import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
 import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
+import com.mapbox.mapboxsdk.geometry.LatLngBounds
 
 interface MapContract {
 
@@ -35,6 +36,8 @@ interface MapContract {
         fun openFilterView()
 
         fun loadSchoolList()
+
+        fun updateMapPosition(cameraLat: Double, cameraLng: Double, cameraBounds: LatLngBounds, refreshing: Boolean)
 
         fun changeSchoolLevel(schoolLevel: School.Level)
 

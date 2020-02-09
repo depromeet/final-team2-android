@@ -85,19 +85,15 @@ class MapFragment: Fragment(), MapContract.View {
                         }
                     }
                 }
+
+                mapboxMap.addOnCameraIdleListener {
+                    val position = mapboxMap.cameraPosition.target
+                    val boundBox = mapboxMap.projection.visibleRegion.latLngBounds
+                    presenter.updateMapPosition(position.latitude, position.longitude, boundBox, true)
+                }
             }
 
-            presenter.loadSchoolList()
-
-            val position = CameraPosition.Builder()
-                .target(LatLng(37.502341, 127.047794))
-                .zoom(9.0)
-                .tilt(20.0)
-                .build()
-
-            mapboxMap.animateCamera(
-                CameraUpdateFactory
-                    .newCameraPosition(position), 2000)
+            presenter.loadMySchool()
         }
     }
 

@@ -1,6 +1,8 @@
 package com.def.team2.screen.map
 
+import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
+import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import io.reactivex.disposables.CompositeDisposable
 
 class MapPresenter(
@@ -28,6 +30,14 @@ class MapPresenter(
                 view.showSchoolList(it)
             }
             .bindUntilClear()
+    }
+
+    override fun updateMapPosition(cameraLat: Double, cameraLng: Double, cameraBounds: LatLngBounds, refreshing: Boolean) {
+        interactor.location = Location(cameraLat, cameraLng)
+        interactor.boundBox = cameraBounds
+        if (refreshing) {
+            loadSchoolList()
+        }
     }
 
     override fun changeSchoolLevel(schoolLevel: School.Level) {

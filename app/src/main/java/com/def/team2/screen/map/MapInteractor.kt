@@ -1,20 +1,40 @@
 package com.def.team2.screen.map
 
 import android.content.Context
+import com.def.team2.base.UserData
 import com.def.team2.network.Api
 import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
 import com.def.team2.util.idolKingdomApi
+import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import io.reactivex.Flowable
 
 class MapInteractor(context: Context) {
+
+    lateinit var location: Location
+    var boundBox: LatLngBounds? = null
 
     private val schoolSet: MutableSet<School.Level> = mutableSetOf()
 
     private val idolKingdomApi: Api by lazy {
         context.idolKingdomApi
     }
+
+    init {
+        UserData.school?.let {
+            location = it.location
+        } ?: kotlin.run {
+            location = Location(37.571235, 126.976504)
+        }
+    }
+
+
+    /*
+    2020-02-10 00:52:26.882 24287-24287/com.def.team2 E/position check!: latitude: 37.502341, longitude: 127.04779400000002
+    2020-02-10 00:52:26.883 24287-24287/com.def.team2 E/boundbox check!: latitude: 37.53778847169898, longitude: 127.04779399998651
+    2020-02-10 00:52:26.884 24287-24287/com.def.team2 E/nsew!: south: 37.240812937285426, north: 37.834764006112536, west: 126.76647049225079 , east: 127.32911750772223
+    */
 
     fun addSchoolLevel(level: School.Level) {
         schoolSet.add(level)

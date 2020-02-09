@@ -182,13 +182,16 @@ class MapFragment: Fragment(), MapContract.View {
         val imgUrl1 = "https://upload.wikimedia.org/wikipedia/commons/6/60/TWICE_LOGO.png"
         val imgUrl2 = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/BTS_logo_%282017%29.png/200px-BTS_logo_%282017%29.png"
         val imgUrl3 = "https://upload.wikimedia.org/wikipedia/commons/a/a2/Exo-logo-v-neck_design2.jpg"
+
+
+        // refresh symbol
+        symbolManager?.deleteAll()
+
+        // make symbol
         schoolList.map {
-
-            // Todo 나중에 idol 정보를 이용해서 filtering 할 것
             mapboxMap?.getStyle {style ->
-
+                // Todo 나중에 idol 정보를 이용해서 filtering 할 것
                 val iconBitmap = style.getImage(it.users.toString())
-
                 iconBitmap?.let {_ ->
                     createSymbol(it, it.users.toString())
                 } ?: kotlin.run {

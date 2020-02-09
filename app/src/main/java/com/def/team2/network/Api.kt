@@ -16,6 +16,13 @@ interface Api {
     @GET("api/school")
     fun getSchool(@Query("schoolId") schoolId: Long): Single<School>
 
+    @GET("/api/school/nearby")
+    fun getNearSchoolList(@Query("start_y") south: Double,
+                          @Query("end_y") north: Double,
+                          @Query("start_x") west: Double,
+                          @Query("end_x") east: Double,
+                          @Query("size") pageSize: Int): Single<List<School>>
+
     @GET("/api/school/search")
     fun searchSchoolList(@Query("query") schoolName: String,
                          @Query("size") pageSize: Int): Single<List<School>>

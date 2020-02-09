@@ -23,8 +23,6 @@ class MapPresenter(
 
     override fun loadSchoolList() {
         view.setSchoolFilterUI(false)
-
-        // Todo: Api 호출
         interactor.getSchoolList()
             .subscribe {
                 view.showSchoolList(it)
@@ -64,9 +62,11 @@ class MapPresenter(
     }
 
     override fun loadMySchool() {
-        val lat = 37.556092
-        val lng = 127.150819
-        view.moveMapPosition(lat, lng)
+        val schoolPosition: Location = interactor.getMySchool()?.location ?: kotlin.run {
+            Location(MapInteractor.defaultLat, MapInteractor.defaultLng)
+        }
+
+        view.moveMapPosition(schoolPosition.latitude, schoolPosition.longitude)
         view.hideMapOption()
     }
 

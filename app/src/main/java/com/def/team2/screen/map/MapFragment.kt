@@ -195,24 +195,25 @@ class MapFragment: Fragment(), MapContract.View {
         schoolList.map {
             mapboxMap?.getStyle {style ->
                 // Todo 나중에 idol 정보를 이용해서 filtering 할 것
-                val iconBitmap = style.getImage(it.users.toString())
+                val imgUrl = when (it.users.toString()) {
+                    "1" -> imgUrl1
+                    "2" -> imgUrl2
+                    "3" -> imgUrl3
+                    else -> imgUrl1
+                }
+                val iconBitmap = style.getImage(imgUrl)
+
                 iconBitmap?.let {_ ->
-                    createSymbol(it, it.users.toString())
+                    createSymbol(it, imgUrl)
                 } ?: kotlin.run {
-                    val imgUrl = when (it.users.toString()) {
-                        "1" -> imgUrl1
-                        "2" -> imgUrl2
-                        "3" -> imgUrl3
-                        else -> imgUrl1
-                    }
 
                     Glide.with(context!!)
                         .asBitmap()
                         .load(imgUrl)
                         .into(object : CustomTarget<Bitmap>() {
                             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                style.addImage(it.users.toString(), resource)
-                                createSymbol(it, it.users.toString())
+                                style.addImage(imgUrl, resource)
+                                createSymbol(it, imgUrl)
                             }
 
                             override fun onLoadCleared(placeholder: Drawable?) {

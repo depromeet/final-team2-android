@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@android:color/black">
+
+    <FrameLayout
+        android:id="@+id/home_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/home_time_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/home_rank_btn_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19.2dp"
+        android:layout_marginTop="38.6dp"
+        android:fontFamily="@font/spoqahansansbold"
+        android:gravity="bottom"
+        android:includeFontPadding="false"
+        android:text="@string/str_rank_en"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/home_rank_btn_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/home_rank_btn_txt"
+        app:layout_constraintStart_toEndOf="@id/home_rank_btn_txt"
+        app:layout_constraintTop_toTopOf="@id/home_rank_btn_txt" />
+
+    <com.def.team2.screen.custom.VerticalTextView
+        android:id="@+id/home_map_btn_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/spoqahansanslight"
+        android:gravity="bottom"
+        android:includeFontPadding="false"
+        android:text="@string/str_idol"
+        android:textColor="@color/gray_b5b5b5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/home_rank_btn_txt"
+        app:layout_constraintTop_toBottomOf="@id/home_rank_btn_txt" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/home_search"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/selector_search" />
+
+
+    <View
+        android:id="@+id/home_time_view"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="#151515"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/home_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/spoqahansansregular"
+        android:text="@string/str_time_end_title"
+        android:textColor="#ff0000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/home_time_view"
+        app:layout_constraintEnd_toStartOf="@id/home_time_txt"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/home_time_view"
+        app:layout_constraintTop_toTopOf="@id/home_time_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/home_time_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqahansansbold"
+        android:textColor="#ff0000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/home_time_view"
+        app:layout_constraintEnd_toEndOf="@id/home_time_view"
+        app:layout_constraintStart_toEndOf="@id/home_time_title"
+        app:layout_constraintTop_toTopOf="@id/home_time_view"
+        tools:text="00:00:00" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/home_time_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="home_time_txt,home_time_title,home_time_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

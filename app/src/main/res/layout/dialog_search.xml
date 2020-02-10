@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="26dp"
+        android:id="@+id/search_dialog_close"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/search_dialog_title"
         android:layout_width="wrap_content"
@@ -13,7 +23,7 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="78dp"
         android:fontFamily="@font/spoqahansansbold"
-        android:text="검색"
+        android:text="@string/str_search_title"
         android:textColor="@android:color/white"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +38,7 @@
         android:layout_marginEnd="53.5dp"
         android:backgroundTint="#959dad"
         android:fontFamily="@font/spoqahansansregular"
-        android:hint="아이돌 or 학교"
+        android:hint="@string/str_idol_school_hint"
         android:lineSpacingExtra="20sp"
         android:maxLines="1"
         android:paddingTop="10dp"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.network.model.User
 import com.def.team2.screen.search.SearchFragment
 import com.def.team2.util.throttleClicks
 import io.reactivex.Observable
@@ -30,8 +31,10 @@ class ProfileSettingFragment : Fragment(), ProfileSettingContract.View {
         }
     }
 
-    override fun setSetting() {
-
+    override fun setSetting(user:User) {
+        profile_setting_name.setText(user.nickName)
+        profile_setting_email.setText(user.email)
+        profile_setting_school.text = user.schoolList[0].toString()
     }
 
 

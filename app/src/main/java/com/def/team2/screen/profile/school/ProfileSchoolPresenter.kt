@@ -1,5 +1,6 @@
 package com.def.team2.screen.profile.school
 
+import com.def.team2.base.UserData
 import io.reactivex.disposables.CompositeDisposable
 
 class ProfileSchoolPresenter(private val view: ProfileSchoolContract.View) : ProfileSchoolContract.Presenter {
@@ -10,6 +11,6 @@ class ProfileSchoolPresenter(private val view: ProfileSchoolContract.View) : Pro
     }
 
     override fun subscribeSchoolInfo() {
-//        view.setSchoolInfo() //TODO School Data Class 만들기
+
     }
 }

@@ -7,11 +7,15 @@ data class IdolGroup(
     val name: String,
 
     @Expose(serialize = true, deserialize = false)
-    val fans: Any,
+    val fans: List<User>,
     @Expose(serialize = true, deserialize = false)
-    val images: Any,
+    val images: List<Image>,
     @Expose(serialize = true, deserialize = false)
-    val members: Any,
-    @Expose(serialize = true, deserialize = false)
-    val users: Any
-)
+    val members: List<Idol>,
+    val ballots:List<Ballot>
+){
+    data class Image(
+        val id: Int,
+        val url: String
+    )
+}

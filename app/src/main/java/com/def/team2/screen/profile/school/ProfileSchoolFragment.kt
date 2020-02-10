@@ -32,6 +32,5 @@ class ProfileSchoolFragment : Fragment(),ProfileSchoolContract.View{
     override fun setSchoolInfo(school: School) {
         profile_school_name.text = school.name
         profile_school_address.text = school.address
-        //TODO 맵 정보 넣어야함
     }
 }

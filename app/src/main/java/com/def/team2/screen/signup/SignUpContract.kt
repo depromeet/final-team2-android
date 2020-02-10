@@ -2,7 +2,7 @@ package com.def.team2.screen.signup
 
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
-import com.def.team2.network.model.Idol
+import com.def.team2.network.model.IdolDto
 import com.def.team2.network.model.School
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -35,7 +35,7 @@ interface SignUpContract {
 
         val idol: CharSequence
 
-        val idolSelect: PublishSubject<Idol>
+        val idolSelect: PublishSubject<IdolDto>
 
         val idolChanges: Observable<CharSequence>
 
@@ -61,7 +61,7 @@ interface SignUpContract {
 
         fun setIdolText(idol: CharSequence)
 
-        fun addIdolList(idols: List<Idol>)
+        fun addIdolList(idols: List<IdolDto>)
 
         fun setIdolListVisible(active: Boolean)
 

@@ -10,16 +10,19 @@ interface SearchContract {
     interface View : BaseRxView<Presenter> {
 
         val schoolChanges: Observable<CharSequence>
+        val closeClick: Observable<Unit>
 
         fun getApiProvider(): Api
         fun setSearchResponse(data:List<Any>)
         fun adapterClear()
+        fun dismissDialog()
 
     }
 
     interface Presenter : BaseRxPresenter {
 
         fun subscribeSearch()
+        fun subscribeClose()
 
     }
 

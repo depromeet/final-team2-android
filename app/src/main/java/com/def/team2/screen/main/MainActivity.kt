@@ -32,6 +32,9 @@ class MainActivity : BaseActivity(), MainContract.View {
             start()
         }
         replaceFragment(MapFragment.newInstance())
+        supportFragmentManager.addOnBackStackChangedListener {
+
+        }
     }
 
     override fun clickBarRank() = main_bottom_bar_rank.throttleClicks()

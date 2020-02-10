@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.def.team2.base.UserData
 import com.def.team2.network.Api
-import com.def.team2.network.model.Idol
+import com.def.team2.network.model.IdolDto
 import com.def.team2.network.model.School
 import com.def.team2.network.model.SignUpRequest
 import com.def.team2.util.KEY_TOKEN
@@ -44,7 +44,7 @@ class SignUpInteractor(context: Context) {
             .onErrorResumeNext { Single.just(listOf()) }
             .subscribeOn(Schedulers.io())
 
-    fun getIdolList(keyword: String): Single<List<Idol>> =
+    fun getIdolList(keyword: String): Single<List<IdolDto>> =
         idolKingdomApi
             .searchIdolList(keyword)
             .onErrorResumeNext { Single.just(listOf()) }

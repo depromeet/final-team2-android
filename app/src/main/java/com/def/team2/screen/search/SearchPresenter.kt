@@ -18,6 +18,7 @@ class SearchPresenter(private val view: SearchContract.View, private val type: T
     override fun start() {
         currentType = type
         subscribeSearch()
+        subscribeClose()
     }
 
     override fun subscribeSearch() {
@@ -47,6 +48,11 @@ class SearchPresenter(private val view: SearchContract.View, private val type: T
                         it.printStackTrace()
                     })
                     .bindUntilClear()
+        }.bindUntilClear()
+    }
+    override fun subscribeClose() {
+        view.closeClick.subscribe {
+            view.dismissDialog()
         }.bindUntilClear()
     }
 }

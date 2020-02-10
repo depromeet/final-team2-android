@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
 import com.def.team2.util.idolKingdomApi
+import com.def.team2.util.throttleClicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.dialog_search.*
@@ -46,6 +47,11 @@ class SearchFragment(private val type: SearchPresenter.Type = SearchPresenter.Ty
         presenter = SearchPresenter(this, type).apply {
             start()
         }
+        search_dialog_edit.setHint(when (type) {
+            SearchPresenter.Type.ALL -> R.string.str_idol_school_hint
+            SearchPresenter.Type.IDOL -> R.string.str_idol_hint
+            SearchPresenter.Type.SCHOOL -> R.string.str_school_hint
+        })
     }
 
     override fun getApiProvider() = context!!.idolKingdomApi
@@ -56,7 +62,15 @@ class SearchFragment(private val type: SearchPresenter.Type = SearchPresenter.Ty
     override fun setSearchResponse(data: List<Any>) {
         adapter?.setData(data)
     }
+
     override fun adapterClear() {
         adapter?.clear()
+    }
+
+    override val closeClick: Observable<Unit>
+        get() = search_dialog_close.throttleClicks()
+
+    override fun dismissDialog() {
+        dismiss()
     }
 }

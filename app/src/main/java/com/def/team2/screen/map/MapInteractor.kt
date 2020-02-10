@@ -9,8 +9,9 @@ import android.location.LocationManager
 import android.os.Build
 import com.def.team2.base.UserData
 import com.def.team2.network.Api
-import com.def.team2.network.model.IdolGroup
+import com.def.team2.network.model.Idol
 import com.def.team2.network.model.Location
+import com.def.team2.network.model.RankResponse
 import com.def.team2.network.model.School
 import com.def.team2.util.idolKingdomApi
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
@@ -38,13 +39,6 @@ class MapInteractor(private val context: Context) {
             location = Location(defaultLat, defaultLng)
         }
     }
-
-
-    /*
-    2020-02-10 00:52:26.882 24287-24287/com.def.team2 E/position check!: latitude: 37.502341, longitude: 127.04779400000002
-    2020-02-10 00:52:26.883 24287-24287/com.def.team2 E/center check!: latitude: 37.53778847169898, longitude: 127.04779399998651
-    2020-02-10 00:52:26.884 24287-24287/com.def.team2 E/nsew check!: south: 37.240812937285426, north: 37.834764006112536, west: 126.76647049225079 , east: 127.32911750772223
-    */
 
     fun addSchoolLevel(level: School.Level) {
         schoolSet.add(level)
@@ -103,9 +97,39 @@ class MapInteractor(private val context: Context) {
         }
     }
 
-    fun getIdolRankInSchool(): Flowable<List<IdolGroup>> {
+    fun getIdolRankInSchool(schoolId: Long): Flowable<List<RankResponse.Rank>> {
+//        return idolKingdomApi.getSchoolRanking(schoolId)
+//            .map { it.ranks }
+//            .toFlowable()
+//            .subscribeOn(Schedulers.io())
+
         return Flowable.just(
-            mutableListOf()
+            listOf(
+                RankResponse.Rank(
+                    Idol(-1,
+                        "방탄소년단",
+                        listOf("https://img.sbs.co.kr/newsnet/etv/upload/2019/04/17/30000626415_700.jpg"),
+                        listOf()
+                    ),
+                    listOf(1,2,3,4,5,6,6,7,8,4,1,1,2,3,4,5,6,6,7,8,4,1)
+                ),
+                RankResponse.Rank(
+                    Idol(-1,
+                        "레드벨벳",
+                        listOf("https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BBLqut9.img?h=0&w=720&m=6&q=60&u=t&o=f&l=f&x=265&y=329"),
+                        listOf()
+                    ),
+                    listOf(1,2,3,4,5,6,6,7,8,4,1,1,2,3,4,5,6,6,7,8,4,1,1,2,3,4,5,6,6,7,8,4,1)
+                ),
+                RankResponse.Rank(
+                    Idol(-1,
+                        "아이유",
+                        listOf("https://pds.joins.com/news/component/htmlphoto_mmdata/201910/21/htm_2019102182027833808.jpg"),
+                        listOf()
+                    ),
+                    listOf(1,2,3,4,5,6,6,7,8,4)
+                )
+            )
         )
     }
 
@@ -131,3 +155,10 @@ class MapInteractor(private val context: Context) {
         const val defaultLng = 126.976504
     }
 }
+
+
+/*
+2020-02-10 00:52:26.882 24287-24287/com.def.team2 E/position check!: latitude: 37.502341, longitude: 127.04779400000002
+2020-02-10 00:52:26.883 24287-24287/com.def.team2 E/center check!: latitude: 37.53778847169898, longitude: 127.04779399998651
+2020-02-10 00:52:26.884 24287-24287/com.def.team2 E/nsew check!: south: 37.240812937285426, north: 37.834764006112536, west: 126.76647049225079 , east: 127.32911750772223
+*/

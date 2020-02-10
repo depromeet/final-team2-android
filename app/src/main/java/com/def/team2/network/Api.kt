@@ -14,7 +14,7 @@ interface Api {
     fun checkEmailDuplicated(@Body checkEmailRequest: Map<String, String>): Completable
 
     @GET("api/school")
-    fun getSchool(@Query("schoolId") schoolId: Long): Single<School>
+    fun getSchool(@Query("schoolIds") schoolIds: List<Long>): Single<List<School>>
 
     @GET("/api/school/nearby")
     fun getNearSchoolList(@Query("start_y") south: Double,
@@ -26,6 +26,9 @@ interface Api {
     @GET("/api/school/search")
     fun searchSchoolList(@Query("query") schoolName: String,
                          @Query("size") pageSize: Int): Single<List<School>>
+
+    @GET("api/school/rank")
+    fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<RankResponse>
 
     @GET("/api/idol/search")
     fun searchIdolList(@Query("query") idolName: String): Single<List<Idol>>
@@ -41,6 +44,9 @@ interface Api {
 
     @GET("/api/vote")
     fun getVote(): Single<List<VoteResponse>>
+
+    @GET("api/vote/ballots")
+    fun getBallots(@Query("ballotIds") ballotIds: List<Long>): Single<List<BallotResponse>>
 
     @GET("/api/me")
     fun getMe(): Single<User>

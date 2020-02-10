@@ -19,8 +19,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.def.team2.R
-import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
+import com.def.team2.screen.map.model.RankIdol
 import com.def.team2.util.REQ_CODE_ACCESS_LOCATION
 import com.def.team2.util.toast
 import com.google.gson.Gson
@@ -47,7 +47,11 @@ class MapFragment: Fragment(), MapContract.View {
     private var mapboxMap: MapboxMap? = null
     private var symbolManager: SymbolManager? = null
 
-    private val tempImgUrl = "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BBLqut9.img?h=0&w=720&m=6&q=60&u=t&o=f&l=f&x=265&y=329"
+    private val idolMapAdapter by lazy {
+        IdolMapAdapter {
+            presenter.openRankingInSchool(it.schoolId)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,11 +106,7 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     private fun initIdolRankView() {
-        vp_map_idol.adapter = IdolMapAdapter {
-            presenter.removeIdolRankInSchool()
-        }.apply {
-            setItems(listOf(tempImgUrl, tempImgUrl, tempImgUrl))
-        }
+        vp_map_idol.adapter = idolMapAdapter
         vp_map_idol.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         fl_map_idol_background.setOnClickListener {
             presenter.removeIdolRankInSchool()
@@ -289,12 +289,14 @@ class MapFragment: Fragment(), MapContract.View {
             }
     }
 
-    override fun showSchoolIdolRank(school: School, idolGroupList: List<IdolGroup>) {
+    override fun showSchoolIdolRank(rankIdolList: List<RankIdol>) {
+        idolMapAdapter.setItems(rankIdolList)
         fl_map_idol_background.visibility = View.VISIBLE
     }
 
     override fun hideSchoolIdolRank() {
         fl_map_idol_background.visibility = View.GONE
+        idolMapAdapter.setItems(listOf())
     }
 
     override fun showTotalIdolRank() {

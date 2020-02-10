@@ -2,7 +2,10 @@ package com.def.team2.screen.map
 
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
+import com.def.team2.screen.map.model.RankIdol
+import com.def.team2.util.e
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class MapPresenter(
@@ -84,7 +87,31 @@ class MapPresenter(
     }
 
     override fun loadIdolRankInSchool(school: School) {
-        view.showSchoolIdolRank(school, listOf())
+        interactor.getIdolRankInSchool(school.id)
+            .map { rankList ->
+                rankList.sortedByDescending { it.ballotIds.size }
+                    .take(3)
+                    .mapIndexed { index, rank ->
+                        RankIdol(school.id,
+                            index + 1,
+                            rank.idol.name,
+                            rank.idol.images.firstOrNull(),
+                            school.name,
+                            school.address)
+                    }
+            }.observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                view.showSchoolIdolRank(it)
+            }, { e ->
+                e("failed to load rank idol in school, error: " + e.message)
+                view.showToast("학교 아이돌 랭킹을 가져오는 데 실패했습니다.")
+            }).bindUntilClear()
+    }
+
+    override fun openRankingInSchool(schoolId: Long) {
+        view.hideSchoolIdolRank()
+
+        // Todo Ranking view 열 것
     }
 
     override fun removeIdolRankInSchool() {

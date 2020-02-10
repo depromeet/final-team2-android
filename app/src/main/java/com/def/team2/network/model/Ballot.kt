@@ -5,3 +5,11 @@ data class BallotRequest(
     val idolId:String,
     val voteId:String
 )
+
+data class BallotResponse(
+    val id: Long,
+    val date: String,
+    val user: Long,
+    val vote: Long,
+    val idol: IdolGroupResponse
+)

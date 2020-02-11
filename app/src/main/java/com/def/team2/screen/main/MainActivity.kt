@@ -31,7 +31,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         presenter = MainPresenter(this@MainActivity).apply {
             start()
         }
-        replaceFragment(MapFragment.newInstance())
+        replaceFragment(HomeFragment.newInstance())
         supportFragmentManager.addOnBackStackChangedListener {
 
         }
@@ -47,7 +47,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun changeBar(status: MainContract.View.Status) {
         when (status) {
             MainContract.View.Status.RANK -> {
-                replaceFragment(MapFragment.newInstance())
+                replaceFragment(HomeFragment.newInstance())
                 main_bottom_bar.background = ColorDrawable(Color.WHITE)
                 main_bottom_bar_rank_icon.setImageResource(R.drawable.selector_black_rank_ic)
                 main_bottom_bar_chat_icon.setImageResource(R.drawable.selector_black_chat_ic)

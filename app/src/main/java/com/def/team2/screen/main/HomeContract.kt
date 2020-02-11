@@ -9,19 +9,22 @@ interface HomeContract {
     interface View : BaseRxView<Presenter> {
 
         enum class Type{
-            BLACK,WHITE
+            MAP,RANK
         }
 
         val rankClick: Observable<Unit>
         val mapClick: Observable<Unit>
+        val searchClcik: Observable<Unit>
 
         fun changeType(type:Type)
-
+        fun updateDate(date:String)
+        fun shpwSearchDialog()
     }
 
     interface Presenter : BaseRxPresenter {
 
         fun subscribeClick()
+        fun subscribeTime()
 
     }
 

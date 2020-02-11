@@ -18,7 +18,7 @@ class ProfileSettingPresenter(private val view: ProfileSettingContract.View) :
     }
 
     override fun subscribeSetting() {
-        view.setSetting() // TODO setting
+
     }
 
     override fun subscribeEdit() {

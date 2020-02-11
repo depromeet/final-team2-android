@@ -19,6 +19,10 @@ import kotlinx.android.synthetic.main.fragment_rank.*
 
 class RankFragment : Fragment(), RankContract.View {
 
+    companion object {
+        fun newInstance() = RankFragment()
+    }
+
     override lateinit var lifeCycleOwner: LifecycleOwner
     override lateinit var presenter: RankContract.Presenter
 
@@ -62,21 +66,9 @@ class RankFragment : Fragment(), RankContract.View {
         })
     }
 
-    override fun updateTime(date: String) {
-        rank_time_txt.text = date
-    }
-
     override fun updateVote(data: RankAdapter.Item) {
         adapter.updateItem(data)
     }
 
     override fun getApiProvider(): Api = context!!.idolKingdomApi
-    override val mapClick: Observable<Unit>
-        get() = rank_map_btn_txt.throttleClicks()
-    override val searchClick: Observable<Unit>
-        get() = rank_search.throttleClicks()
-
-    override fun showSearchDialog() {
-        SearchFragment(SearchPresenter.Type.IDOL).show(childFragmentManager, "")
-    }
 }

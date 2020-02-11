@@ -23,7 +23,7 @@
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:text="@string/str_rank_en"
-        android:textColor="@android:color/white"
+        android:textColor="@color/selector_black_menu_txt"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,10 +47,20 @@
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:text="@string/str_idol"
-        android:textColor="@color/gray_b5b5b5"
+        android:textColor="@color/selector_map_menu_txt"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/home_rank_btn_txt"
         app:layout_constraintTop_toBottomOf="@id/home_rank_btn_txt" />
+
+    <View
+        android:id="@+id/home_map_btn_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/home_map_btn_txt"
+        app:layout_constraintStart_toEndOf="@id/home_map_btn_txt"
+        app:layout_constraintTop_toTopOf="@id/home_map_btn_txt" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/home_search"

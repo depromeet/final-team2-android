@@ -1,9 +1,9 @@
 package com.def.team2.network.model
 
 data class BallotRequest(
-    val userId:String,
-    val idolId:String,
-    val voteId:String
+    val userId:Long,
+    val idolId:Long,
+    val voteId:Long
 )
 
 data class Ballot (

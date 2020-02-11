@@ -4,14 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.screen.map.MapFragment
+import com.def.team2.screen.rank.RankFragment
+import com.def.team2.screen.search.SearchFragment
+import com.def.team2.screen.search.SearchPresenter
 import com.def.team2.util.throttleClicks
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment(),HomeContract.View{
+class HomeFragment : Fragment(), HomeContract.View {
+
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
 
     override lateinit var lifeCycleOwner: LifecycleOwner
     override lateinit var presenter: HomeContract.Presenter
@@ -33,9 +43,41 @@ class HomeFragment : Fragment(),HomeContract.View{
         get() = home_map_btn_txt.throttleClicks()
 
     override fun changeType(type: HomeContract.View.Type) {
-        when(type){
-            HomeContract.View.Type.WHITE -> {}
-            HomeContract.View.Type.BLACK -> {}
+        val bold = ResourcesCompat.getFont(requireContext(), R.font.spoqahansansbold)
+        val light = ResourcesCompat.getFont(requireContext(), R.font.spoqahansanslight)
+        when (type) {
+            HomeContract.View.Type.RANK -> {
+                home_rank_btn_txt.typeface = bold
+                home_map_btn_txt.typeface = light
+                replaceFragment(RankFragment.newInstance())
+            }
+            HomeContract.View.Type.MAP -> {
+                home_rank_btn_txt.typeface = light
+                home_map_btn_txt.typeface = bold
+                replaceFragment(MapFragment.newInstance())
+            }
         }
+        home_map_btn_txt.isSelected = type == HomeContract.View.Type.MAP
+        home_map_btn_line.isVisible = type == HomeContract.View.Type.MAP
+
+        home_rank_btn_txt.isSelected = type == HomeContract.View.Type.RANK
+        home_rank_btn_line.isVisible = type == HomeContract.View.Type.RANK
+    }
+
+    override val searchClcik: Observable<Unit>
+        get() = home_search.throttleClicks()
+
+    override fun updateDate(date: String) {
+        home_time_txt.text = date
+    }
+
+    override fun shpwSearchDialog() {
+        SearchFragment(SearchPresenter.Type.IDOL).show(childFragmentManager, "")
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = childFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.profile_fragment, fragment).commit()
     }
 }

@@ -63,7 +63,8 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        lifeCycleOwner = this
+        setLifecycle()
         presenter = MapPresenter(this, MapInteractor(context!!))
 
         initMap(savedInstanceState)

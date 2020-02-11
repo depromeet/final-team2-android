@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
 import com.def.team2.base.BaseActivity
+import com.def.team2.screen.chatlist.ChatListFragment
 import com.def.team2.screen.map.MapFragment
 import com.def.team2.screen.profile.ProfileFragment
 import com.def.team2.util.sharedPreferences
@@ -44,7 +45,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun changeBar(status: MainContract.View.Status) {
         when (status) {
             MainContract.View.Status.RANK -> {
-                replaceFragment(MapFragment.newInstance())
                 main_bottom_bar.background = ColorDrawable(Color.WHITE)
                 main_bottom_bar_rank_icon.setImageResource(R.drawable.selector_black_rank_ic)
                 main_bottom_bar_chat_icon.setImageResource(R.drawable.selector_black_chat_ic)
@@ -56,6 +56,8 @@ class MainActivity : BaseActivity(), MainContract.View {
                 main_bottom_bar_rank_icon.isSelected = true
                 main_bottom_bar_chat_icon.isSelected = false
                 main_bottom_bar_my_icon.isSelected = false
+
+                replaceFragment(MapFragment.newInstance())
             }
             MainContract.View.Status.CHAT -> {
                 main_bottom_bar.background = ColorDrawable(Color.BLACK)
@@ -69,6 +71,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 main_bottom_bar_rank_icon.isSelected = false
                 main_bottom_bar_chat_icon.isSelected = true
                 main_bottom_bar_my_icon.isSelected = false
+                replaceFragment(ChatListFragment.newInstance())
             }
             MainContract.View.Status.PROFILE -> {
                 main_bottom_bar.background = ColorDrawable(Color.BLACK)

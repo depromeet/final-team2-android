@@ -11,7 +11,11 @@ interface ChatListContract {
 
         fun showChatList(chatListInfos: List<ChatListInfo>)
 
+        fun setVisibilityDefaultError(isActive: Boolean)
+
         fun showChatRoomUI(idolId: Long)
+
+        fun showSearchUI()
 
         fun showVotePopUp()
 
@@ -20,12 +24,14 @@ interface ChatListContract {
 
     interface Presenter: BaseRxPresenter {
 
+        fun openSearchIdol()
+
         fun loadChatList()
 
         fun updateChatList()
 
         fun voteIdol(idolId: Long)
 
-        fun openChatRoom(idolId: Long)
+        fun openChatRoom(chatListInfo: ChatListInfo)
     }
 }

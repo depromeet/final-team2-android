@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.viewpager2.widget.ViewPager2
 import com.def.team2.R
 import com.def.team2.screen.chatlist.model.ChatListInfo
+import com.def.team2.util.toast
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 
 class ChatListFragment : Fragment(), ChatListContract.View {
@@ -35,19 +36,22 @@ class ChatListFragment : Fragment(), ChatListContract.View {
         initViewPager()
 
         iv_chat_list_search.setOnClickListener {
-            // Todo search view 로 이동
+            presenter.openSearchIdol()
         }
     }
 
-    private fun initViewPager() {
-        vp_chat_list_idol.adapter = ChatListAdapter({
-            // Todo presenter 에 chatting room 으로 가라고 요청!!
+    private val chatListAdapter: ChatListAdapter by lazy {
+        ChatListAdapter({
+            presenter.openChatRoom(it)
         }, {
-            // Todo presenter 에 투표해달라고 요청!!
-        }).apply {
-            // Todo presenter 에 데이터 달라고 요청!!!
-        }
+            presenter.voteIdol(it)
+        })
+    }
+
+    private fun initViewPager() {
+        vp_chat_list_idol.adapter = chatListAdapter
         vp_chat_list_idol.orientation = ViewPager2.ORIENTATION_VERTICAL
+        presenter.loadChatList()
     }
 
     override fun onResume() {
@@ -61,18 +65,36 @@ class ChatListFragment : Fragment(), ChatListContract.View {
     }
 
     override fun showChatList(chatListInfos: List<ChatListInfo>) {
+        chatListAdapter.setItems(chatListInfos)
+    }
 
+    override fun setVisibilityDefaultError(isActive: Boolean) {
+        tv_chat_list_default.visibility = if (isActive) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     override fun showChatRoomUI(idolId: Long) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override fun showSearchUI() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showVotePopUp() {
-
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showToast(msg: String) {
+        context?.toast(msg)
+    }
 
+    companion object {
+        const val TAG = "FRAGMENT_MAP"
+
+        fun newInstance() = ChatListFragment()
     }
 }

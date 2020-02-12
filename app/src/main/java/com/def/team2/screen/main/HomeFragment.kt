@@ -78,6 +78,6 @@ class HomeFragment : Fragment(), HomeContract.View {
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = childFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.profile_fragment, fragment).commit()
+        fragmentTransaction.replace(R.id.home_fragment, fragment).commit()
     }
 }

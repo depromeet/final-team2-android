@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_chat_room_left_content"
+        android:id="@+id/tv_chat_room_right_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
@@ -24,7 +24,7 @@
         tools:text="제목없이 본문 가나다라마바사가나다라마바사가나다라마바사가나다라마바사가가나다라마바사 가나다라마바사가나다라마바사가나다라마바사가나다라마바사가 나다라마바사가나다라마바사가" />
 
     <TextView
-        android:id="@+id/tv_chat_room_left_time"
+        android:id="@+id/tv_chat_room_right_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10sp"
@@ -35,15 +35,15 @@
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_chat_room_left_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_chat_room_right_content"
         tools:text="1:23 PM" />
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_chat_room_left_time"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_chat_room_right_time"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

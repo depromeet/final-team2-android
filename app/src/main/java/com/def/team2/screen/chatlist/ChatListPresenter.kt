@@ -39,6 +39,6 @@ class ChatListPresenter(
     }
 
     override fun openChatRoom(chatListInfo: ChatListInfo) {
-
+        view.showChatRoomUI(chatListInfo)
     }
 }

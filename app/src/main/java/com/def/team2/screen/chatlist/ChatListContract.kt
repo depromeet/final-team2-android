@@ -13,7 +13,7 @@ interface ChatListContract {
 
         fun setVisibilityDefaultError(isActive: Boolean)
 
-        fun showChatRoomUI(idolId: Long)
+        fun showChatRoomUI(chatListInfo: ChatListInfo)
 
         fun showSearchUI()
 

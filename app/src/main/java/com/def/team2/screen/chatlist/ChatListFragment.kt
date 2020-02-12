@@ -1,5 +1,6 @@
 package com.def.team2.screen.chatlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.viewpager2.widget.ViewPager2
 import com.def.team2.R
 import com.def.team2.screen.chatlist.model.ChatListInfo
+import com.def.team2.screen.chatroom.ChatRoomActivity
+import com.def.team2.util.EXTRA_IDOL_IMAGE_URL
+import com.def.team2.util.EXTRA_IDOL_NAME
+import com.def.team2.util.EXTRA_IDOL_id
 import com.def.team2.util.toast
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 
@@ -76,8 +81,14 @@ class ChatListFragment : Fragment(), ChatListContract.View {
         }
     }
 
-    override fun showChatRoomUI(idolId: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showChatRoomUI(chatListInfo: ChatListInfo) {
+        activity?.let {
+            val intent = Intent(it, ChatRoomActivity::class.java)
+            intent.putExtra(EXTRA_IDOL_id, chatListInfo.id)
+            intent.putExtra(EXTRA_IDOL_NAME, chatListInfo.name)
+            intent.putExtra(EXTRA_IDOL_IMAGE_URL, chatListInfo.imgUrl)
+            startActivity(intent)
+        }
     }
 
     override fun showSearchUI() {

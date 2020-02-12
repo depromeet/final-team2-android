@@ -12,6 +12,8 @@ interface ChatRoomContract {
 
         fun addNextCommentList(chatRoomComment: List<ChatRoomComment>)
 
+        fun deleteSendedCommentText()
+
         fun showToast(msg: String)
     }
 

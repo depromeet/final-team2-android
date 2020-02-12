@@ -62,7 +62,7 @@ class ChatRoomActivity : BaseActivity(), ChatRoomContract.View {
         }
 
         iv_chat_room_comment_send.setOnClickListener {
-
+            presenter.addComment(et_chat_room_comment.text.toString())
         }
     }
 
@@ -72,6 +72,10 @@ class ChatRoomActivity : BaseActivity(), ChatRoomContract.View {
 
     override fun addNextCommentList(chatRoomComment: List<ChatRoomComment>) {
         chatRoomCommentAdapter.setNextItems(chatRoomComment)
+    }
+
+    override fun deleteSendedCommentText() {
+        et_chat_room_comment.setText("")
     }
 
     override fun showToast(msg: String) {

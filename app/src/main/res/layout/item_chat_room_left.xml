@@ -11,7 +11,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         app:cardBackgroundColor="@android:color/black"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="32dp"
         app:cardElevation="0dp"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintHorizontal_bias="0"
@@ -23,6 +23,7 @@
             android:id="@+id/iv_chat_room_left_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:src="@drawable/icon_default_chat_profile"
             />
 

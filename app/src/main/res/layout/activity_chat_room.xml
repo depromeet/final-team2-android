@@ -85,6 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/barrier_chat_room_title">
 
         <EditText
+            android:id="@+id/et_chat_room_comment"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"

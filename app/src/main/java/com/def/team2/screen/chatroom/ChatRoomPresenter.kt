@@ -34,6 +34,8 @@ class ChatRoomPresenter(
     }
 
     override fun addComment(comment: String) {
+        view.deleteSendedCommentText()
+
         view.showToast("임시로 '$comment' 보내기 성공함")
     }
 }

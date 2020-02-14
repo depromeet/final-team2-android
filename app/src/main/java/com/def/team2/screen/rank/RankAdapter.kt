@@ -16,7 +16,7 @@ class RankAdapter(private val callback: Callback) : RecyclerView.Adapter<BaseVie
 
     interface Callback {
         fun requestVote(data: RankAdapter.Item)
-        fun entranceCommunity(data: IdolGroup)
+        fun entranceCommunity(data: IdolGroupResponse)
     }
 
     enum class ViewType {
@@ -57,7 +57,7 @@ class RankAdapter(private val callback: Callback) : RecyclerView.Adapter<BaseVie
         constructor(parent: ViewGroup) : this(parent.inflate(R.layout.item_rank_first, false))
 
         override fun onDataBind(data: Any?) {
-            if (data !is IdolGroupResponse) return
+            if (data !is IdolGroup) return
             item_rank_first_vote_txt.text = data.currentBallots.size.toString()
             item_rank_first_name_txt.text = data.name
         }
@@ -68,7 +68,7 @@ class RankAdapter(private val callback: Callback) : RecyclerView.Adapter<BaseVie
         constructor(parent: ViewGroup) : this(parent.inflate(R.layout.item_rank, false))
 
         override fun onDataBind(data: Any?) {
-            if (data !is IdolGroupResponse) return
+            if (data !is IdolGroup) return
             item_rank_vote_txt.text = data.currentBallots.size.toString()
             item_rank_name_txt.text = data.name
             item_rank_img.imageLoad(data.images[1])
@@ -80,8 +80,8 @@ class RankAdapter(private val callback: Callback) : RecyclerView.Adapter<BaseVie
     }
 
     data class Item(
-            val data: IdolGroupResponse,
-            val viewType: ViewType
+        val data: IdolGroup,
+        val viewType: ViewType
     )
 
 }

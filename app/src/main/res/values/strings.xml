@@ -17,5 +17,6 @@
     <string name="str_idol_hint">아이돌</string>
     <string name="str_rank_en">Rank</string>
     <string name="str_time_end_title">투표마감</string>
-
+    <string name="str_current_rank">%d위</string>
+    <string name="str_map">Map</string>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:fontFamily="@font/spoqahansanslight"
-        android:text="2위"
+        tools:text="2위"
         android:textColor="@android:color/white"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@id/item_rank_img"

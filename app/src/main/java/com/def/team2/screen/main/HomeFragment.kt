@@ -62,6 +62,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
         home_rank_btn_txt.isSelected = type == HomeContract.View.Type.RANK
         home_rank_btn_line.isVisible = type == HomeContract.View.Type.RANK
+        home_search.isVisible  = type == HomeContract.View.Type.RANK
     }
 
     override val searchClcik: Observable<Unit>

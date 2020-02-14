@@ -33,20 +33,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp"/>
+        app:layout_constraintGuide_begin="@dimen/home_tap_start_margin"/>
 
     <com.def.team2.screen.custom.VerticalTextView
         android:id="@+id/vertical_tv_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rank"
+        android:text="@string/str_rank_en"
         android:textSize="18sp"
         android:textColor="#b5b5b5"
-        android:lineSpacingExtra="6sp"
         android:fontFamily="@font/spoqahansanslight"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/home_tap_rank_top_margin"
         android:includeFontPadding="false"
         android:gravity="bottom"
+        android:visibility="invisible"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintTop_toTopOf="parent"
@@ -61,16 +61,16 @@
         android:id="@+id/vertical_tv_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Map"
+        android:text="@string/str_map"
         android:textSize="18sp"
         android:textColor="#000000"
-        android:lineSpacingExtra="6sp"
         android:fontFamily="@font/spoqahansansbold"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="@dimen/home_tap_map_top_margin"
         android:includeFontPadding="false"
         android:gravity="bottom"
         android:paddingBottom="0dp"
         android:paddingTop="0dp"
+        android:visibility="invisible"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintTop_toBottomOf="@+id/vertical_tv_rank"
@@ -79,17 +79,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:direction="down_to_up"
         />
-
-    <View
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:background="#000000"
-        android:layout_marginStart="1dp"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintBottom_toBottomOf="@+id/vertical_tv_map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/vertical_tv_map"
-        app:layout_constraintTop_toTopOf="@+id/vertical_tv_map" />
 
     <View
         android:id="@+id/view_tap_boundary"
@@ -131,6 +120,45 @@
         app:layout_constraintStart_toStartOf="@+id/gl_start"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/ll_map_deadline"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/deadline_bottom_margin"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/str_time_end_title"
+            android:textSize="15sp"
+            android:textColor="#ff0000"
+            android:lineSpacingExtra="8sp"
+            android:gravity="center"
+            android:fontFamily="@font/spoqahansansregular"/>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_map_deadline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="17sp"
+            android:textColor="#ff0000"
+            android:letterSpacing="0.05"
+            android:lineSpacingExtra="6sp"
+            android:gravity="center"
+            android:fontFamily="@font/spoqahansansbold"
+            tools:text="00:00:00"/>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/iv_map_shadow"
         android:layout_width="wrap_content"
@@ -149,8 +177,9 @@
         android:id="@+id/map_option_tab"
         android:layout_width="0dp"
         android:layout_height="56dp"
+        android:layout_marginBottom="@dimen/deadline_bottom_margin"
         app:layout_constraintVertical_bias="1"
-        app:layout_constraintBottom_toTopOf="@+id/ll_map_deadline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -194,45 +223,6 @@
 
 
     </com.def.team2.screen.map.MapOptionTab>
-
-    <LinearLayout
-        android:id="@+id/ll_map_deadline"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintVertical_bias="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="투표마감"
-            android:textSize="15sp"
-            android:textColor="#ff0000"
-            android:lineSpacingExtra="8sp"
-            android:gravity="center"
-            android:fontFamily="@font/spoqahansansregular"/>
-
-        <View
-            android:layout_width="10dp"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/tv_map_deadline"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="00:00:00"
-            android:textSize="17sp"
-            android:textColor="#ff0000"
-            android:letterSpacing="0.05"
-            android:lineSpacingExtra="6sp"
-            android:gravity="center"
-            android:fontFamily="@font/spoqahansansbold"/>
-    </LinearLayout>
 
     <!--  filter 부분  -->
 

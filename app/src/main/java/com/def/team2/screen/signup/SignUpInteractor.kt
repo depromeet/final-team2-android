@@ -40,7 +40,7 @@ class SignUpInteractor(context: Context) {
 
     fun getSchoolList(keyword: String): Single<List<School>> =
         idolKingdomApi
-            .searchSchoolList(keyword)
+            .searchSchoolList(keyword, 5)
             .onErrorResumeNext { Single.just(listOf()) }
             .subscribeOn(Schedulers.io())
 

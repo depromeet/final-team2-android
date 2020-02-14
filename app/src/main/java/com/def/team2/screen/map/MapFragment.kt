@@ -1,5 +1,7 @@
 package com.def.team2.screen.map
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -17,8 +19,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.def.team2.R
-import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
+import com.def.team2.screen.map.model.RankIdol
+import com.def.team2.util.REQ_CODE_ACCESS_LOCATION
+import com.def.team2.util.toast
 import com.google.gson.Gson
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
@@ -43,7 +47,11 @@ class MapFragment: Fragment(), MapContract.View {
     private var mapboxMap: MapboxMap? = null
     private var symbolManager: SymbolManager? = null
 
-    private val tempImgUrl = "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BBLqut9.img?h=0&w=720&m=6&q=60&u=t&o=f&l=f&x=265&y=329"
+    private val idolMapAdapter by lazy {
+        IdolMapAdapter {
+            presenter.openRankingInSchool(it.schoolId)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +63,8 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        lifeCycleOwner = this
+        setLifecycle()
         presenter = MapPresenter(this, MapInteractor(context!!))
 
         initMap(savedInstanceState)
@@ -85,28 +94,20 @@ class MapFragment: Fragment(), MapContract.View {
                         }
                     }
                 }
+
+                mapboxMap.addOnCameraIdleListener {
+                    val position = mapboxMap.cameraPosition.target
+                    val boundBox = mapboxMap.projection.visibleRegion.latLngBounds
+                    presenter.updateMapPosition(position.latitude, position.longitude, boundBox, true)
+                }
             }
 
-            presenter.loadSchoolList()
-
-            val position = CameraPosition.Builder()
-                .target(LatLng(37.502341, 127.047794))
-                .zoom(9.0)
-                .tilt(20.0)
-                .build()
-
-            mapboxMap.animateCamera(
-                CameraUpdateFactory
-                    .newCameraPosition(position), 2000)
+            presenter.loadMySchool()
         }
     }
 
     private fun initIdolRankView() {
-        vp_map_idol.adapter = IdolMapAdapter {
-            presenter.removeIdolRankInSchool()
-        }.apply {
-            setItems(listOf(tempImgUrl, tempImgUrl, tempImgUrl))
-        }
+        vp_map_idol.adapter = idolMapAdapter
         vp_map_idol.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         fl_map_idol_background.setOnClickListener {
             presenter.removeIdolRankInSchool()
@@ -186,30 +187,34 @@ class MapFragment: Fragment(), MapContract.View {
         val imgUrl1 = "https://upload.wikimedia.org/wikipedia/commons/6/60/TWICE_LOGO.png"
         val imgUrl2 = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/BTS_logo_%282017%29.png/200px-BTS_logo_%282017%29.png"
         val imgUrl3 = "https://upload.wikimedia.org/wikipedia/commons/a/a2/Exo-logo-v-neck_design2.jpg"
+
+
+        // refresh symbol
+        symbolManager?.deleteAll()
+
+        // make symbol
         schoolList.map {
-
-            // Todo 나중에 idol 정보를 이용해서 filtering 할 것
             mapboxMap?.getStyle {style ->
-
-                val iconBitmap = style.getImage(it.users.toString())
+                // Todo 나중에 idol 정보를 이용해서 filtering 할 것
+                val imgUrl = when (it.users.toString()) {
+                    "1" -> imgUrl1
+                    "2" -> imgUrl2
+                    "3" -> imgUrl3
+                    else -> imgUrl1
+                }
+                val iconBitmap = style.getImage(imgUrl)
 
                 iconBitmap?.let {_ ->
-                    createSymbol(it, it.users.toString())
+                    createSymbol(it, imgUrl)
                 } ?: kotlin.run {
-                    val imgUrl = when (it.users.toString()) {
-                        "1" -> imgUrl1
-                        "2" -> imgUrl2
-                        "3" -> imgUrl3
-                        else -> imgUrl1
-                    }
 
                     Glide.with(context!!)
                         .asBitmap()
                         .load(imgUrl)
                         .into(object : CustomTarget<Bitmap>() {
                             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                style.addImage(it.users.toString(), resource)
-                                createSymbol(it, it.users.toString())
+                                style.addImage(imgUrl, resource)
+                                createSymbol(it, imgUrl)
                             }
 
                             override fun onLoadCleared(placeholder: Drawable?) {
@@ -286,16 +291,48 @@ class MapFragment: Fragment(), MapContract.View {
             }
     }
 
-    override fun showSchoolIdolRank(school: School, idolGroupList: List<IdolGroup>) {
+    override fun showSchoolIdolRank(rankIdolList: List<RankIdol>) {
+        idolMapAdapter.setItems(rankIdolList)
         fl_map_idol_background.visibility = View.VISIBLE
     }
 
     override fun hideSchoolIdolRank() {
         fl_map_idol_background.visibility = View.GONE
+        idolMapAdapter.setItems(listOf())
     }
 
     override fun showTotalIdolRank() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    override fun showToast(msg: String) {
+        context?.toast(msg)
+    }
+
+    override fun showLocationPermissionUI() {
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+            REQ_CODE_ACCESS_LOCATION
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQ_CODE_ACCESS_LOCATION -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+
+                    presenter.loadMyLocation()
+                } else {
+                    showToast("위치 기능을 허용하지 않았습니다.")
+                }
+            }
+        }
     }
 
     companion object {

@@ -186,6 +186,7 @@ class MapOptionTab @JvmOverloads constructor(
 
         linearGradient?.run {
             paint.shader = this
+            paint.setShadowLayer(0f, 0f, 0f, Color.parseColor("#41000000"))
         }
 
 //        Log.e("Position", "LEFT: ${button[LEFT]}, TOP: ${button[TOP]}, RIGHT: ${button[RIGHT]}, BOTTOM: ${button[BOTTOM]}")

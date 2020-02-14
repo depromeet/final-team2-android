@@ -21,7 +21,7 @@ class ProfileSchoolPresenter(private val view: ProfileSchoolContract.View) : Pro
 
     fun subscribeSearch() {
         val search = "B"
-        Single.zip(listOf(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search)))
+        Single.zip(listOf(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search, 5)))
         {
             val list = mutableListOf<String>()
             it.forEachIndexed { index, any ->

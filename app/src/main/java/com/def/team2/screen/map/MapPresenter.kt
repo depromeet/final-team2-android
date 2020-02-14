@@ -1,6 +1,11 @@
 package com.def.team2.screen.map
 
+import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
+import com.def.team2.screen.map.model.RankIdol
+import com.def.team2.util.e
+import com.mapbox.mapboxsdk.geometry.LatLngBounds
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class MapPresenter(
@@ -21,13 +26,19 @@ class MapPresenter(
 
     override fun loadSchoolList() {
         view.setSchoolFilterUI(false)
-
-        // Todo: Api 호출
         interactor.getSchoolList()
             .subscribe {
                 view.showSchoolList(it)
             }
             .bindUntilClear()
+    }
+
+    override fun updateMapPosition(cameraLat: Double, cameraLng: Double, cameraBounds: LatLngBounds, refreshing: Boolean) {
+        interactor.location = Location(cameraLat, cameraLng)
+        interactor.boundBox = cameraBounds
+        if (refreshing) {
+            loadSchoolList()
+        }
     }
 
     override fun changeSchoolLevel(schoolLevel: School.Level) {
@@ -54,21 +65,53 @@ class MapPresenter(
     }
 
     override fun loadMySchool() {
-        val lat = 37.556092
-        val lng = 127.150819
-        view.moveMapPosition(lat, lng)
+        val schoolPosition: Location = interactor.getMySchool()?.location ?: kotlin.run {
+            Location(MapInteractor.defaultLat, MapInteractor.defaultLng)
+        }
+
+        view.moveMapPosition(schoolPosition.latitude, schoolPosition.longitude)
         view.hideMapOption()
     }
 
     override fun loadMyLocation() {
-        val lat = 37.502341
-        val lng = 127.047794
-        view.moveMapPosition(lat, lng)
-        view.hideMapOption()
+        if (interactor.isAccessMyLocation()) {
+            interactor.getMyLocation()?.let {
+                view.moveMapPosition(it.latitude, it.longitude)
+                view.hideMapOption()
+            } ?: kotlin.run {
+                view.showToast("내 위치를 가져오는데 실패했습니다.")
+            }
+        } else {
+            view.showLocationPermissionUI()
+        }
     }
 
     override fun loadIdolRankInSchool(school: School) {
-        view.showSchoolIdolRank(school, listOf())
+        interactor.getIdolRankInSchool(school.id)
+            .map { rankList ->
+                rankList.sortedByDescending { it.ballotIds.size }
+                    .take(3)
+                    .mapIndexed { index, rank ->
+                        RankIdol(school.id,
+                            index + 1,
+                            rank.idol.name,
+                            rank.idol.images.firstOrNull(),
+                            school.name,
+                            school.address)
+                    }
+            }.observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                view.showSchoolIdolRank(it)
+            }, { e ->
+                e("failed to load rank idol in school, error: " + e.message)
+                view.showToast("학교 아이돌 랭킹을 가져오는 데 실패했습니다.")
+            }).bindUntilClear()
+    }
+
+    override fun openRankingInSchool(schoolId: Long) {
+        view.hideSchoolIdolRank()
+
+        // Todo Ranking view 열 것
     }
 
     override fun removeIdolRankInSchool() {

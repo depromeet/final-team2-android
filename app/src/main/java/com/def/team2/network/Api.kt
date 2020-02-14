@@ -13,8 +13,22 @@ interface Api {
     @POST("/api/users/validation")
     fun checkEmailDuplicated(@Body checkEmailRequest: Map<String, String>): Completable
 
+    @GET("api/school")
+    fun getSchool(@Query("schoolIds") schoolIds: List<Long>): Single<List<School>>
+
+    @GET("/api/school/nearby")
+    fun getNearSchoolList(@Query("start_y") south: Double,
+                          @Query("end_y") north: Double,
+                          @Query("start_x") west: Double,
+                          @Query("end_x") east: Double,
+                          @Query("size") pageSize: Int): Single<List<School>>
+
     @GET("/api/school/search")
-    fun searchSchoolList(@Query("query") schoolName: String): Single<List<School>>
+    fun searchSchoolList(@Query("query") schoolName: String,
+                         @Query("size") pageSize: Int): Single<List<School>>
+
+    @GET("api/school/rank")
+    fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<RankResponse>
 
     @GET("/api/idol/search")
     fun searchIdolList(@Query("query") idolName: String): Single<List<Idol>>
@@ -30,6 +44,9 @@ interface Api {
 
     @GET("/api/vote")
     fun getVote(): Single<List<VoteResponse>>
+
+    @GET("api/vote/ballots")
+    fun getBallots(@Query("ballotIds") ballotIds: List<Long>): Single<List<BallotResponse>>
 
     @GET("/api/me")
     fun getMe(): Single<User>

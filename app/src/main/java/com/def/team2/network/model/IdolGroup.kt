@@ -15,3 +15,12 @@ data class IdolGroup(
     @Expose(serialize = true, deserialize = false)
     val users: Any
 )
+
+data class IdolGroupResponse(
+    val id: Long,
+    val name: String,
+    val ballets: List<Long>,
+    val fans: List<Long>,
+    val images: List<Long>,
+    val members: List<Long>
+)

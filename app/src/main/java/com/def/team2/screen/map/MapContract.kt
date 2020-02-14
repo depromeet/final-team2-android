@@ -2,8 +2,9 @@ package com.def.team2.screen.map
 
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
-import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
+import com.def.team2.screen.map.model.RankIdol
+import com.mapbox.mapboxsdk.geometry.LatLngBounds
 
 interface MapContract {
 
@@ -23,11 +24,15 @@ interface MapContract {
 
         fun moveMapPosition(lat: Double, lng: Double)
 
-        fun showSchoolIdolRank(school: School, idolGroupList: List<IdolGroup>)
+        fun showSchoolIdolRank(rankIdolList: List<RankIdol>)
 
         fun hideSchoolIdolRank()
 
         fun showTotalIdolRank()
+
+        fun showToast(msg: String)
+
+        fun showLocationPermissionUI()
     }
 
     interface Presenter: BaseRxPresenter {
@@ -35,6 +40,8 @@ interface MapContract {
         fun openFilterView()
 
         fun loadSchoolList()
+
+        fun updateMapPosition(cameraLat: Double, cameraLng: Double, cameraBounds: LatLngBounds, refreshing: Boolean)
 
         fun changeSchoolLevel(schoolLevel: School.Level)
 
@@ -47,6 +54,8 @@ interface MapContract {
         fun loadMyLocation()
 
         fun loadIdolRankInSchool(school: School)
+
+        fun openRankingInSchool(schoolId: Long)
 
         fun removeIdolRankInSchool()
     }

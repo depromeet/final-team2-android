@@ -32,7 +32,10 @@ class MainActivity : BaseActivity(), MainContract.View {
         presenter = MainPresenter(this@MainActivity).apply {
             start()
         }
-        replaceFragment(MapFragment.newInstance())
+        replaceFragment(HomeFragment.newInstance())
+        supportFragmentManager.addOnBackStackChangedListener {
+
+        }
     }
 
     override fun clickBarRank() = main_bottom_bar_rank.throttleClicks()
@@ -45,6 +48,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun changeBar(status: MainContract.View.Status) {
         when (status) {
             MainContract.View.Status.RANK -> {
+                replaceFragment(HomeFragment.newInstance())
                 main_bottom_bar.background = ColorDrawable(Color.WHITE)
                 main_bottom_bar_rank_icon.setImageResource(R.drawable.selector_black_rank_ic)
                 main_bottom_bar_chat_icon.setImageResource(R.drawable.selector_black_chat_ic)
@@ -56,8 +60,6 @@ class MainActivity : BaseActivity(), MainContract.View {
                 main_bottom_bar_rank_icon.isSelected = true
                 main_bottom_bar_chat_icon.isSelected = false
                 main_bottom_bar_my_icon.isSelected = false
-
-                replaceFragment(MapFragment.newInstance())
             }
             MainContract.View.Status.CHAT -> {
                 main_bottom_bar.background = ColorDrawable(Color.BLACK)

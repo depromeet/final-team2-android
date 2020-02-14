@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/profile_setting_password"
         tools:text="이홍유진" />
 
-    <androidx.appcompat.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/profile_setting_school"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -66,13 +66,22 @@
         android:fontFamily="@font/spoqahansansregular"
         android:maxLines="1"
         android:paddingTop="10dp"
-        android:paddingBottom="20dp"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/profile_setting_name"
         app:layout_constraintStart_toStartOf="@id/profile_setting_name"
         app:layout_constraintTop_toBottomOf="@id/profile_setting_email"
-        tools:text="풍동고등학교" />
+        android:text="학교검색"/>
+
+    <View
+        android:id="@+id/profile_setting_school_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@id/profile_setting_school"
+        app:layout_constraintStart_toStartOf="@id/profile_setting_school"
+        app:layout_constraintTop_toBottomOf="@id/profile_setting_school" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/profile_setting_apply"
@@ -85,6 +94,6 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/profile_setting_name"
-        app:layout_constraintTop_toBottomOf="@id/profile_setting_school" />
+        app:layout_constraintTop_toBottomOf="@id/profile_setting_school_line" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

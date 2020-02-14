@@ -8,18 +8,49 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
 import com.def.team2.network.Api
+import com.def.team2.network.model.Idol
+import com.def.team2.network.model.IdolGroup
+import com.def.team2.screen.search.SearchFragment
+import com.def.team2.screen.search.SearchPresenter
 import com.def.team2.util.idolKingdomApi
+import com.def.team2.util.throttleClicks
+import io.reactivex.Observable
+import kotlinx.android.synthetic.main.fragment_rank.*
 
-class RankFragment : Fragment(), RankContract.View{
+class RankFragment : Fragment(), RankContract.View {
+
+    companion object {
+        fun newInstance() = RankFragment()
+    }
 
     override lateinit var lifeCycleOwner: LifecycleOwner
     override lateinit var presenter: RankContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(
-        R.layout.fragment_rank, container, false)
+    private lateinit var adapter: RankAdapter
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        inflater.inflate(
+            R.layout.fragment_rank, container, false
+        )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        RankAdapter(object : RankAdapter.Callback {
+            override fun requestVote(data: RankAdapter.Item) {
+                presenter.subscribeVote(data)
+            }
+
+            override fun entranceCommunity(data: IdolGroup) {
+                //TODO 채팅방화면으로 보내면됨
+            }
+
+        }).apply {
+            adapter = this
+            rank_recycler.adapter = this
+        }
+
         lifeCycleOwner = this
         setLifecycle()
         presenter = RankPresenter(this).apply {
@@ -27,15 +58,17 @@ class RankFragment : Fragment(), RankContract.View{
         }
     }
 
-    override fun setRank() {
-
+    override fun setRank(data: List<IdolGroup>) {
+        data.sortedBy { it.ballots.size }
+        adapter.setItems(data.map {
+            if (it.id == 0L) RankAdapter.Item(it, RankAdapter.ViewType.FIRST)
+            else RankAdapter.Item(it, RankAdapter.ViewType.RANK)
+        })
     }
 
-    override fun updateTime() {
-
+    override fun updateVote(data: RankAdapter.Item) {
+        adapter.updateItem(data)
     }
 
-    override fun updateVote() {
-    }
-    override fun getApiProvider() : Api = context!!.idolKingdomApi
+    override fun getApiProvider(): Api = context!!.idolKingdomApi
 }

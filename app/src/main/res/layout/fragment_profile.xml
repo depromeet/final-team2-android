@@ -36,7 +36,7 @@
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:text="@string/str_school"
-        android:textColor="#b5b5b5"
+        android:textColor="@color/selector_black_menu_txt"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:text="@string/str_idol"
-        android:textColor="#b5b5b5"
+        android:textColor="@color/selector_black_menu_txt"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/profile_school_btn_txt"
         app:layout_constraintTop_toBottomOf="@id/profile_school_btn_txt" />
@@ -83,7 +83,7 @@
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:text="@string/str_setting"
-        android:textColor="#b5b5b5"
+        android:textColor="@color/selector_black_menu_txt"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/profile_idol_btn_txt"
         app:layout_constraintTop_toBottomOf="@id/profile_idol_btn_txt" />

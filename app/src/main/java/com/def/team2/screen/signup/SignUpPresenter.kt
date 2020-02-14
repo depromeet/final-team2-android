@@ -1,7 +1,7 @@
 package com.def.team2.screen.signup
 
 import android.util.Log
-import com.def.team2.network.model.Idol
+import com.def.team2.network.model.IdolDto
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
 import com.def.team2.util.isEmail
@@ -144,14 +144,14 @@ class SignUpPresenter(
     override fun subscribeIdol() {
 
         subscribeIdolChanges()
-        view.idolSelect.onNext(Idol(-1, "", listOf(), listOf()))
+        view.idolSelect.onNext(IdolDto(-1, "", listOf(), listOf()))
         view.setIdolListVisible(false)
     }
 
     private fun subscribeIdolChanges() {
         Observable.merge(view.idolChanges, view.idolSelect)
             .doOnNext {
-                if (it is Idol) {
+                if (it is IdolDto) {
                     view.setIdolListVisible(false)
                     view.setIdolText(it.name)
                     signUpInteractor.idolId = it.id.toLong()
@@ -159,7 +159,7 @@ class SignUpPresenter(
             }.filter { it is CharSequence }
             .withLatestFrom(
                 view.idolSelect,
-                BiFunction { t1: Any, t2: Idol ->
+                BiFunction { t1: Any, t2: IdolDto ->
                     Pair(t1.toString(), t2.name)
                 }
             ).filter { it.first != it.second }

@@ -122,6 +122,6 @@
             app:layout_constraintRight_toRightOf="@+id/gl_end"
             app:layout_constraintTop_toBottomOf="@+id/et_signup_school"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_signup_search" />
+            tools:listitem="@layout/item_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

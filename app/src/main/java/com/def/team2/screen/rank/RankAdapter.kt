@@ -5,13 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.def.team2.R
 import com.def.team2.base.BaseViewHolder
+import com.def.team2.network.model.Idol
+import com.def.team2.network.model.IdolGroup
 import com.def.team2.util.inflate
 
-class RankAdapter : RecyclerView.Adapter<BaseViewHolder>() {
+class RankAdapter(private val callback : Callback) : RecyclerView.Adapter<BaseViewHolder>() {
 
     interface Callback {
-        fun requestVote()
-        fun entranceCommunity()
+        fun requestVote(data: RankAdapter.Item)
+        fun entranceCommunity(data : IdolGroup)
     }
 
     enum class ViewType {
@@ -67,7 +69,7 @@ class RankAdapter : RecyclerView.Adapter<BaseViewHolder>() {
     }
 
     data class Item(
-        val data: Any,
+        val data: IdolGroup,
         val viewType: ViewType
     )
 

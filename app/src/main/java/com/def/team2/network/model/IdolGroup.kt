@@ -7,13 +7,14 @@ data class IdolGroup(
     val name: String,
 
     @Expose(serialize = true, deserialize = false)
-    val fans: Any,
+    val fans: List<User>,
     @Expose(serialize = true, deserialize = false)
-    val images: Any,
+    val images: List<Image>,
     @Expose(serialize = true, deserialize = false)
-    val members: Any,
+    val members: List<Idol>,
     @Expose(serialize = true, deserialize = false)
-    val users: Any
+    val users: Any,
+    val ballots:List<Ballot>
 )
 
 data class IdolGroupResponse(
@@ -23,4 +24,9 @@ data class IdolGroupResponse(
     val fans: List<Long>,
     val images: List<Long>,
     val members: List<Long>
-)
+) {
+    data class Image(
+        val id: Int,
+        val url: String
+    )
+}

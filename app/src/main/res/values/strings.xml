@@ -11,5 +11,11 @@
     <string name="str_idol_info">좋아하는 순위를 변경할 수 있어요.</string>
     <string name="str_idol_title">저장한 아이돌</string>
     <string name="str_edit_completed">수정완료</string>
+    <string name="str_search_title">검색</string>
+    <string name="str_idol_school_hint">아이돌 or 학교</string>
+    <string name="str_school_hint">학교</string>
+    <string name="str_idol_hint">아이돌</string>
+    <string name="str_rank_en">Rank</string>
+    <string name="str_time_end_title">투표마감</string>
 
 </resources>

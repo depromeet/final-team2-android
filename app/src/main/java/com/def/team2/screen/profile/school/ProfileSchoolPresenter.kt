@@ -1,10 +1,6 @@
 package com.def.team2.screen.profile.school
 
-import com.def.team2.network.model.Idol
-import com.def.team2.network.model.School
-import com.def.team2.util.e
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.def.team2.base.UserData
 import io.reactivex.disposables.CompositeDisposable
 
 class ProfileSchoolPresenter(private val view: ProfileSchoolContract.View) : ProfileSchoolContract.Presenter {
@@ -12,7 +8,6 @@ class ProfileSchoolPresenter(private val view: ProfileSchoolContract.View) : Pro
     override val disposables: CompositeDisposable = CompositeDisposable()
     override fun start() {
         subscribeSchoolInfo()
-        subscribeSearch()
     }
 
     override fun subscribeSchoolInfo() {
@@ -33,17 +28,5 @@ class ProfileSchoolPresenter(private val view: ProfileSchoolContract.View) : Pro
                         is School -> list.add(any.name)
                     }
                 }
-
-            }
-            list.sort()
-            list
-        }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    e(it.toString())
-                }, {
-                    e(it)
-                })
-                .bindUntilClear()
     }
 }

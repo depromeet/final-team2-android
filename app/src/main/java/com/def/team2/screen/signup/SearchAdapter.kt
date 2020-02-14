@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.def.team2.R
 import com.def.team2.network.model.Idol
+import com.def.team2.network.model.IdolDto
 import com.def.team2.network.model.School
 
 class SearchAdapter<T>(
@@ -18,7 +19,7 @@ class SearchAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolder(
-            inflater.inflate(R.layout.item_signup_search, parent, false),
+            inflater.inflate(R.layout.item_search, parent, false),
             itemClickCallback
         )
     }
@@ -59,7 +60,7 @@ class SearchAdapter<T>(
             this.item = item
             when (item) {
                 is School -> textView.text = item.name
-                is Idol -> textView.text = item.name
+                is IdolDto -> textView.text = item.name
 
             }
         }

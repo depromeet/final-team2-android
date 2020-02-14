@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.def.team2.R
+import com.def.team2.base.UserData
 import com.def.team2.network.model.School
 import com.def.team2.screen.map.model.RankIdol
 import com.def.team2.util.REQ_CODE_ACCESS_LOCATION
@@ -58,6 +60,7 @@ class MapFragment: Fragment(), MapContract.View {
         savedInstanceState: Bundle?
     ): View? {
 
+        Log.e("UserData: ", "school: ${UserData.school}, idols: ${UserData.idolList}, users: ${UserData.user}")
         Mapbox.getInstance(context!!, getString(R.string.mapbox_access_token))
         return inflater.inflate(R.layout.fragment_map, container, false)
     }

@@ -9,6 +9,7 @@ import com.def.team2.util.KEY_TOKEN
 import com.def.team2.util.idolKingdomApi
 import com.def.team2.util.sharedPreferences
 import com.f2prateek.rx.preferences2.RxSharedPreferences
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -29,10 +30,24 @@ class SignInInteractor(context: Context) {
             .map { it.token }
             .subscribeOn(Schedulers.io())
 
-    fun getMyInfo() =
+    fun setMyInfo() =
         idolKingdomApi
             .getMe()
-            .map { UserData.user = it }
+            .doOnSuccess { UserData.user = it }
+            .flatMap { user ->
+                idolKingdomApi
+                    .getSchool(user.schoolList)
+                    .map { schoolList -> UserData.school = schoolList.first() }
+                    .map { user }
+            }
+            .flatMap {
+                Flowable.fromIterable(it.idolIdList)
+                    .flatMapSingle {id ->
+                        idolKingdomApi
+                            .getIdol(id)
+                            .map { idol -> UserData.idolList.add(idol) }
+                    }.toList()
+            }
             .subscribeOn(Schedulers.io())
 
     fun saveToken(token: String) {

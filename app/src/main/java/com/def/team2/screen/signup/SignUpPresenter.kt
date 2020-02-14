@@ -1,10 +1,11 @@
 package com.def.team2.screen.signup
 
 import android.util.Log
-import com.def.team2.network.model.IdolDto
+import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
 import com.def.team2.util.isEmail
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -144,22 +145,22 @@ class SignUpPresenter(
     override fun subscribeIdol() {
 
         subscribeIdolChanges()
-        view.idolSelect.onNext(IdolDto(-1, "", listOf(), listOf()))
+        view.idolSelect.onNext(IdolGroup(-1, "", listOf(), listOf(), "", ""))
         view.setIdolListVisible(false)
     }
 
     private fun subscribeIdolChanges() {
         Observable.merge(view.idolChanges, view.idolSelect)
             .doOnNext {
-                if (it is IdolDto) {
+                if (it is IdolGroup) {
                     view.setIdolListVisible(false)
                     view.setIdolText(it.name)
-                    signUpInteractor.idolId = it.id.toLong()
+                    signUpInteractor.idolId = it.id
                 }
             }.filter { it is CharSequence }
             .withLatestFrom(
                 view.idolSelect,
-                BiFunction { t1: Any, t2: IdolDto ->
+                BiFunction { t1: Any, t2: IdolGroup ->
                     Pair(t1.toString(), t2.name)
                 }
             ).filter { it.first != it.second }
@@ -202,9 +203,8 @@ class SignUpPresenter(
             }
             .doOnNext { signUpInteractor.saveToken(it) }
             .switchMap { signUpInteractor.savedTokenChanges() }
-            .flatMapSingle {
-                signUpInteractor.getMyInfo()
-            }
+            .toFlowable(BackpressureStrategy.BUFFER)
+            .flatMapSingle { signUpInteractor.setMyInfo() }
             .observeOn(AndroidSchedulers.mainThread())
             .retry { count, e ->
                 Log.e("error", "count: $count, error, message: ${e.message}")

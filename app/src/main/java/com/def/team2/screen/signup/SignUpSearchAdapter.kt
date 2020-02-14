@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.def.team2.R
-import com.def.team2.network.model.Idol
-import com.def.team2.network.model.IdolDto
+import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
 
-class SearchAdapter<T>(
+class SignUpSearchAdapter<T>(
     private val itemClickCallback: (item: T) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -60,7 +59,7 @@ class SearchAdapter<T>(
             this.item = item
             when (item) {
                 is School -> textView.text = item.name
-                is IdolDto -> textView.text = item.name
+                is IdolGroup -> textView.text = item.name
 
             }
         }

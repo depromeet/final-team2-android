@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.def.team2.R
-import com.def.team2.network.model.IdolDto
+import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
 import com.def.team2.screen.main.MainActivity
 import com.def.team2.util.KEY_TOKEN
@@ -39,14 +39,14 @@ class SignUpFragment : Fragment(), SignUpContract.View {
 
     private val viewStack = Stack<View>()
 
-    private val schoolSearchAdapter: SearchAdapter<School> by lazy {
-        SearchAdapter<School> {
+    private val schoolSignUpSearchAdapter: SignUpSearchAdapter<School> by lazy {
+        SignUpSearchAdapter<School> {
             schoolSelect.onNext(it)
         }
     }
 
-    private val idolSearchAdapter: SearchAdapter<IdolDto> by lazy {
-        SearchAdapter<IdolDto> {
+    private val idolSignUpSearchAdapter: SignUpSearchAdapter<IdolGroup> by lazy {
+        SignUpSearchAdapter<IdolGroup> {
             idolSelect.onNext(it)
         }
     }
@@ -66,12 +66,12 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         view.requestFocus()
 
         rv_signup_school_search.apply {
-            adapter = schoolSearchAdapter
+            adapter = schoolSignUpSearchAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
         rv_signup_idol_search.apply {
-            adapter = idolSearchAdapter
+            adapter = idolSignUpSearchAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
@@ -127,7 +127,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.text
     }
 
-    override val idolSelect: PublishSubject<IdolDto> = PublishSubject.create()
+    override val idolSelect: PublishSubject<IdolGroup> = PublishSubject.create()
 
     override val idolChanges: Observable<CharSequence> by lazy {
         et_signup_idol.textChanges()
@@ -187,7 +187,7 @@ class SignUpFragment : Fragment(), SignUpContract.View {
     }
 
     override fun addSchoolList(schools: List<School>) {
-        schoolSearchAdapter.setItems(schools)
+        schoolSignUpSearchAdapter.setItems(schools)
     }
 
     override fun setSchoolListVisible(active: Boolean) {
@@ -213,8 +213,8 @@ class SignUpFragment : Fragment(), SignUpContract.View {
         et_signup_idol.setText(idol)
     }
 
-    override fun addIdolList(idols: List<IdolDto>) {
-        idolSearchAdapter.setItems(idols)
+    override fun addIdolList(idols: List<IdolGroup>) {
+        idolSignUpSearchAdapter.setItems(idols)
     }
 
     override fun setIdolListVisible(active: Boolean) {

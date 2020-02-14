@@ -30,8 +30,11 @@ interface Api {
     @GET("api/school/rank")
     fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<RankResponse>
 
+    @GET("/api/idol")
+    fun getIdol(@Query("idolId") idolId: Long): Single<IdolGroup>
+
     @GET("/api/idol/search")
-    fun searchIdolList(@Query("query") idolName: String): Single<List<IdolDto>>
+    fun searchIdolList(@Query("query") idolName: String): Single<IdolGroupResponse>
 
     @POST("/api/users")
     fun signUp(@Body signUpRequest: SignUpRequest): Single<SignUpResponse>

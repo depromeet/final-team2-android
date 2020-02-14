@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.def.team2.R
 import com.def.team2.base.BaseViewHolder
-import com.def.team2.network.model.Idol
+import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
 import com.def.team2.util.inflate
 import kotlinx.android.synthetic.main.item_search.*
@@ -37,7 +37,7 @@ class SearchAdapter : RecyclerView.Adapter<BaseViewHolder>() {
         override fun onDataBind(data: Any?) {
             when (data) {
                 is School -> tv_signup_item_title.text = data.name
-                is Idol -> tv_signup_item_title.text = data.name
+                is IdolGroup -> tv_signup_item_title.text = data.name
             }
         }
 

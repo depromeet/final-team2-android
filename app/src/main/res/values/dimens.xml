@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="space_x_small">8dp</dimen>
+    <dimen name="space_small">12dp</dimen>
+    <dimen name="space_median">16dp</dimen>
+    <dimen name="space_s_large">18dp</dimen>
+    <dimen name="space_large">20dp</dimen>
+    <dimen name="space_x_large">24dp</dimen>
+
     <dimen name="map_option_button_size">56dp</dimen>
     <dimen name="map_option_button_width">64dp</dimen>
+
+    <dimen name="home_tap_start_margin">19.2dp</dimen>
+    <dimen name="hone_tap_underline_start_margin">1dp</dimen>
+    <dimen name="home_tap_rank_top_margin">38.6dp</dimen>
+    <dimen name="home_tap_map_top_margin">23.6dp</dimen>
+    <dimen name="deadline_bottom_margin">38dp</dimen>
 </resources>

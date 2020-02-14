@@ -61,9 +61,7 @@ class SignInPresenter(
             }
             .doOnNext { signInInteractor.saveToken(it) }
             .switchMap { signInInteractor.savedTokenChanges() }
-            .flatMapSingle {
-                signInInteractor.getMyInfo()
-            }
+            .flatMapSingle { signInInteractor.setMyInfo() }
             .observeOn(AndroidSchedulers.mainThread())
             .retry { count, e ->
                 Log.e("error", "count: $count, error, message: ${e.message}")

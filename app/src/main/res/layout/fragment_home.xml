@@ -17,8 +17,8 @@
         android:id="@+id/home_rank_btn_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="19.2dp"
-        android:layout_marginTop="38.6dp"
+        android:layout_marginStart="@dimen/home_tap_start_margin"
+        android:layout_marginTop="@dimen/home_tap_rank_top_margin"
         android:fontFamily="@font/spoqahansansbold"
         android:gravity="bottom"
         android:includeFontPadding="false"
@@ -32,7 +32,7 @@
         android:id="@+id/home_rank_btn_line"
         android:layout_width="2dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="@dimen/hone_tap_underline_start_margin"
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@id/home_rank_btn_txt"
         app:layout_constraintStart_toEndOf="@id/home_rank_btn_txt"
@@ -42,7 +42,7 @@
         android:id="@+id/home_map_btn_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="@dimen/home_tap_map_top_margin"
         android:fontFamily="@font/spoqahansanslight"
         android:gravity="bottom"
         android:includeFontPadding="false"
@@ -56,8 +56,8 @@
         android:id="@+id/home_map_btn_line"
         android:layout_width="2dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:background="@android:color/white"
+        android:layout_marginStart="@dimen/hone_tap_underline_start_margin"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@id/home_map_btn_txt"
         app:layout_constraintStart_toEndOf="@id/home_map_btn_txt"
         app:layout_constraintTop_toTopOf="@id/home_map_btn_txt" />
@@ -76,7 +76,7 @@
     <View
         android:id="@+id/home_time_view"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="@dimen/deadline_bottom_margin"
         android:background="#151515"
         app:layout_constraintBottom_toBottomOf="parent" />
 

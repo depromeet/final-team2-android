@@ -22,11 +22,11 @@
 
     <LinearLayout
         android:id="@+id/main_bottom_bar_rank"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_marginStart="30dp"
+        android:layout_marginEnd="65dp"
         app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
         app:layout_constraintEnd_toStartOf="@id/main_bottom_bar_chat"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -52,10 +52,11 @@
 
     <LinearLayout
         android:id="@+id/main_bottom_bar_chat"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_marginEnd="65dp"
         app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
         app:layout_constraintEnd_toStartOf="@id/main_bottom_bar_my"
         app:layout_constraintStart_toEndOf="@id/main_bottom_bar_rank"
@@ -80,11 +81,10 @@
 
     <LinearLayout
         android:id="@+id/main_bottom_bar_my"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_marginEnd="30dp"
         app:layout_constraintBottom_toBottomOf="@id/main_bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/main_bottom_bar_chat"

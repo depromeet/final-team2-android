@@ -4,13 +4,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.def.team2.base.UserData
 import com.def.team2.network.Api
-import com.def.team2.network.model.IdolDto
+import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
 import com.def.team2.network.model.SignUpRequest
 import com.def.team2.util.KEY_TOKEN
 import com.def.team2.util.idolKingdomApi
 import com.def.team2.util.sharedPreferences
 import com.f2prateek.rx.preferences2.RxSharedPreferences
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -44,9 +45,10 @@ class SignUpInteractor(context: Context) {
             .onErrorResumeNext { Single.just(listOf()) }
             .subscribeOn(Schedulers.io())
 
-    fun getIdolList(keyword: String): Single<List<IdolDto>> =
+    fun getIdolList(keyword: String): Single<List<IdolGroup>> =
         idolKingdomApi
             .searchIdolList(keyword)
+            .map { it.idols }
             .onErrorResumeNext { Single.just(listOf()) }
             .subscribeOn(Schedulers.io())
 
@@ -56,10 +58,24 @@ class SignUpInteractor(context: Context) {
             .map { it.token }
             .subscribeOn(Schedulers.io())
 
-    fun getMyInfo() =
+    fun setMyInfo() =
         idolKingdomApi
             .getMe()
-            .map { UserData.user = it }
+            .doOnSuccess { UserData.user = it }
+            .flatMap { user ->
+                idolKingdomApi
+                    .getSchool(user.schoolList)
+                    .map { schoolList -> UserData.school = schoolList.first() }
+                    .map { user }
+            }
+            .flatMap {
+                Flowable.fromIterable(it.idolIdList)
+                    .flatMapSingle {id ->
+                        idolKingdomApi
+                            .getIdol(id)
+                            .map { idol -> UserData.idolList.add(idol) }
+                    }.toList()
+            }
             .subscribeOn(Schedulers.io())
 
     fun saveToken(token: String) {

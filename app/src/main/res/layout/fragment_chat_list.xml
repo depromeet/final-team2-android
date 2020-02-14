@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/tv_chat_list_default"
@@ -31,7 +32,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="26dp"
         android:layout_marginTop="54dp"
-        android:src="@drawable/icon_zoom"
+        android:src="@drawable/ic_search_white"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +56,7 @@
     <LinearLayout
         android:id="@+id/ll_chat_list_deadline"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="@dimen/deadline_bottom_margin"
         android:orientation="horizontal"
         android:gravity="center"
         android:background="@android:color/black"
@@ -68,7 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="투표마감"
+            android:text="@string/str_time_end_title"
             android:textSize="15sp"
             android:textColor="#ff0000"
             android:lineSpacingExtra="8sp"
@@ -83,13 +84,13 @@
             android:id="@+id/tv_chat_list_deadline"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="00:00:00"
             android:textSize="17sp"
             android:textColor="#ff0000"
             android:letterSpacing="0.05"
             android:lineSpacingExtra="6sp"
             android:gravity="center"
-            android:fontFamily="@font/spoqahansansbold"/>
+            android:fontFamily="@font/spoqahansansbold"
+            tools:text="00:00:00"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

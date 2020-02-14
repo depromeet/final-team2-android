@@ -22,6 +22,18 @@ class SearchPresenter(private val view: SearchContract.View, private val type: T
     }
 
     override fun subscribeSearch() {
+        val search = "B"
+        Single.zip(listOf(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search, 5)))
+        {
+            e(it)
+        }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    e(it)
+                }, {
+                    e(it)
+                })
+                .bindUntilClear()
         view.schoolChanges.throttleLast(300, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
             val search = it.toString()
             if (search.isEmpty()) {

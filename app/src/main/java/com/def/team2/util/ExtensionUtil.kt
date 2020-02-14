@@ -5,9 +5,11 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import com.bumptech.glide.Glide
 import com.def.team2.network.Api
 import com.def.team2.network.RetrofitProvider
 import com.jakewharton.rxbinding3.view.clicks
@@ -50,3 +52,13 @@ fun Context.sharedPreferences() = this.getSharedPreferences("base", Context.MODE
 
 val Context.idolKingdomApi: Api
     get() = RetrofitProvider(this).idolKingdomApi
+
+fun String.numberFormatZero(): String {
+    return if (this.length == 1) {
+        "0${this}"
+    } else this
+}
+
+fun ImageView.imageLoad(url:String){
+    Glide.with(this.context).load(url).into(this)
+}

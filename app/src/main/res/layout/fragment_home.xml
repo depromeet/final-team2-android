@@ -46,7 +46,7 @@
         android:fontFamily="@font/spoqahansanslight"
         android:gravity="bottom"
         android:includeFontPadding="false"
-        android:text="@string/str_idol"
+        android:text="@string/str_map"
         android:textColor="@color/selector_map_menu_txt"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/home_rank_btn_txt"
@@ -70,7 +70,7 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/selector_search" />
+        app:srcCompat="@drawable/ic_search_white" />
 
 
     <View

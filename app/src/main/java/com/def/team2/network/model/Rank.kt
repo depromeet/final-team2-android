@@ -7,7 +7,7 @@ data class RankResponse(
 ){
     data class Rank(
         @SerializedName("idolDto")
-        val idol: Idol,
+        val idol: IdolDto,
 
         @SerializedName("ballotIds")
         val ballotIds : List<Long>

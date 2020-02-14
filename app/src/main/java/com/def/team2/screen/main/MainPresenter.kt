@@ -27,6 +27,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
     override fun start() {
         subscribeMoveFragment()
+        view.changeBar(MainContract.View.Status.RANK)
     }
 
 }

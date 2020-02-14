@@ -25,7 +25,7 @@ interface Api {
 
     @GET("/api/school/search")
     fun searchSchoolList(@Query("query") schoolName: String,
-                         @Query("size") pageSize: Int): Single<List<School>>
+                         @Query("size") pageSize: Int = 15): Single<List<School>>
 
     @GET("api/school/rank")
     fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<RankResponse>
@@ -54,9 +54,6 @@ interface Api {
     @GET("/api/users")
     fun getUsers(@Query("userId") userId: String): Single<User>
 
-    @GET("/api/vote/ballots")
-    fun getBallots(@Query("ballotIds") ballotIds: String): Single<List<BallotResponseDto>>
-
     @POST("/api/ballots")
-    fun createBallot(@Body ballotRequestDto: BallotRequest): Single<List<BallotResponseDto>>
+    fun createBallot(@Body ballotRequestDto: BallotRequest): Single<List<BallotResponse>>
 }

@@ -55,13 +55,13 @@ class ChatListAdapter(
 
             itemView.setOnClickListener { _ ->
                 chatListInfo?.let {
-                    viewClickCallback.invoke(it)
+                    viewClickCallback(it)
                 }
             }
 
             voteImageView.setOnClickListener { _ ->
                 chatListInfo?.let {
-                    voteClickCallback.invoke(it.id)
+                    voteClickCallback(it.id)
                 }
             }
         }

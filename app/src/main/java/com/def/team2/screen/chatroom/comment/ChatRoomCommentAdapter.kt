@@ -13,10 +13,9 @@ class ChatRoomCommentAdapter(
     private val itemList = mutableListOf<ChatRoomComment>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            VIEW_TYPE_RIGHT -> RightViewHolder(inflater.inflate(R.layout.item_chat_room_right, parent, false))
-            else -> LeftViewHolder(inflater.inflate(R.layout.item_chat_room_left, parent, false))
+            VIEW_TYPE_RIGHT -> RightViewHolder(parent)
+            else -> LeftViewHolder(parent)
         }
     }
 

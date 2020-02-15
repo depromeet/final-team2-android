@@ -29,8 +29,11 @@ class ChatListInteractor(context: Context) {
 
         return Flowable.fromIterable(UserData.user?.idolIdList ?: listOf())
             .flatMapSingle { idolKingdomApi.getIdol(it) }
-            .filter { it.images.size >= 3 }
-            .map { ChatListInfo(it.id, it.name, it.currentBallots.size.toLong(), it.images[2], false, false) }
+            .map {
+                //Todo 이미지 없는 경우디폴트 이미지로 변경해야 함
+                val imgUrl = if (it.images.size >= 3) it.images[2] else ""
+                ChatListInfo(it.id, it.name, it.currentBallots.size.toLong(), imgUrl, false, false)
+            }
             .toList()
             .subscribeOn(Schedulers.io())
     }

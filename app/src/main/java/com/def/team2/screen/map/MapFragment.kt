@@ -89,7 +89,7 @@ class MapFragment: Fragment(), MapContract.View {
                     iconAllowOverlap = true
                     textAllowOverlap = true
                 }.apply {
-                    addClickListener {symbol ->
+                    addClickListener { symbol ->
                         symbol.data?.let {jsonElement ->
                             val school = Gson().fromJson(jsonElement, School::class.java)
                             presenter.loadIdolRankInSchool(school)
@@ -196,12 +196,13 @@ class MapFragment: Fragment(), MapContract.View {
         schoolList.map {
             mapboxMap?.getStyle {style ->
                 // Todo 나중에 idol 정보를 이용해서 filtering 할 것
-                val imgUrl = when (it.users.toString()) {
-                    "1" -> imgUrl1
-                    "2" -> imgUrl2
-                    "3" -> imgUrl3
-                    else -> imgUrl1
-                }
+//                val imgUrl = when (it.users.toString()) {
+//                    "1" -> imgUrl1
+//                    "2" -> imgUrl2
+//                    "3" -> imgUrl3
+//                    else -> imgUrl1
+//                }
+                val imgUrl = imgUrl1
                 val iconBitmap = style.getImage(imgUrl)
 
                 iconBitmap?.let {_ ->

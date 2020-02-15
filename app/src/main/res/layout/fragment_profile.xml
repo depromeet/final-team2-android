@@ -9,8 +9,16 @@
         android:id="@+id/profile_img"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@id/profile_img_guide"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@id/profile_fragment_guide"
+        app:srcCompat="@drawable/bg_black_gradation" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/profile_img_guide"
@@ -73,7 +81,6 @@
         app:layout_constraintBottom_toBottomOf="@id/profile_idol_btn_txt"
         app:layout_constraintStart_toEndOf="@id/profile_idol_btn_txt"
         app:layout_constraintTop_toTopOf="@id/profile_idol_btn_txt" />
-
 
     <com.def.team2.screen.custom.VerticalTextView
         android:id="@+id/profile_setting_btn_txt"
@@ -144,6 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/spoqahansansthin"
+        android:includeFontPadding="false"
         android:textColor="@android:color/white"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@id/profile_vote_cnt"
@@ -155,7 +163,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:fontFamily="@font/spoqahansanslight"
+        android:fontFamily="@font/spoqahansansbold"
+        android:includeFontPadding="false"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@id/profile_vote_cnt"

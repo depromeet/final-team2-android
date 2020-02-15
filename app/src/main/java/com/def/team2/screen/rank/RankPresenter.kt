@@ -1,7 +1,13 @@
 package com.def.team2.screen.rank
 
 import com.def.team2.network.model.BallotRequest
+import com.def.team2.util.formatTimeRemaining
+import com.def.team2.util.getTimeRemaining
+import com.def.team2.util.numberFormatZero
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class RankPresenter(private val view: RankContract.View) : RankContract.Presenter {
 
@@ -24,4 +30,12 @@ class RankPresenter(private val view: RankContract.View) : RankContract.Presente
 
         }).bindUntilClear()
     }
+
+    override fun subscribeTime() {
+        Observable.interval(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            view.updateDate(formatTimeRemaining(getTimeRemaining("")))
+        }.bindUntilClear()
+    }
+
+
 }

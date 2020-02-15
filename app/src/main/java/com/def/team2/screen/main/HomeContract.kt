@@ -17,14 +17,12 @@ interface HomeContract {
         val searchClcik: Observable<Unit>
 
         fun changeType(type:Type)
-        fun updateDate(date:String)
         fun shpwSearchDialog()
     }
 
     interface Presenter : BaseRxPresenter {
 
         fun subscribeClick()
-        fun subscribeTime()
 
     }
 

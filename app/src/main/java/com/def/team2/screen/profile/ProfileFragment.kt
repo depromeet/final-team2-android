@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -13,6 +15,7 @@ import com.def.team2.base.UserData
 import com.def.team2.screen.profile.idol.ProfileIdolFragment
 import com.def.team2.screen.profile.school.ProfileSchoolFragment
 import com.def.team2.screen.profile.setting.ProfileSettingFragment
+import com.def.team2.util.imageLoad
 import com.def.team2.util.throttleClicks
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -32,8 +35,11 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         presenter = ProfilePresenter(this).apply {
             start()
         }
-        val user = UserData.user ?: return //TODO 유저정보가 없으면 로그인화면으로 보내는게 맞겠죠??
+        val user = UserData.user ?: return
         profile_vote_cnt.text = "x${user.ballotList.size}"
+        profile_name.text = user.nickName
+        profile_email.text = user.email
+        profile_img.imageLoad("https://post-phinf.pstatic.net/MjAxOTA4MDhfOCAg/MDAxNTY1MjQxMTA1MDc1.Xp8NGouPV0sNCWNva6aEroR_Me2FTm3legIaVgtiqCsg.NvfBiFprngZ216pfDH6whd0_Wc3lw6Apl5rTZgqwutUg.PNG/4.png?type=w1200")
     }
 
     override fun clickImageEdit() = profile_img_edit.throttleClicks()
@@ -90,7 +96,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         profile_setting_btn_txt.isSelected = status == ProfileContract.View.Status.SETTING
         profile_img_edit.isVisible = status == ProfileContract.View.Status.SETTING
 
-        profile_vote_group.isVisible = status != ProfileContract.View.Status.SETTING
+        profile_vote_group.isInvisible = status == ProfileContract.View.Status.SETTING
 
     }
 

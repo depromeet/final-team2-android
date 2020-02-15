@@ -3,12 +3,12 @@ package com.def.team2.screen.main
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
 import com.def.team2.base.BaseActivity
 import com.def.team2.screen.chatlist.ChatListFragment
-import com.def.team2.screen.map.MapFragment
 import com.def.team2.screen.profile.ProfileFragment
 import com.def.team2.util.sharedPreferences
 import com.def.team2.util.throttleClicks

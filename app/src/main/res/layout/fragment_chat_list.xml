@@ -12,6 +12,7 @@
         android:gravity="center"
         android:text="채팅방을 불러오는데 실해했습니다. \n다시 접속하거나 좋아하는 아이돌을 선택해주세요"
         android:fontFamily="@font/spoqahansansbold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -19,6 +19,11 @@ class MapPresenter(
 
     override val disposables: CompositeDisposable = CompositeDisposable()
 
+    override fun openSearchView() {
+        view.showSearchUI()
+        view.hideMapOption()
+    }
+
     override fun openFilterView() {
         view.setSchoolFilterUI(true)
         view.hideMapOption()

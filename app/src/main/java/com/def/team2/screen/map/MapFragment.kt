@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +19,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.def.team2.R
-import com.def.team2.base.UserData
 import com.def.team2.network.model.School
 import com.def.team2.screen.map.model.RankIdol
+import com.def.team2.screen.search.SearchAdapter
+import com.def.team2.screen.search.SearchFragment
+import com.def.team2.screen.search.SearchPresenter
 import com.def.team2.util.REQ_CODE_ACCESS_LOCATION
 import com.def.team2.util.toast
 import com.google.gson.Gson
@@ -59,8 +60,6 @@ class MapFragment: Fragment(), MapContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Log.e("UserData: ", "school: ${UserData.school}, idols: ${UserData.idolList}, users: ${UserData.user}")
         Mapbox.getInstance(context!!, getString(R.string.mapbox_access_token))
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
@@ -118,11 +117,9 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     private fun initMapOptionClickListener() {
-        map_option_tab.setOnClickListener {
-            map_option_tab.toggle()
-        }
+        map_option_tab.setOnClickListener { map_option_tab.toggle() }
 
-        iv_map_search.setOnClickListener {  }
+        iv_map_search.setOnClickListener { presenter.openSearchView() }
 
         iv_map_filter.setOnClickListener { presenter.openFilterView() }
 
@@ -241,6 +238,18 @@ class MapFragment: Fragment(), MapContract.View {
 
     override fun hideMapOption() {
         map_option_tab.close()
+    }
+
+    override fun showSearchUI() {
+        SearchFragment(SearchPresenter.Type.SCHOOL, object : SearchAdapter.SearchAdapterCallback {
+            override val isDismiss: Boolean = true
+            override fun onClick(data: Any) {
+                if (data is School) {
+                    moveMapPosition(data.location.latitude, data.location.longitude)
+                    presenter.loadIdolRankInSchool(data)
+                }
+            }
+        }).show(childFragmentManager, "")
     }
 
     override fun setSchoolFilterUI(active: Boolean) {

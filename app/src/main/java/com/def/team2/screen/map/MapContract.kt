@@ -16,7 +16,7 @@ interface MapContract {
 
         fun hideMapOption()
 
-//        fun showSearchUI()
+        fun showSearchUI()
 
         fun setSchoolFilterUI(active: Boolean)
 
@@ -36,6 +36,8 @@ interface MapContract {
     }
 
     interface Presenter: BaseRxPresenter {
+
+        fun openSearchView()
 
         fun openFilterView()
 

@@ -28,7 +28,7 @@ interface Api {
                          @Query("size") pageSize: Int = 15): Single<List<School>>
 
     @GET("api/school/rank")
-    fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<RankResponse>
+    fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<IdolGroupResponse>
 
     @GET("/api/idol")
     fun getIdol(@Query("idolId") idolId: Long): Single<IdolGroup>

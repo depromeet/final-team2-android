@@ -14,7 +14,10 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.dialog_search.*
 
 
-class SearchFragment(private val type: SearchPresenter.Type = SearchPresenter.Type.ALL) : DialogFragment(), SearchContract.View {
+class SearchFragment(
+    private val type: SearchPresenter.Type = SearchPresenter.Type.ALL,
+    private val callback: SearchAdapter.SearchAdapterCallback? = null
+) : DialogFragment(), SearchContract.View {
 
     override lateinit var lifeCycleOwner: LifecycleOwner
     override lateinit var presenter: SearchContract.Presenter
@@ -39,7 +42,7 @@ class SearchFragment(private val type: SearchPresenter.Type = SearchPresenter.Ty
         lifeCycleOwner = this
         setLifecycle()
 
-        SearchAdapter().apply {
+        SearchAdapter(callback) { dismissDialog() }.apply {
             adapter = this
             search_dialog_recycler.adapter = adapter
         }

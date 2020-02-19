@@ -28,10 +28,13 @@ interface Api {
                          @Query("size") pageSize: Int = 15): Single<List<School>>
 
     @GET("api/school/rank")
-    fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<RankResponse>
+    fun getSchoolRanking(@Query("schoolId") schoolId: Long): Single<IdolGroupResponse>
+
+    @GET("/api/idol")
+    fun getIdol(@Query("idolId") idolId: Long): Single<IdolGroup>
 
     @GET("/api/idol/search")
-    fun searchIdolList(@Query("query") idolName: String): Single<List<IdolDto>>
+    fun searchIdolList(@Query("query") idolName: String): Single<IdolGroupResponse>
 
     @POST("/api/users")
     fun signUp(@Body signUpRequest: SignUpRequest): Single<SignUpResponse>

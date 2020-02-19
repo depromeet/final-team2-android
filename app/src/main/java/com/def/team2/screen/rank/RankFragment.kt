@@ -38,7 +38,7 @@ class RankFragment : Fragment(), RankContract.View {
                 presenter.subscribeVote(data)
             }
 
-            override fun entranceCommunity(data: IdolGroup) {
+            override fun entranceCommunity(data: IdolGroupResponse) {
                 //TODO 채팅방화면으로 보내면됨
             }
 
@@ -54,7 +54,7 @@ class RankFragment : Fragment(), RankContract.View {
         }
     }
 
-    override fun setRank(data: List<IdolGroupResponse>) {
+    override fun setRank(data: List<IdolGroup>) {
         data.sortedBy { it.currentBallots.size }
         adapter.setItems(data.map {
             if (it.id == 0L) RankAdapter.Item(it, RankAdapter.ViewType.FIRST)

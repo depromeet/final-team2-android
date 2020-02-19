@@ -10,7 +10,7 @@ data class BallotResponse(
     val date: String,
     val user: Long,
     val vote: Long,
-    val idol: IdolGroupResponse
+    val idol: IdolGroup
 )
 data class Ballot (
     val date:String,

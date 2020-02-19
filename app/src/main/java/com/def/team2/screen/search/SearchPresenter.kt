@@ -29,8 +29,8 @@ class SearchPresenter(private val view: SearchContract.View, private val type: T
                 return@subscribe
             }
             val searchList = when (currentType) {
-                Type.ALL -> listOf(view.getApiProvider().searchIdolList(search), view.getApiProvider().searchSchoolList(search))
-                Type.IDOL -> listOf(view.getApiProvider().searchIdolList(search))
+                Type.ALL -> listOf(view.getApiProvider().searchIdolList(search).map { idol -> idol.idols }, view.getApiProvider().searchSchoolList(search))
+                Type.IDOL -> listOf(view.getApiProvider().searchIdolList(search).map { idol -> idol.idols })
                 Type.SCHOOL -> listOf(view.getApiProvider().searchSchoolList(search))
             }
             Single.zip(searchList) { array ->

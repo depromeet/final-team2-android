@@ -9,10 +9,14 @@ import android.location.LocationManager
 import android.os.Build
 import com.def.team2.base.UserData
 import com.def.team2.network.Api
-import com.def.team2.network.model.*
+import com.def.team2.network.model.Location
+import com.def.team2.network.model.School
+import com.def.team2.screen.map.model.RankIdol
 import com.def.team2.util.idolKingdomApi
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import io.reactivex.Flowable
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 class MapInteractor(private val context: Context) {
 
@@ -52,82 +56,97 @@ class MapInteractor(private val context: Context) {
         UserData.school
 
     fun getSchoolList(): Flowable<List<School>> {
-//        boundBox?.let {
-//            return idolKingdomApi
-//                .getNearSchoolList(it.latSouth, it.latNorth, it.lonWest, it.lonEast, 100)
-//                .onErrorResumeNext { Single.just(listOf()) }
-//                .toFlowable()
-//                .map {schoolList ->
-//                    if (schoolSet.size == 0) {
-//                        schoolList
-//                    } else {
-//                        schoolList.filter {school -> hasSchoolLevel(school.level) }
-//                    }
-//                }
-//                .subscribeOn(Schedulers.io())
-//
-//        } ?: kotlin.run {
-//            return Flowable.just(listOf())
-//        }
+        boundBox?.let {
+            return idolKingdomApi
+                .getNearSchoolList(it.latSouth, it.latNorth, it.lonWest, it.lonEast, 100)
+                .onErrorResumeNext { Single.just(listOf()) }
+                .toFlowable()
+                .map {schoolList ->
+                    if (schoolSet.size == 0) {
+                        schoolList
+                    } else {
+                        schoolList.filter {school -> hasSchoolLevel(school.level) }
+                    }
+                }
+                .subscribeOn(Schedulers.io())
 
-        return Flowable.just(
-            listOf(
-                // FixMe 임시로 users 에 idol id 를 넣었다.
-                School(7867, "거창고등학교", "서울 종로구 혜화동", Location(37.59156, 127.000565), School.Level.MIDDLE, 1, ""),
-                School(7868, "거창공업고등학교", "서울 종로구 행촌동", Location(37.573273, 126.96191), School.Level.HIGH, 2, ""),
-                School(8081, "거창나래학교", "서울 종로구 혜화동", Location(37.59156, 127.000565), School.Level.MIDDLE, 3, ""),
-                School(-1, "배재고등학교", "서울 강동구 고덕동", Location(37.556092, 127.150819), School.Level.HIGH, 1, ""),
-                School(-2, "한영외국어고등학교", "서울 강동구 상일동", Location(37.548102, 127.157241), School.Level.HIGH, 3, ""),
-                School(-3, "한영고등학교", "서울 강동구 상일동", Location(37.549008, 127.158209), School.Level.HIGH, 2, ""),
-                School(-4, "광문고등학교", "서울 강동구 고덕동", Location(37.560283, 127.158255), School.Level.HIGH, 2, ""),
-                School(-5, "명일여자고등학교", "서울 강동구 명일동", Location(37.549904, 127.150277), School.Level.HIGH, 3, ""),
-                School(-6, "한영중학교", "서울 강동구 상일동", Location(37.549144, 127.157335), School.Level.MIDDLE, 1, ""),
-                School(-7, "배재중학교", "서울 강동구 고덕동", Location(37.555641, 127.149619), School.Level.MIDDLE, 1, ""),
-                School(-7, "명일중학교", "서울 강동구 고덕동", Location(37.557242, 127.148051), School.Level.MIDDLE, 1, "")
-            )
-        ).map {
-            if (schoolSet.size == 0) {
-                it
-            } else {
-                it.filter {school -> hasSchoolLevel(school.level) }
-            }
+        } ?: kotlin.run {
+            return Flowable.just(listOf())
         }
+
+//        return Flowable.just(
+//            listOf(
+//                // FixMe 임시로 users 에 idol id 를 넣었다.
+//                School(7867, "거창고등학교", "서울 종로구 혜화동", Location(37.59156, 127.000565), School.Level.MIDDLE, 1, ""),
+//                School(7868, "거창공업고등학교", "서울 종로구 행촌동", Location(37.573273, 126.96191), School.Level.HIGH, 2, ""),
+//                School(8081, "거창나래학교", "서울 종로구 혜화동", Location(37.59156, 127.000565), School.Level.MIDDLE, 3, ""),
+//                School(-1, "배재고등학교", "서울 강동구 고덕동", Location(37.556092, 127.150819), School.Level.HIGH, 1, ""),
+//                School(-2, "한영외국어고등학교", "서울 강동구 상일동", Location(37.548102, 127.157241), School.Level.HIGH, 3, ""),
+//                School(-3, "한영고등학교", "서울 강동구 상일동", Location(37.549008, 127.158209), School.Level.HIGH, 2, ""),
+//                School(-4, "광문고등학교", "서울 강동구 고덕동", Location(37.560283, 127.158255), School.Level.HIGH, 2, ""),
+//                School(-5, "명일여자고등학교", "서울 강동구 명일동", Location(37.549904, 127.150277), School.Level.HIGH, 3, ""),
+//                School(-6, "한영중학교", "서울 강동구 상일동", Location(37.549144, 127.157335), School.Level.MIDDLE, 1, ""),
+//                School(-7, "배재중학교", "서울 강동구 고덕동", Location(37.555641, 127.149619), School.Level.MIDDLE, 1, ""),
+//                School(-7, "명일중학교", "서울 강동구 고덕동", Location(37.557242, 127.148051), School.Level.MIDDLE, 1, "")
+//            )
+//        ).map {
+//            if (schoolSet.size == 0) {
+//                it
+//            } else {
+//                it.filter {school -> hasSchoolLevel(school.level) }
+//            }
+//        }
     }
 
-    fun getIdolRankInSchool(schoolId: Long): Flowable<List<RankResponse.Rank>> {
-//        return idolKingdomApi.getSchoolRanking(schoolId)
-//            .map { it.ranks }
-//            .toFlowable()
-//            .subscribeOn(Schedulers.io())
+    fun getIdolRankInSchool(school: School): Flowable<List<RankIdol>> {
+        return idolKingdomApi.getSchoolRanking(school.id)
+            .map { it.idols }
+            .map { idolGroups -> idolGroups.sortedByDescending { it.currentBallots.size }.take(3) }
+            .map { idols ->
+                idols.map {
+                    //Todo 이미지 없는 경우디폴트 이미지로 변경해야 함
+                    val imgUrl = if (it.images.size >= 3) it.images[2] else ""
+                    RankIdol(
+                        school.id,
+                        1,
+                        it.name,
+                        imgUrl,
+                        school.name,
+                        school.address
+                    )
+                }
+            }
+            .toFlowable()
+            .subscribeOn(Schedulers.io())
 
-        return Flowable.just(
-            listOf(
-                RankResponse.Rank(
-                        IdolDto(-1,
-                        "방탄소년단",
-                        listOf("https://img.sbs.co.kr/newsnet/etv/upload/2019/04/17/30000626415_700.jpg"),
-                        listOf()
-                    ),
-                    listOf(1,2,3,4,5,6,6,7,8,4,1,1,2,3,4,5,6,6,7,8,4,1)
-                ),
-                RankResponse.Rank(
-                        IdolDto(-1,
-                        "레드벨벳",
-                        listOf("https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BBLqut9.img?h=0&w=720&m=6&q=60&u=t&o=f&l=f&x=265&y=329"),
-                        listOf()
-                    ),
-                    listOf(1,2,3,4,5,6,6,7,8,4,1,1,2,3,4,5,6,6,7,8,4,1,1,2,3,4,5,6,6,7,8,4,1)
-                ),
-                RankResponse.Rank(
-                        IdolDto(-1,
-                        "아이유",
-                        listOf("https://pds.joins.com/news/component/htmlphoto_mmdata/201910/21/htm_2019102182027833808.jpg"),
-                        listOf()
-                    ),
-                    listOf(1,2,3,4,5,6,6,7,8,4)
-                )
-            )
-        )
+//        return Flowable.just(
+//            listOf(
+//                RankIdol(
+//                    school.id,
+//                    1,
+//                    "방탄소년단",
+//                    "https://img.sbs.co.kr/newsnet/etv/upload/2019/04/17/30000626415_700.jpg",
+//                    school.name,
+//                    school.address
+//                ),
+//                RankIdol(
+//                    school.id,
+//                    3,
+//                    "레드벨벳",
+//                    "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BBLqut9.img?h=0&w=720&m=6&q=60&u=t&o=f&l=f&x=265&y=329",
+//                    school.name,
+//                    school.address
+//                ),
+//                RankIdol(
+//                    school.id,
+//                    2,
+//                    "아이유",
+//                    "https://pds.joins.com/news/component/htmlphoto_mmdata/201910/21/htm_2019102182027833808.jpg",
+//                    school.name,
+//                    school.address
+//                )
+//            )
+//        )
     }
 
     fun isAccessMyLocation(): Boolean {

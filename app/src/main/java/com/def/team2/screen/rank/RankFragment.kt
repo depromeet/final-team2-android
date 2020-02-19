@@ -66,5 +66,9 @@ class RankFragment : Fragment(), RankContract.View {
         adapter.updateItem(data)
     }
 
+    override fun updateDate(formatTimeRemaining: String) {
+        rank_time_txt.text = formatTimeRemaining
+    }
+
     override fun getApiProvider(): Api = context!!.idolKingdomApi
 }

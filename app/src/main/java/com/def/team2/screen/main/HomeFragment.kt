@@ -68,10 +68,6 @@ class HomeFragment : Fragment(), HomeContract.View {
     override val searchClcik: Observable<Unit>
         get() = home_search.throttleClicks()
 
-    override fun updateDate(date: String) {
-        home_time_txt.text = date
-    }
-
     override fun shpwSearchDialog() {
         SearchFragment(SearchPresenter.Type.IDOL).show(childFragmentManager, "")
     }

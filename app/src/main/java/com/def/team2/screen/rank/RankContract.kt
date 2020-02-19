@@ -11,11 +11,13 @@ interface RankContract {
         fun getApiProvider(): Api
         fun setRank(data: List<IdolGroup>)
         fun updateVote(data: RankAdapter.Item)
+        fun updateDate(formatTimeRemaining: String)
     }
 
     interface Presenter : BaseRxPresenter {
         fun subscribeRank(ballotIds:Long)
         fun subscribeVote(item:RankAdapter.Item)
+        fun subscribeTime()
     }
 
 }

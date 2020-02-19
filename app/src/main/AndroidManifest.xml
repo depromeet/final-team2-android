@@ -16,21 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".screen.splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
         <activity android:name=".screen.chatroom.ChatRoomActivity" />
         <activity android:name=".screen.signin.SignInActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+          <intent-filter>
+                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />-->
+          </intent-filter>
         </activity>
         <activity android:name=".screen.main.MainActivity"></activity>
+        <activity android:name=".screen.rank.RankActivity" />
     </application>
 
 </manifest>

@@ -36,3 +36,10 @@ fun formatTimeRemaining(date: Long): String {
 
     return "${if (hourRemaining < 0) "00" else hourRemaining.toString().numberFormatZero()} : ${if (minRemaining < 0) "00" else minRemaining.toString().numberFormatZero()} : ${if (secRemaining < 0) "00" else secRemaining.toString().numberFormatZero()}"
 }
+
+fun formatTimeComment(dateString: String): String {
+    val transFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+    val date = transFormat.parse(dateString)
+    val commentFormat = SimpleDateFormat("hh:mm a")
+    return commentFormat.format(date)
+}

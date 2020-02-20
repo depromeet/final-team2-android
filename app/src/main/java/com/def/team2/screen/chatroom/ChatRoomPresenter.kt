@@ -1,5 +1,7 @@
 package com.def.team2.screen.chatroom
 
+import com.def.team2.util.e
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class ChatRoomPresenter(
@@ -25,9 +27,11 @@ class ChatRoomPresenter(
     override fun loadNextComment() {
         interactor
             .getComments()
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 view.addNextCommentList(it)
             },{
+                e("failed to load comment, error: ${it}")
                 view.showToast("내용을 불러오는데 실패했습니다.")
             })
             .bindUntilClear()

@@ -7,5 +7,8 @@ data class User (
     val id:Long,
     val idolIdList:List<Long>,
     val nickName:String,
-    val schoolList:List<Long>
+    val schoolList:List<Long>,
+
+    val restBallotsCount: Long?,
+    val lastAttendantDate: String?
 )

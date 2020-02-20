@@ -22,7 +22,7 @@ class ChatRoomActivity : BaseActivity(), ChatRoomContract.View {
 
     private val chatRoomCommentAdapter: ChatRoomCommentAdapter by lazy {
         ChatRoomCommentAdapter(
-            UserData.user?.id?.toLong() ?: -1
+            UserData.user?.id ?: -1
         )
     }
 

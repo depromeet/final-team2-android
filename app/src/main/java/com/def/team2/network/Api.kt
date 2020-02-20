@@ -3,10 +3,7 @@ package com.def.team2.network
 import com.def.team2.network.model.*
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
@@ -60,4 +57,13 @@ interface Api {
 
     @POST("/api/ballots")
     fun createBallot(@Body ballotRequestDto: BallotRequest): Single<List<BallotResponse>>
+
+    @GET("/api/comment")
+    fun getComments(@Query("idolIds") idolIds: List<Long>): Single<CommentResponse>
+
+    @POST("/api/comment")
+    fun sendComment(@Body commentRequest: CommentRequest): Single<CommentResponse>
+
+    @DELETE("/api/comment")
+    fun deleteComment(@Query("commentId") commentId: Long): Completable
 }

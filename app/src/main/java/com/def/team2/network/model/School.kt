@@ -8,6 +8,7 @@ data class School(
     val address: String,
     val location: Location,
     val level: Level,
+    val markerImage: String?,
 
     @Expose(serialize = true, deserialize = false)
     val users: Any,

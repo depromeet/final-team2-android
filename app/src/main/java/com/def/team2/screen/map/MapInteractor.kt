@@ -58,7 +58,7 @@ class MapInteractor(private val context: Context) {
     fun getSchoolList(): Flowable<List<School>> {
         boundBox?.let {
             return idolKingdomApi
-                .getNearSchoolList(it.latSouth, it.latNorth, it.lonWest, it.lonEast, 100)
+                .getNearSchoolList(it.latSouth, it.latNorth, it.lonWest, it.lonEast, 10)
                 .onErrorResumeNext { Single.just(listOf()) }
                 .toFlowable()
                 .map {schoolList ->

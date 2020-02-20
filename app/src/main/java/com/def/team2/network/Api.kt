@@ -16,11 +16,12 @@ interface Api {
     @GET("api/school")
     fun getSchool(@Query("schoolIds") schoolIds: List<Long>): Single<List<School>>
 
+    // Todo 위도 경도 좌표  이상함(y 좌표가 위도(lat) 이어야 할 것 같음).... 일단 서버에서 이렇게 만들었으니 그냥 진행
     @GET("/api/school/nearby")
-    fun getNearSchoolList(@Query("start_y") south: Double,
-                          @Query("end_y") north: Double,
-                          @Query("start_x") west: Double,
-                          @Query("end_x") east: Double,
+    fun getNearSchoolList(@Query("start_x") south: Double,
+                          @Query("end_x") north: Double,
+                          @Query("start_y") west: Double,
+                          @Query("end_y") east: Double,
                           @Query("size") pageSize: Int): Single<List<School>>
 
     @GET("/api/school/search")

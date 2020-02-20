@@ -1,5 +1,6 @@
 package com.def.team2.screen.rank
 
+import com.def.team2.base.UserData
 import com.def.team2.network.model.BallotRequest
 import com.def.team2.util.formatTimeRemaining
 import com.def.team2.util.getTimeRemaining
@@ -14,6 +15,7 @@ class RankPresenter(private val view: RankContract.View) : RankContract.Presente
     override val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun start() {
+        subscribeTime()
     }
 
     override fun subscribeRank(ballotIds: Long) {
@@ -33,7 +35,7 @@ class RankPresenter(private val view: RankContract.View) : RankContract.Presente
 
     override fun subscribeTime() {
         Observable.interval(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            view.updateDate(formatTimeRemaining(getTimeRemaining("")))
+            view.updateDate(formatTimeRemaining(getTimeRemaining(UserData.currentVote?.endDate ?: "0")))
         }.bindUntilClear()
     }
 

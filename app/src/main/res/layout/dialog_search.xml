@@ -7,14 +7,14 @@
     android:background="@android:color/black">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/search_dialog_close"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        app:srcCompat="@drawable/ic_close"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="54dp"
         android:layout_marginEnd="26dp"
-        android:id="@+id/search_dialog_close"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/search_dialog_title"

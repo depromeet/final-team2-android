@@ -10,7 +10,7 @@
         android:id="@+id/home_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/home_time_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.def.team2.screen.custom.VerticalTextView
@@ -71,4 +71,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_search_white" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,13 +3,15 @@ package com.def.team2.screen.main
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
 import com.def.team2.base.BaseActivity
+import com.def.team2.network.Api
 import com.def.team2.screen.chatlist.ChatListFragment
 import com.def.team2.screen.profile.ProfileFragment
+import com.def.team2.util.KEY_TOKEN
+import com.def.team2.util.idolKingdomApi
 import com.def.team2.util.sharedPreferences
 import com.def.team2.util.throttleClicks
 import com.f2prateek.rx.preferences2.RxSharedPreferences
@@ -27,6 +29,10 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//        sharedPreferences()
+//            .edit()
+//            .putString(KEY_TOKEN, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJRE9MX0tJTkdET00iLCJVU0VSTkFNRSI6ImciLCJVU0VSX0lEIjo3NjQ0fQ.SwhJ2ASMhFGe_IOGs6rLVOI6jRES3QVZN6MI0kjpZAI")
+//            .apply()
         lifeCycleOwner = this
         setLifecycle()
         presenter = MainPresenter(this@MainActivity).apply {
@@ -43,7 +49,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun clickBarChat() = main_bottom_bar_chat.throttleClicks()
 
     override fun clickBarProfile() = main_bottom_bar_my.throttleClicks()
-
+    override fun getApiProvider(): Api = idolKingdomApi
 
     override fun changeBar(status: MainContract.View.Status) {
         when (status) {

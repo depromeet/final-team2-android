@@ -1,6 +1,7 @@
 package com.def.team2.screen.main
 
 import android.util.Log
+import com.def.team2.base.UserData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -27,7 +28,16 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
     override fun start() {
         subscribeMoveFragment()
+        subscribeCurrentVote()
         view.changeBar(MainContract.View.Status.RANK)
+    }
+
+    override fun subscribeCurrentVote(){
+        view.getApiProvider().getCurrentVote().subscribe({
+            UserData.currentVote = it
+        },{
+
+        }).bindUntilClear()
     }
 
 }

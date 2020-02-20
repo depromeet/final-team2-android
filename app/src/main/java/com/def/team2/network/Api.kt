@@ -59,4 +59,8 @@ interface Api {
 
     @POST("/api/ballots")
     fun createBallot(@Body ballotRequestDto: BallotRequest): Single<List<BallotResponse>>
+
+    @GET("/api/vote/current")
+    fun getCurrentVote(): Single<VoteResponseDto>
+
 }

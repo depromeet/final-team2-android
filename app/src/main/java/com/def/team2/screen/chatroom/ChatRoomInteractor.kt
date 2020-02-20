@@ -1,7 +1,9 @@
 package com.def.team2.screen.chatroom
 
 import android.content.Context
+import com.def.team2.base.UserData
 import com.def.team2.network.Api
+import com.def.team2.network.model.CommentRequest
 import com.def.team2.screen.chatroom.model.ChatRoomComment
 import com.def.team2.util.formatTimeComment
 import com.def.team2.util.idolKingdomApi
@@ -26,11 +28,29 @@ class ChatRoomInteractor(
         this.idolId = idolId
     }
 
+    fun sendComment(content: String): Flowable<List<ChatRoomComment>> {
+        return Flowable.just(UserData.school?.id)
+            .switchMapSingle {
+                idolKingdomApi
+                .sendComment(CommentRequest(content, idolId, it))
+            }.map { it.comments }
+            .map { commentList ->
+                commentList.map {
+                    val time = formatTimeComment(it.updatedAt)
+                    ChatRoomComment(it.writer.id, null, it.writer.nickName, it.content, time)
+                }
+            }
+            .subscribeOn(Schedulers.io())
+
+    }
+
     fun getComments(): Flowable<List<ChatRoomComment>> {
         return idolKingdomApi.getComments(listOf(idolId))
             .map { it.comments }
             .map { commentList ->
-                commentList.map {
+                commentList
+                    .sortedByDescending { it.updatedAt }
+                    .map {
                     val time = formatTimeComment(it.updatedAt)
                     ChatRoomComment(it.writer.id, null, it.writer.nickName, it.content, time)
                 }

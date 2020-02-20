@@ -74,7 +74,11 @@ class ChatRoomActivity : BaseActivity(), ChatRoomContract.View {
         chatRoomCommentAdapter.setNextItems(chatRoomComment)
     }
 
-    override fun deleteSendedCommentText() {
+    override fun refreshCommentList(chatRoomComment: List<ChatRoomComment>) {
+        chatRoomCommentAdapter.refreshItems(chatRoomComment)
+    }
+
+    override fun deleteSentCommentText() {
         et_chat_room_comment.setText("")
     }
 

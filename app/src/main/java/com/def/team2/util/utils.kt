@@ -2,6 +2,7 @@ package com.def.team2.util
 
 import android.util.Log
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 fun d(msg: Any) {
@@ -35,4 +36,9 @@ fun formatTimeRemaining(date: Long): String {
     val secRemaining = hourRemainder % sec
 
     return "${if (hourRemaining < 0) "00" else hourRemaining.toString().numberFormatZero()} : ${if (minRemaining < 0) "00" else minRemaining.toString().numberFormatZero()} : ${if (secRemaining < 0) "00" else secRemaining.toString().numberFormatZero()}"
+}
+
+fun getCurrentDate(): String {
+    val currentTime = Calendar.getInstance().time
+    return SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(currentTime)
 }

@@ -10,6 +10,7 @@ import com.def.team2.R
 import com.def.team2.network.Api
 import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.IdolGroupResponse
+import com.def.team2.screen.common.PopupDialog
 import com.def.team2.util.idolKingdomApi
 import kotlinx.android.synthetic.main.fragment_rank.*
 
@@ -26,9 +27,7 @@ class RankFragment : Fragment(), RankContract.View {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(
-            R.layout.fragment_rank, container, false
-        )
+            inflater.inflate(R.layout.fragment_rank, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,6 +67,12 @@ class RankFragment : Fragment(), RankContract.View {
 
     override fun updateDate(formatTimeRemaining: String) {
         rank_time_txt.text = formatTimeRemaining
+    }
+
+    private fun showDialogPopup() {
+        PopupDialog(PopupDialog.Type.VOTE){
+
+        }.show(childFragmentManager,"")
     }
 
     override fun getApiProvider(): Api = context!!.idolKingdomApi

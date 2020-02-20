@@ -3,17 +3,16 @@ package com.def.team2.screen.main
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
 import com.def.team2.base.BaseActivity
 import com.def.team2.network.Api
 import com.def.team2.screen.chatlist.ChatListFragment
+import com.def.team2.screen.common.PopupDialog
 import com.def.team2.screen.profile.ProfileFragment
-import com.def.team2.util.KEY_TOKEN
-import com.def.team2.util.idolKingdomApi
-import com.def.team2.util.sharedPreferences
-import com.def.team2.util.throttleClicks
+import com.def.team2.util.*
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,10 +43,20 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
     }
 
+    override fun showDialogPopup() {
+
+        sharedPreferences()
+                .edit()
+                .putString(ATTENDANCE, getCurrentDate())
+                .apply()
+        PopupDialog(PopupDialog.Type.ATTENDANCE) {
+
+        }.show(supportFragmentManager, "")
+    }
+
+    override fun preferences() = this.sharedPreferences()
     override fun clickBarRank() = main_bottom_bar_rank.throttleClicks()
-
     override fun clickBarChat() = main_bottom_bar_chat.throttleClicks()
-
     override fun clickBarProfile() = main_bottom_bar_my.throttleClicks()
     override fun getApiProvider(): Api = idolKingdomApi
 

@@ -11,4 +11,5 @@ object UserData {
 
     val idolList: MutableList<IdolGroup> = mutableListOf()
     var currentVote : VoteResponseDto? = null
+    var currentMyVote : VoteResponseDto? = null
 }

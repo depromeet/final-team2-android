@@ -27,7 +27,7 @@ class RankPresenter(private val view: RankContract.View) : RankContract.Presente
     override fun subscribeVote(item: RankAdapter.Item) {
         val vote = BallotRequest(item.data.id, 0)
         view.getApiProvider().createBallot(vote).subscribe({
-
+            view.updateVote(item)
         }, {
 
         }).bindUntilClear()

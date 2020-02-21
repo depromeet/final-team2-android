@@ -27,7 +27,7 @@ class ChatListInteractor(context: Context) {
 //        )
 
 
-        return Flowable.fromIterable(UserData.user?.idolIdList ?: listOf())
+        return Flowable.fromIterable(UserData.user?.idols ?: listOf())
             .flatMapSingle { idolKingdomApi.getIdol(it) }
             .map {
                 //Todo 이미지 없는 경우디폴트 이미지로 변경해야 함

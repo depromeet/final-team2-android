@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dialog_result_close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toTopOf="@id/dialog_result_vote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_close" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/dialog_result_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.257" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dialog_result_vote"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="19dp"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_result_guide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/img_vote" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dialog_result_like"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_result_vote"
+        app:layout_constraintEnd_toStartOf="@id/dialog_result_vote"
+        app:srcCompat="@drawable/icon_heart" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dialog_result_chat"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_result_vote"
+        app:layout_constraintEnd_toStartOf="@id/dialog_result_like"
+        app:srcCompat="@drawable/gnb_chat" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dialog_result_img"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dialog_result_guide" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

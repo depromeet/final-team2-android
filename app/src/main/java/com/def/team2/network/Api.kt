@@ -3,15 +3,15 @@ package com.def.team2.network
 import com.def.team2.network.model.*
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
     @POST("/api/users/validation")
     fun checkEmailDuplicated(@Body checkEmailRequest: Map<String, String>): Completable
+
+    @PUT("/api/me/attendance")
+    fun applyAttendance() : Completable
 
     @GET("api/school")
     fun getSchool(@Query("schoolIds") schoolIds: List<Long>): Single<List<School>>
@@ -58,5 +58,15 @@ interface Api {
     fun getUsers(@Query("userId") userId: String): Single<User>
 
     @POST("/api/ballots")
-    fun createBallot(@Body ballotRequestDto: BallotRequest): Single<List<BallotResponse>>
+    fun createBallot(@Body ballotRequestDto: BallotRequest): Single<BallotResponse>
+
+    @GET("/api/vote/current")
+    fun getCurrentVote(): Single<VoteResponseDto>
+
+    @GET("/api/vote")
+    fun getMyVote(@Query("voteId") voteId: String): Single<VoteResponseDto>
+
+    @PATCH("/api/users")
+    fun updateUser(@Body request :UpdateUserRequest):Single<SignInResponse>
+
 }

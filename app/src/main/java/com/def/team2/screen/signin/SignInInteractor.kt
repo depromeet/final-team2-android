@@ -36,12 +36,12 @@ class SignInInteractor(context: Context) {
             .doOnSuccess { UserData.user = it }
             .flatMap { user ->
                 idolKingdomApi
-                    .getSchool(user.schoolList)
+                    .getSchool(user.schools)
                     .map { schoolList -> UserData.school = schoolList.first() }
                     .map { user }
             }
             .flatMap {
-                Flowable.fromIterable(it.idolIdList)
+                Flowable.fromIterable(it.idols)
                     .flatMapSingle {id ->
                         idolKingdomApi
                             .getIdol(id)

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.base.UserData
 import com.def.team2.network.Api
 import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.IdolGroupResponse
@@ -62,6 +63,7 @@ class RankFragment : Fragment(), RankContract.View {
     }
 
     override fun updateVote(data: RankAdapter.Item) {
+        showDialogPopup()
         adapter.updateItem(data)
     }
 
@@ -71,7 +73,9 @@ class RankFragment : Fragment(), RankContract.View {
 
     private fun showDialogPopup() {
         PopupDialog(PopupDialog.Type.VOTE){
-
+            UserData.user?.apply {
+                UserData.user = this.copy(restBallotsCount = this.restBallotsCount - 1)
+            }
         }.show(childFragmentManager,"")
     }
 

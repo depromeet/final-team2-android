@@ -1,5 +1,6 @@
 package com.def.team2.screen.profile.setting
 
+import com.def.team2.base.UserData
 import com.def.team2.screen.search.SearchFragment
 import com.def.team2.screen.search.SearchPresenter
 import com.def.team2.util.e
@@ -18,7 +19,9 @@ class ProfileSettingPresenter(private val view: ProfileSettingContract.View) :
     }
 
     override fun subscribeSetting() {
-
+        UserData.user?.apply {
+            view.setSetting(this)
+        }
     }
 
     override fun subscribeEdit() {

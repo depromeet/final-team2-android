@@ -1,5 +1,7 @@
 package com.def.team2.screen.main
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +11,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.def.team2.R
+import com.def.team2.base.UserData
+import com.def.team2.network.model.IdolGroup
+import com.def.team2.screen.chatroom.ChatRoomActivity
+import com.def.team2.screen.common.PopupDialog
 import com.def.team2.screen.map.MapFragment
 import com.def.team2.screen.rank.RankFragment
+import com.def.team2.screen.search.SearchAdapter
 import com.def.team2.screen.search.SearchFragment
+import com.def.team2.screen.search.SearchIdolResultDialog
 import com.def.team2.screen.search.SearchPresenter
-import com.def.team2.util.throttleClicks
+import com.def.team2.util.*
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.dialog_search_result.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), HomeContract.View {
@@ -62,14 +71,60 @@ class HomeFragment : Fragment(), HomeContract.View {
 
         home_rank_btn_txt.isSelected = type == HomeContract.View.Type.RANK
         home_rank_btn_line.isVisible = type == HomeContract.View.Type.RANK
-        home_search.isVisible  = type == HomeContract.View.Type.RANK
+        home_search.isVisible = type == HomeContract.View.Type.RANK
     }
 
+    override fun getApiProvider() = context!!.idolKingdomApi
     override val searchClcik: Observable<Unit>
         get() = home_search.throttleClicks()
+    override val sharedPreferences: SharedPreferences
+        get() = context!!.sharedPreferences()
 
     override fun shpwSearchDialog() {
-        SearchFragment(SearchPresenter.Type.IDOL).show(childFragmentManager, "")
+        SearchFragment(SearchPresenter.Type.IDOL, object : SearchAdapter.SearchAdapterCallback {
+            override val isDismiss = true
+
+            override fun onClick(data: Any) {
+                if (data is IdolGroup) {
+                    SearchIdolResultDialog(data, object : SearchIdolResultDialog.Callback {
+                        override fun imageClick() {
+                            startActivity(Intent(context, ChatRoomActivity::class.java).apply {
+                                val image = if(data.images.size >= 3) data.images[2] else ""
+                                putExtra(EXTRA_IDOL_id, data.id)
+                                putExtra(EXTRA_IDOL_NAME, data.name)
+                                putExtra(EXTRA_IDOL_IMAGE_URL, image)
+                            })
+                        }
+
+                        override fun voteClick() {
+                            presenter.subscribeVote(data.id)
+                        }
+
+                        override fun chatClick() {
+                            startActivity(Intent(context, ChatRoomActivity::class.java).apply {
+                                val image = if(data.images.size >= 3) data.images[2] else ""
+                                putExtra(EXTRA_IDOL_id, data.id)
+                                putExtra(EXTRA_IDOL_NAME, data.name)
+                                putExtra(EXTRA_IDOL_IMAGE_URL, image)
+                            })
+                        }
+
+                        override fun likeClick() {
+                            presenter.subscribeLike(data.id)
+                        }
+                    }).show(childFragmentManager, "")
+                }
+            }
+
+        }).show(childFragmentManager, "")
+    }
+
+    override fun showVoteDialog() {
+        PopupDialog(PopupDialog.Type.VOTE) {
+            UserData.user?.apply {
+                UserData.user = this.copy(restBallotsCount = this.restBallotsCount - 1)
+            }
+        }.show(childFragmentManager, "")
     }
 
     private fun replaceFragment(fragment: Fragment) {

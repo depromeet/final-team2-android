@@ -58,12 +58,15 @@ interface Api {
     fun getUsers(@Query("userId") userId: String): Single<User>
 
     @POST("/api/ballots")
-    fun createBallot(@Body ballotRequestDto: BallotRequest): Single<List<BallotResponse>>
+    fun createBallot(@Body ballotRequestDto: BallotRequest): Single<BallotResponse>
 
     @GET("/api/vote/current")
     fun getCurrentVote(): Single<VoteResponseDto>
 
     @GET("/api/vote")
     fun getMyVote(@Query("voteId") voteId: String): Single<VoteResponseDto>
+
+    @PATCH("/api/users")
+    fun updateUser(@Body request :UpdateUserRequest):Single<SignInResponse>
 
 }

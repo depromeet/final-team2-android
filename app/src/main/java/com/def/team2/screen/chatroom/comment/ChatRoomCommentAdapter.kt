@@ -1,9 +1,7 @@
 package com.def.team2.screen.chatroom.comment
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.def.team2.R
 import com.def.team2.screen.chatroom.model.ChatRoomComment
 
 class ChatRoomCommentAdapter(
@@ -40,6 +38,12 @@ class ChatRoomCommentAdapter(
 
     fun setNextItems(data: List<ChatRoomComment>) {
         itemList.addAll(0, data)
+        notifyDataSetChanged()
+    }
+
+    fun refreshItems(data: List<ChatRoomComment>) {
+        itemList.clear()
+        itemList.addAll(data)
         notifyDataSetChanged()
     }
 

@@ -184,10 +184,7 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     override fun showSchoolList(schoolList: List<School>) {
-        val imgUrl1 = "https://upload.wikimedia.org/wikipedia/commons/6/60/TWICE_LOGO.png"
-        val imgUrl2 = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/BTS_logo_%282017%29.png/200px-BTS_logo_%282017%29.png"
-        val imgUrl3 = "https://upload.wikimedia.org/wikipedia/commons/a/a2/Exo-logo-v-neck_design2.jpg"
-
+        val defaultTempUrl = "https://upload.wikimedia.org/wikipedia/commons/6/60/TWICE_LOGO.png"
 
         // refresh symbol
         symbolManager?.deleteAll()
@@ -195,14 +192,9 @@ class MapFragment: Fragment(), MapContract.View {
         // make symbol
         schoolList.map {
             mapboxMap?.getStyle {style ->
-                // Todo 나중에 idol 정보를 이용해서 filtering 할 것
-//                val imgUrl = when (it.users.toString()) {
-//                    "1" -> imgUrl1
-//                    "2" -> imgUrl2
-//                    "3" -> imgUrl3
-//                    else -> imgUrl1
-//                }
-                val imgUrl = imgUrl1
+
+                // img icon 체크해서 이미 있는 이미지면 비트맵 저장하지 않음
+                val imgUrl = it.markerImage ?: defaultTempUrl
                 val iconBitmap = style.getImage(imgUrl)
 
                 iconBitmap?.let {_ ->

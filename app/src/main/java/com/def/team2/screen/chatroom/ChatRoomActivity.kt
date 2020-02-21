@@ -22,7 +22,7 @@ class ChatRoomActivity : BaseActivity(), ChatRoomContract.View {
 
     private val chatRoomCommentAdapter: ChatRoomCommentAdapter by lazy {
         ChatRoomCommentAdapter(
-            UserData.user?.id?.toLong() ?: -1
+            UserData.user?.id ?: -1
         )
     }
 
@@ -74,7 +74,11 @@ class ChatRoomActivity : BaseActivity(), ChatRoomContract.View {
         chatRoomCommentAdapter.setNextItems(chatRoomComment)
     }
 
-    override fun deleteSendedCommentText() {
+    override fun refreshCommentList(chatRoomComment: List<ChatRoomComment>) {
+        chatRoomCommentAdapter.refreshItems(chatRoomComment)
+    }
+
+    override fun deleteSentCommentText() {
         et_chat_room_comment.setText("")
     }
 

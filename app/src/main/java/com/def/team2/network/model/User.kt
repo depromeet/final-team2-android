@@ -8,6 +8,7 @@ data class User(
         val idols: List<Long>,
         val nickName: String,
         val schools: List<Long>,
+        val lastAttendantDate: String?
         val restBallotsCount: Long = 0,
         val profileImage: String? = ""
 )

@@ -95,6 +95,7 @@ class MapPresenter(
         interactor.getIdolRankInSchool(school)
             .map {
                 if (it.isEmpty()) {
+                    // Todo: default image 로 변환 필요
                     listOf(RankIdol(school.id, 0, "아이돌에게 투표해주세요", "default!!!", school.name, school.address))
                 } else {
                     it

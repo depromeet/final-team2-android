@@ -12,7 +12,9 @@ interface ChatRoomContract {
 
         fun addNextCommentList(chatRoomComment: List<ChatRoomComment>)
 
-        fun deleteSendedCommentText()
+        fun refreshCommentList(chatRoomComment: List<ChatRoomComment>)
+
+        fun deleteSentCommentText()
 
         fun showToast(msg: String)
     }

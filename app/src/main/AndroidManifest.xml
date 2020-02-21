@@ -24,10 +24,8 @@
         </activity>
 
         <activity android:name=".screen.chatroom.ChatRoomActivity" />
-        <activity android:name=".screen.signin.SignInActivity">
-        </activity>
-        <activity android:name=".screen.main.MainActivity">
-        </activity>
+        <activity android:name=".screen.signin.SignInActivity"></activity>
+        <activity android:name=".screen.main.MainActivity"></activity>
         <activity android:name=".screen.rank.RankActivity" />
     </application>
 </manifest>

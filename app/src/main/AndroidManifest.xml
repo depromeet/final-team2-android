@@ -28,5 +28,4 @@
         <activity android:name=".screen.main.MainActivity"></activity>
         <activity android:name=".screen.rank.RankActivity" />
     </application>
-
 </manifest>

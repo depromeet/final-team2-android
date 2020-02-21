@@ -5,8 +5,8 @@ data class IdolGroup(
         val name: String,
         val currentBallots: List<Long>,
         val images: List<String>,
-        val circleImage: String,
-        val markerImage: String
+        val circleImage: String? = "",
+        val markerImage: String? = ""
 )
 
 data class IdolGroupResponse(

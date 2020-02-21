@@ -10,6 +10,9 @@ interface Api {
     @POST("/api/users/validation")
     fun checkEmailDuplicated(@Body checkEmailRequest: Map<String, String>): Completable
 
+    @PUT("/api/me/attendance")
+    fun applyAttendance() : Completable
+
     @GET("api/school")
     fun getSchool(@Query("schoolIds") schoolIds: List<Long>): Single<List<School>>
 
@@ -66,4 +69,14 @@ interface Api {
 
     @DELETE("/api/comment")
     fun deleteComment(@Query("commentId") commentId: Long): Completable
+
+    @GET("/api/vote/current")
+    fun getCurrentVote(): Single<VoteResponseDto>
+
+    @GET("/api/vote")
+    fun getMyVote(@Query("voteId") voteId: String): Single<VoteResponseDto>
+
+    @PATCH("/api/users")
+    fun updateUser(@Body request :UpdateUserRequest):Single<SignInResponse>
+
 }

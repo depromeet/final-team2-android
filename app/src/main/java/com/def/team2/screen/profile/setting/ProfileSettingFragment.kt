@@ -34,7 +34,7 @@ class ProfileSettingFragment : Fragment(), ProfileSettingContract.View {
     override fun setSetting(user:User) {
         profile_setting_name.setText(user.nickName)
         profile_setting_email.setText(user.email)
-        profile_setting_school.text = user.schoolList[0].toString()
+        profile_setting_school.text = user.schools[0].toString()
     }
 
 

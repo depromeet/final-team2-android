@@ -19,4 +19,8 @@
     <string name="str_time_end_title">투표마감</string>
     <string name="str_current_rank">%d위</string>
     <string name="str_map">Map</string>
+    <string name="str_ok">확인</string>
+    <string name="str_vote">투표하기</string>
+    <string name="str_popup_vote_title">투표가\n완료되었습니다.</string>
+    <string name="str_popup_attendance_title">출석 체크가\n완료되었습니다.</string>
 </resources>

@@ -39,7 +39,7 @@
         android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="@id/dialog_result_vote"
         app:layout_constraintEnd_toStartOf="@id/dialog_result_vote"
-        app:srcCompat="@drawable/icon_heart" />
+        app:srcCompat="@drawable/selector_heart_ic" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/dialog_result_chat"

@@ -80,7 +80,9 @@ class ChatListFragment : Fragment(), ChatListContract.View {
             View.GONE
         }
     }
-
+    override fun updateDate(formatTimeRemaining: String) {
+        tv_chat_list_deadline.text = formatTimeRemaining
+    }
     override fun showChatRoomUI(chatListInfo: ChatListInfo) {
         activity?.let {
             val intent = Intent(it, ChatRoomActivity::class.java)

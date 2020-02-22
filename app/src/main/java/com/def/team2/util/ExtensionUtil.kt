@@ -62,3 +62,7 @@ fun String.numberFormatZero(): String {
 fun ImageView.imageLoad(url:String){
     Glide.with(this.context).load(url).into(this)
 }
+
+fun ImageView.imageLoad(drawable: Int){
+    Glide.with(this.context).load(drawable).into(this)
+}

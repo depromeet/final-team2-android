@@ -15,7 +15,7 @@ data class VoteResponse(
 
 data class VoteResponseDto(
     val endDate: String,
-    val id: String,
+    val id: Long,
     val startDate: String,
     val title: String,
     val ballotIds: List<Long>

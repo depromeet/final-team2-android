@@ -48,7 +48,7 @@ class ProfileSchoolFragment : Fragment(), ProfileSchoolContract.View {
     override fun getApiProvider(): Api = requireContext().idolKingdomApi
 
     override fun setSchoolInfo(school: School) {
-        val imgUrl1 = "https://upload.wikimedia.org/wikipedia/commons/6/60/TWICE_LOGO.png"
+        val imgUrl1 = if(school.markerImage.isNullOrEmpty()) "default" else school.markerImage
         profile_school_name.text = school.name
         profile_school_address.text = school.address
         profile_school_map.getMapAsync { mapboxMap ->
@@ -63,9 +63,10 @@ class ProfileSchoolFragment : Fragment(), ProfileSchoolContract.View {
                             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(this), 2000)
                         }
                 mapStyle.getImage(imgUrl1)?.let { imgUrl1 } ?: run {
+                    val image = if (imgUrl1 == "default") R.drawable.marker_default else imgUrl1
                     Glide.with(this)
                             .asBitmap()
-                            .load(imgUrl1)
+                            .load(image)
                             .into(object : CustomTarget<Bitmap>() {
                                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                                     mapStyle.addImage(imgUrl1, resource)
@@ -89,6 +90,7 @@ class ProfileSchoolFragment : Fragment(), ProfileSchoolContract.View {
                 create(SymbolOptions().apply {
                     withLatLng(latLng)
                     withIconImage(url)
+                    withIconSize(0.5f)
                 })
             }
         }

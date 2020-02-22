@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.def.team2.base.BaseRxPresenter
 import com.def.team2.base.BaseRxView
 import com.def.team2.network.Api
+import com.def.team2.network.model.IdolGroup
 import io.reactivex.Observable
 
 interface HomeContract {
@@ -21,7 +22,7 @@ interface HomeContract {
 
         fun changeType(type:Type)
         fun shpwSearchDialog()
-        fun showVoteDialog()
+        fun showVoteDialog(id:Long)
         fun getApiProvider(): Api
     }
 
@@ -29,7 +30,7 @@ interface HomeContract {
 
         fun subscribeClick()
         fun subscribeVote(id: Long)
-        fun subscribeLike(id: Long)
+        fun subscribeLike(data: IdolGroup)
     }
 
 }

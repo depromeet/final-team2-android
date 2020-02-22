@@ -3,6 +3,7 @@ package com.def.team2.base
 import com.def.team2.network.model.IdolGroup
 import com.def.team2.network.model.School
 import com.def.team2.network.model.User
+import com.def.team2.network.model.VoteResponseDto
 
 object UserData {
 

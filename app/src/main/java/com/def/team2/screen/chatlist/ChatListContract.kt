@@ -20,6 +20,8 @@ interface ChatListContract {
         fun showVotePopUp()
 
         fun showToast(msg: String)
+
+        fun updateDate(formatTimeRemaining: String)
     }
 
     interface Presenter: BaseRxPresenter {
@@ -33,5 +35,6 @@ interface ChatListContract {
         fun voteIdol(idolId: Long)
 
         fun openChatRoom(chatListInfo: ChatListInfo)
+        fun subscribeTime()
     }
 }

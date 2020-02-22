@@ -1,9 +1,14 @@
 package com.def.team2.screen.chatlist
 
+import com.def.team2.base.UserData
 import com.def.team2.screen.chatlist.model.ChatListInfo
 import com.def.team2.util.e
+import com.def.team2.util.formatTimeRemaining
+import com.def.team2.util.getTimeRemaining
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class ChatListPresenter(
     val view: ChatListContract.View,
@@ -13,7 +18,7 @@ class ChatListPresenter(
     override val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun start() {
-
+        subscribeTime()
     }
 
     override fun loadChatList() {
@@ -44,4 +49,12 @@ class ChatListPresenter(
     override fun openChatRoom(chatListInfo: ChatListInfo) {
         view.showChatRoomUI(chatListInfo)
     }
+
+    override fun subscribeTime() {
+        Observable.interval(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            view.updateDate(formatTimeRemaining(getTimeRemaining(UserData.currentVote?.endDate
+                    ?: "0")))
+        }.bindUntilClear()
+    }
+
 }

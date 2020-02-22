@@ -34,7 +34,7 @@ class RankAdapter(private val callback: Callback) : RecyclerView.Adapter<BaseVie
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) =
-            holder.bindData(items[position])
+            holder.bindData(items[position].data)
 
     override fun getItemViewType(position: Int) = items[position].viewType.ordinal
 
@@ -71,7 +71,7 @@ class RankAdapter(private val callback: Callback) : RecyclerView.Adapter<BaseVie
             if (data !is IdolGroup) return
             item_rank_vote_txt.text = data.currentBallots.size.toString()
             item_rank_name_txt.text = data.name
-            item_rank_img.imageLoad(data.images[1])
+            item_rank_img.imageLoad(data.images[2])
             items.find { it.data.id == data.id }?.apply {
                 item_rank_txt.text = context.getString(R.string.str_current_rank, (items.indexOf(this) + 1))
             }

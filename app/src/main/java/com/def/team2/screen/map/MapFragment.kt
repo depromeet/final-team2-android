@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ import com.mapbox.mapboxsdk.plugins.localization.LocalizationPlugin
 import com.mapbox.mapboxsdk.plugins.localization.MapLocale
 import kotlinx.android.synthetic.main.fragment_map.*
 
-class MapFragment: Fragment(), MapContract.View {
+class MapFragment : Fragment(), MapContract.View {
 
     override lateinit var lifeCycleOwner: LifecycleOwner
     override lateinit var presenter: MapContract.Presenter
@@ -57,8 +58,8 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         Mapbox.getInstance(context!!, getString(R.string.mapbox_access_token))
         return inflater.inflate(R.layout.fragment_map, container, false)
@@ -90,7 +91,7 @@ class MapFragment: Fragment(), MapContract.View {
                     textAllowOverlap = true
                 }.apply {
                     addClickListener { symbol ->
-                        symbol.data?.let {jsonElement ->
+                        symbol.data?.let { jsonElement ->
                             val school = Gson().fromJson(jsonElement, School::class.java)
                             presenter.loadIdolRankInSchool(school)
                         }
@@ -184,36 +185,36 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     override fun showSchoolList(schoolList: List<School>) {
-        val defaultTempUrl = "https://upload.wikimedia.org/wikipedia/commons/6/60/TWICE_LOGO.png"
+        val defaultTempUrl = "default"
 
         // refresh symbol
         symbolManager?.deleteAll()
 
         // make symbol
         schoolList.map {
-            mapboxMap?.getStyle {style ->
+            mapboxMap?.getStyle { style ->
 
                 // img icon 체크해서 이미 있는 이미지면 비트맵 저장하지 않음
                 val imgUrl = it.markerImage ?: defaultTempUrl
                 val iconBitmap = style.getImage(imgUrl)
 
-                iconBitmap?.let {_ ->
+                iconBitmap?.let { _ ->
                     createSymbol(it, imgUrl)
                 } ?: kotlin.run {
-
+                    val image = if (imgUrl == defaultTempUrl) R.drawable.marker_default else imgUrl
                     Glide.with(context!!)
-                        .asBitmap()
-                        .load(imgUrl)
-                        .into(object : CustomTarget<Bitmap>() {
-                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                style.addImage(imgUrl, resource)
-                                createSymbol(it, imgUrl)
-                            }
+                            .asBitmap()
+                            .load(image)
+                            .into(object : CustomTarget<Bitmap>() {
+                                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                    style.addImage(imgUrl, resource)
+                                    createSymbol(it, imgUrl)
+                                }
 
-                            override fun onLoadCleared(placeholder: Drawable?) {
+                                override fun onLoadCleared(placeholder: Drawable?) {
 
-                            }
-                        })
+                                }
+                            })
                 }
             }
         }
@@ -222,10 +223,10 @@ class MapFragment: Fragment(), MapContract.View {
     private fun createSymbol(school: School, imgId: String) {
         // Create Symbol
         symbolManager?.create(SymbolOptions()
-            .withLatLng(LatLng(school.location.latitude, school.location.longitude))
-            .withIconImage(imgId)
-            .withIconSize(0.5f)
-            .withData(Gson().toJsonTree(school))
+                .withLatLng(LatLng(school.location.latitude, school.location.longitude))
+                .withIconImage(imgId)
+                .withIconSize(0.5f)
+                .withData(Gson().toJsonTree(school))
         )
     }
 
@@ -246,7 +247,7 @@ class MapFragment: Fragment(), MapContract.View {
     }
 
     override fun setSchoolFilterUI(active: Boolean) {
-        fl_map_filter_background.visibility = if (active) View.VISIBLE  else View.GONE
+        fl_map_filter_background.visibility = if (active) View.VISIBLE else View.GONE
     }
 
     override fun setFilterOption(filterType: School.Level, active: Boolean) {
@@ -269,6 +270,10 @@ class MapFragment: Fragment(), MapContract.View {
         }
     }
 
+    override fun updateDate(formatTimeRemaining: String) {
+        tv_map_deadline.text = formatTimeRemaining
+    }
+
     private fun setFilterCheckedUI(active: Boolean,
                                    checkImageView: ImageView,
                                    filterTextView: TextView,
@@ -286,14 +291,14 @@ class MapFragment: Fragment(), MapContract.View {
 
     override fun moveMapPosition(lat: Double, lng: Double) {
         CameraPosition.Builder()
-            .target(LatLng(lat, lng))
-            .zoom(15.0)
-            .tilt(20.0)
-            .build().run {
-                mapboxMap?.animateCamera(
-                    CameraUpdateFactory
-                        .newCameraPosition(this), 2000)
-            }
+                .target(LatLng(lat, lng))
+                .zoom(15.0)
+                .tilt(20.0)
+                .build().run {
+                    mapboxMap?.animateCamera(
+                            CameraUpdateFactory
+                                    .newCameraPosition(this), 2000)
+                }
     }
 
     override fun showSchoolIdolRank(rankIdolList: List<RankIdol>) {
@@ -317,20 +322,20 @@ class MapFragment: Fragment(), MapContract.View {
 
     override fun showLocationPermissionUI() {
         requestPermissions(
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
-            REQ_CODE_ACCESS_LOCATION
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                REQ_CODE_ACCESS_LOCATION
         )
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
     ) {
         when (requestCode) {
             REQ_CODE_ACCESS_LOCATION -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                        grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
                     presenter.loadMyLocation()
                 } else {

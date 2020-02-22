@@ -1,11 +1,16 @@
 package com.def.team2.screen.map
 
+import com.def.team2.base.UserData
 import com.def.team2.network.model.Location
 import com.def.team2.network.model.School
 import com.def.team2.screen.map.model.RankIdol
+import com.def.team2.util.formatTimeRemaining
+import com.def.team2.util.getTimeRemaining
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 class MapPresenter(
     private val view: MapContract.View,
@@ -13,7 +18,7 @@ class MapPresenter(
 ): MapContract.Presenter {
 
     override fun start() {
-
+        subscribeTime()
     }
 
     override val disposables: CompositeDisposable = CompositeDisposable()
@@ -118,4 +123,12 @@ class MapPresenter(
     override fun removeIdolRankInSchool() {
         view.hideSchoolIdolRank()
     }
+
+    override fun subscribeTime() {
+        Observable.interval(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            view.updateDate(formatTimeRemaining(getTimeRemaining(UserData.currentVote?.endDate
+                    ?: "0")))
+        }.bindUntilClear()
+    }
+
 }

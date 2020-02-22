@@ -11,8 +11,8 @@ import com.def.team2.R
 import com.def.team2.screen.chatlist.model.ChatListInfo
 
 class ChatListAdapter(
-    private val viewClickCallback: (item: ChatListInfo) -> Unit,
-    private val voteClickCallback: (idolId: Long) -> Unit
+        private val viewClickCallback: (item: ChatListInfo) -> Unit,
+        private val voteClickCallback: (idolId: Long) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val itemList = mutableListOf<ChatListInfo>()
@@ -20,9 +20,9 @@ class ChatListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolder(
-            inflater.inflate(R.layout.item_chat_list_idol, parent, false),
-            viewClickCallback,
-            voteClickCallback
+                inflater.inflate(R.layout.item_chat_list_idol, parent, false),
+                viewClickCallback,
+                voteClickCallback
         )
     }
 
@@ -39,9 +39,9 @@ class ChatListAdapter(
     }
 
     class ViewHolder(
-        itemView: View,
-        viewClickCallback: (item: ChatListInfo) -> Unit,
-        voteClickCallback: (idolId: Long) -> Unit
+            itemView: View,
+            viewClickCallback: (item: ChatListInfo) -> Unit,
+            voteClickCallback: (idolId: Long) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val idolNameTextView: TextView = itemView.findViewById(R.id.tv_chat_list_vote_total)
@@ -69,8 +69,8 @@ class ChatListAdapter(
         fun bind(item: ChatListInfo) {
             this.chatListInfo = item.apply {
                 Glide.with(itemView)
-                    .load(imgUrl)
-                    .into(idolImageView)
+                        .load(imgUrl)
+                        .into(idolImageView)
 
                 idolTotalVoteTextView.text = item.name
                 idolNameTextView.text = "${totalVote}명의 픽"

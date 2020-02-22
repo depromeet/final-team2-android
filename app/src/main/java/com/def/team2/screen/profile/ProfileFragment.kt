@@ -36,7 +36,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             start()
         }
         val user = UserData.user ?: return
-        profile_vote_cnt.text = "x${user.ballotList.size}"
+        profile_vote_cnt.text = "x${user.restBallotsCount}"
         profile_name.text = user.nickName
         profile_email.text = user.email
         profile_img.imageLoad("https://post-phinf.pstatic.net/MjAxOTA4MDhfOCAg/MDAxNTY1MjQxMTA1MDc1.Xp8NGouPV0sNCWNva6aEroR_Me2FTm3legIaVgtiqCsg.NvfBiFprngZ216pfDH6whd0_Wc3lw6Apl5rTZgqwutUg.PNG/4.png?type=w1200")

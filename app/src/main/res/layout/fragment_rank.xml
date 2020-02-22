@@ -60,6 +60,14 @@
         app:layout_constraintTop_toBottomOf="@id/rank_name_txt"
         tools:listitem="@layout/item_rank" />
 
+    <include
+        android:id="@+id/include_empty"
+        layout="@layout/include_empty_idol"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/rank_time_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/rank_time_view"
         android:layout_width="match_parent"

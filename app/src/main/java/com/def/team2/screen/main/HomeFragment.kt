@@ -23,7 +23,6 @@ import com.def.team2.screen.search.SearchIdolResultDialog
 import com.def.team2.screen.search.SearchPresenter
 import com.def.team2.util.*
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.dialog_search_result.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), HomeContract.View {
@@ -89,7 +88,7 @@ class HomeFragment : Fragment(), HomeContract.View {
                     SearchIdolResultDialog(data, object : SearchIdolResultDialog.Callback {
                         override fun imageClick() {
                             startActivity(Intent(context, ChatRoomActivity::class.java).apply {
-                                val image = if(data.images.size >= 3) data.images[2] else ""
+                                val image = if (data.images.size >= 3) data.images[2] else ""
                                 putExtra(EXTRA_IDOL_id, data.id)
                                 putExtra(EXTRA_IDOL_NAME, data.name)
                                 putExtra(EXTRA_IDOL_IMAGE_URL, image)
@@ -102,7 +101,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
                         override fun chatClick() {
                             startActivity(Intent(context, ChatRoomActivity::class.java).apply {
-                                val image = if(data.images.size >= 3) data.images[2] else ""
+                                val image = if (data.images.size >= 3) data.images[2] else ""
                                 putExtra(EXTRA_IDOL_id, data.id)
                                 putExtra(EXTRA_IDOL_NAME, data.name)
                                 putExtra(EXTRA_IDOL_IMAGE_URL, image)
@@ -110,7 +109,7 @@ class HomeFragment : Fragment(), HomeContract.View {
                         }
 
                         override fun likeClick() {
-                            presenter.subscribeLike(data.id)
+                            presenter.subscribeLike(data)
                         }
                     }).show(childFragmentManager, "")
                 }
@@ -119,9 +118,10 @@ class HomeFragment : Fragment(), HomeContract.View {
         }).show(childFragmentManager, "")
     }
 
-    override fun showVoteDialog() {
+    override fun showVoteDialog(id: Long) {
         PopupDialog(PopupDialog.Type.VOTE) {
             UserData.user?.apply {
+                this.ballotList.add(id)
                 UserData.user = this.copy(restBallotsCount = this.restBallotsCount - 1)
             }
         }.show(childFragmentManager, "")

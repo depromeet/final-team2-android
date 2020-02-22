@@ -36,7 +36,7 @@
         android:layout_marginStart="28.5dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="53.5dp"
-        android:backgroundTint="#959dad"
+        android:background="@null"
         android:fontFamily="@font/spoqahansansregular"
         android:hint="@string/str_idol_school_hint"
         android:lineSpacingExtra="20sp"

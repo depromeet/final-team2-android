@@ -15,7 +15,7 @@ interface RankContract {
     }
 
     interface Presenter : BaseRxPresenter {
-        fun subscribeRank(ballotIds:Long)
+        fun subscribeRank()
         fun subscribeVote(item:RankAdapter.Item)
         fun subscribeTime()
     }

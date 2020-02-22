@@ -36,10 +36,11 @@
         android:paddingBottom="20dp"
         android:textColor="@android:color/white"
         android:textSize="16sp"
+        android:hint="***********"
+        android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="@id/profile_setting_name"
         app:layout_constraintStart_toStartOf="@id/profile_setting_name"
-        app:layout_constraintTop_toBottomOf="@id/profile_setting_name"
-        tools:text="이홍유진" />
+        app:layout_constraintTop_toBottomOf="@id/profile_setting_name" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/profile_setting_email"

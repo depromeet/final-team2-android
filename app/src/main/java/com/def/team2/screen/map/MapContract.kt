@@ -33,6 +33,8 @@ interface MapContract {
         fun showToast(msg: String)
 
         fun showLocationPermissionUI()
+
+        fun updateDate(formatTimeRemaining: String)
     }
 
     interface Presenter: BaseRxPresenter {
@@ -60,5 +62,6 @@ interface MapContract {
         fun openRankingInSchool(schoolId: Long)
 
         fun removeIdolRankInSchool()
+        fun subscribeTime()
     }
 }

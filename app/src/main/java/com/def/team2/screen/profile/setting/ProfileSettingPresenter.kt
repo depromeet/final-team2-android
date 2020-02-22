@@ -20,7 +20,7 @@ class ProfileSettingPresenter(private val view: ProfileSettingContract.View) :
 
     override fun subscribeSetting() {
         UserData.user?.apply {
-            view.setSetting(this)
+            view.setSetting(this, UserData.school!!)
         }
     }
 

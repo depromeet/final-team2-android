@@ -23,7 +23,7 @@ fun e(msg: Any) {
 
 fun getTimeRemaining(endDate:String): Long {
     val endDateSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
-    return endDateSimpleDateFormat.parse(endDate).time - System.currentTimeMillis()
+    return (endDateSimpleDateFormat.parse(endDate).time - System.currentTimeMillis()) / 1000
 }
 
 fun formatTimeRemaining(date: Long): String {
